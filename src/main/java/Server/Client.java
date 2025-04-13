@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.function.Consumer;
 import java.util.function.BiConsumer;
 
 public class Client {

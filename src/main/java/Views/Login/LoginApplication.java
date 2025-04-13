@@ -13,7 +13,7 @@ public class LoginApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Views/LoginView.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Login");
+        stage.setTitle("Library App");
         stage.setResizable(false);
         stage.setScene(scene);
         stage.show();

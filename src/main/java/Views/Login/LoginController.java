@@ -45,8 +45,6 @@ public class LoginController {
                         case "Coordinator":
                             sceneController.switchToCoordinatorView(new ActionEvent(loginButton,null));
                             break;
-                        default:
-                            sceneController.switchToMainView(new ActionEvent(loginButton,null));
                     }
                 }catch (IOException e){
                     e.printStackTrace();

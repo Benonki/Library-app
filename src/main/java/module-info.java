@@ -9,7 +9,13 @@ module com.example.library {
     opens Views to javafx.fxml;
     exports Views;
     exports Views.Login;
+    exports Views.Coordinator;
+    exports Views.Reader;
+    exports Views.Manager;
+    exports Views.Employee;
     opens Views.Login to javafx.fxml;
-    exports Views.Main;
-    opens Views.Main to javafx.fxml;
+    opens Views.Coordinator to javafx.fxml;
+    opens Views.Reader to javafx.fxml;
+    opens Views.Manager to javafx.fxml;
+    opens Views.Employee to javafx.fxml;
 }

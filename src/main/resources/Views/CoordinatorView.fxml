@@ -4,7 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Views.Main.MainViewController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Views.Coordinator.CoordinatorViewController">
    <children>
       <Button fx:id="backButton" layoutX="274.0" layoutY="187.0" mnemonicParsing="false" onAction="#switchToLoginView" text="Wyloguj się" />
       <Label fx:id="testLabel" layoutX="272.0" layoutY="148.0" text="Coordinator View" />

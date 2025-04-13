@@ -46,4 +46,13 @@ INSERT INTO usersInfo (username, password, email, role) VALUES
 INSERT INTO usersInfo (username, password, email, role) VALUES
    ('Coordinator1', 'Coordinator1', 'Coordinator1@example.com', 'Coordinator');
 ```
-5. After altering something in sqldeveloper finish everything with COMMIT so the java app would get the changed info in database.
+5. After altering something in sqldeveloper finish everything with `COMMIT;` so the java app would get the changed info in database.
+
+## Running the App
+
+1. Open the `Server` class located in `src/main/java/Server/`.
+2. Right-click on the `Server` class file.
+3. Select `Run 'Server.main()'`.
+4. Open the `LoginApplication` class located in `src/main/java/Views/Login/`.
+5. Right-click on the `LoginApplication` class file. 
+6. Select `Run 'LoginApplication.main()'`.

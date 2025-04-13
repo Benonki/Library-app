@@ -28,10 +28,6 @@ public class SceneController {
         switchScene(event, "/Views/LoginView.fxml");
     }
 
-    public void switchToMainView(ActionEvent event) throws IOException {
-        switchScene(event, "/Views/MainView.fxml");
-    }
-
     public void switchToReaderView(ActionEvent event) throws IOException {
         switchScene(event, "/Views/ReaderView.fxml");
     }
