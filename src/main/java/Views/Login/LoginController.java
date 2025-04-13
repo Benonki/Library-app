@@ -29,10 +29,25 @@ public class LoginController {
     @FXML
     public void initialize(){
         Client client = Client.getInstance();
-        client.setCallBack(success ->{
+        client.setCallBack((success, role) ->{
             if(success){
                 try{
-                    sceneController.switchToMainView(new ActionEvent(loginButton,null));
+                    switch(role) {
+                        case "Reader":
+                            sceneController.switchToReaderView(new ActionEvent(loginButton,null));
+                            break;
+                        case "Employee":
+                            sceneController.switchToEmployeeView(new ActionEvent(loginButton,null));
+                            break;
+                        case "Manager":
+                            sceneController.switchToManagerView(new ActionEvent(loginButton,null));
+                            break;
+                        case "Coordinator":
+                            sceneController.switchToCoordinatorView(new ActionEvent(loginButton,null));
+                            break;
+                        default:
+                            sceneController.switchToMainView(new ActionEvent(loginButton,null));
+                    }
                 }catch (IOException e){
                     e.printStackTrace();
                 }

@@ -7,6 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.function.Consumer;
+import java.util.function.BiConsumer;
 
 public class Client {
 
@@ -16,7 +17,7 @@ public class Client {
     private ObjectOutputStream outputStream;
     private ObjectInputStream inputStream;
     private Packet rcvPacket;
-    private Consumer<Boolean> callBack;
+    private BiConsumer<Boolean, String> callBack;
 
     private Client(){
         try{
@@ -41,7 +42,7 @@ public class Client {
         return instance;
     }
 
-    public void setCallBack(Consumer<Boolean> callback){
+    public void setCallBack(BiConsumer<Boolean, String> callback) {  // Changed parameter type
         this.callBack = callback;
     }
 
@@ -76,7 +77,7 @@ public class Client {
             case "Login":
                 boolean success = receivedPacket.message.equals("Login Success");
                 if (callBack != null) {
-                    Platform.runLater(() -> callBack.accept(success));
+                    Platform.runLater(() -> callBack.accept(success, receivedPacket.role));
                 }
                 break;
             default:

@@ -78,13 +78,15 @@ public class ClientHandler implements Runnable {
             try (PreparedStatement statement = conn.prepareStatement(sqlQuery)) {
                 statement.setString(1, username);
                 statement.setString(2, password);
-
                 try (ResultSet rs = statement.executeQuery()) {
                     if (rs.next()) {
-                        System.out.println("Login Successful for user: " + username);
+                        String role = rs.getString("role");
+                        System.out.println("Login Successful for user: " + username + " with role: " + role);
+                        sendPacket(new Packet("Login", "Login Success", role));
                         return true;
                     } else {
                         System.out.println("Invalid credentials for user: " + username);
+                        sendPacket(new Packet("Login", "Login Failed"));
                         return false;
                     }
                 }
