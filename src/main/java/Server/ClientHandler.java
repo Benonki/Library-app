@@ -1,15 +1,13 @@
 package Server;
 
 import Classes.User.User;
+import Classes.User.UserFactory;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -20,6 +18,7 @@ public class ClientHandler implements Runnable {
     private ObjectOutputStream outputStream;
     private ObjectInputStream inputStream;
     private String token;
+    private User user;
 
     public ClientHandler(Socket socket){
         try{
@@ -55,15 +54,14 @@ public class ClientHandler implements Runnable {
         }
     }
 
-    private void checkPacketType(Packet packet){
-        switch (packet.type){
-            case "Login":
-                System.out.println("LOGIN REQUEST WAS SENT");
-                loginHandler(packet);
-                break;
-            default:
-                System.out.println("Packet type is not supported");
-
+    private void checkPacketType(Packet packet){ // Handle request sent by client
+        if(packet.type.equals("Login")){
+            loginHandler(packet);
+        }else if(user != null){
+            Packet response = user.handlePacket(packet);
+            sendPacket(response);
+        }else{
+            sendPacket(new Packet(packet.type, "Unauthorized"));
         }
     }
 
@@ -73,10 +71,11 @@ public class ClientHandler implements Runnable {
             String username = credentials[0];
             String password = credentials[1];
 
-            String isAuthenticated = User.login(username, password);
-            if(!isAuthenticated.isEmpty()){
-                System.out.println("Login Successful for user: " + username + " with role: " + isAuthenticated);
-                sendPacket(new Packet("Login", "Login Success", isAuthenticated));
+            String role = User.login(username, password);
+            if(!role.isEmpty()){
+                this.user = UserFactory.createUser(username, role);
+                System.out.println("Login Successful for user: " + username + " with role: " + role);
+                sendPacket(new Packet("Login", "Login Success", role));
             }else{
                 System.out.println("Invalid credentials for user: " + username);
                 sendPacket(new Packet("Login", "Login Failed"));

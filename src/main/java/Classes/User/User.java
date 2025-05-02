@@ -3,11 +3,29 @@ package Classes.User;
 import Server.DatabaseConnection;
 import Server.Packet;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class User {
+public abstract class User implements Serializable {
+
+    protected String username;
+    protected String role;
+
+    public User (String username, String role){
+        this.username = username;
+        this.role = role;
+    }
+
+    public String getUsername(){
+        return username;
+    }
+
+    public String getRole(){
+        return role;
+    }
+
     public static String login(String username, String password){
         try (Connection conn = DatabaseConnection.getConnection()) {
             String sqlQuery = "SELECT * FROM usersInfo WHERE username = ? AND password = ?";
@@ -31,4 +49,6 @@ public class User {
             return "";
         }
     }
+
+    public abstract Packet handlePacket(Packet packet);
 }

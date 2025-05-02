@@ -66,13 +66,16 @@ public class Client {
         }).start();
     }
 
-    private void handlePacket(Packet receivedPacket) {
+    private void handlePacket(Packet receivedPacket) { //Handle answer from server
         switch (receivedPacket.type) {
             case "Login":
                 boolean success = receivedPacket.message.equals("Login Success");
                 if (callBack != null) {
                     Platform.runLater(() -> callBack.accept(success, receivedPacket.role));
                 }
+                break;
+            case"GetInventoryStatus":
+                System.out.println("INVENTORY RETURNED");
                 break;
             default:
                 System.out.println("This type is not supported ");

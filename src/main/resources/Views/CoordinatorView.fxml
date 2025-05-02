@@ -8,5 +8,6 @@
    <children>
       <Button fx:id="backButton" layoutX="274.0" layoutY="187.0" mnemonicParsing="false" onAction="#switchToLoginView" text="Wyloguj się" />
       <Label fx:id="testLabel" layoutX="272.0" layoutY="148.0" text="Coordinator View" />
+      <Button fx:id="testInventory" layoutX="287.0" layoutY="241.0" mnemonicParsing="false" onAction="#testInvetory" text="Button" />
    </children>
 </AnchorPane>
