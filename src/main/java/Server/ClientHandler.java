@@ -1,5 +1,7 @@
 package Server;
 
+import Classes.User.User;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -40,14 +42,7 @@ public class ClientHandler implements Runnable {
             try {
                 System.out.println("WAITING FOR MESSAGE");
                 rcvPacket = (Packet) inputStream.readObject();
-                String[] credentials = rcvPacket.message.split(";");
-                if (credentials.length == 2) {
-                    String username = credentials[0];
-                    String password = credentials[1];
-
-                    boolean isAuthenticated = loginAuth(username, password);
-                    sendPacket(new Packet("Login",isAuthenticated ? "Login Success" : "Login Failed"));
-                }
+                checkPacketType(rcvPacket);
             } catch (SocketException e) {
                 System.out.println("Client disconnected");
                 closeEverything(socket, outputStream, inputStream);
@@ -60,6 +55,35 @@ public class ClientHandler implements Runnable {
         }
     }
 
+    private void checkPacketType(Packet packet){
+        switch (packet.type){
+            case "Login":
+                System.out.println("LOGIN REQUEST WAS SENT");
+                loginHandler(packet);
+                break;
+            default:
+                System.out.println("Packet type is not supported");
+
+        }
+    }
+
+    private void loginHandler(Packet rcvPacket){
+        String[] credentials = rcvPacket.message.split(";");
+        if (credentials.length == 2) {
+            String username = credentials[0];
+            String password = credentials[1];
+
+            String isAuthenticated = User.login(username, password);
+            if(!isAuthenticated.isEmpty()){
+                System.out.println("Login Successful for user: " + username + " with role: " + isAuthenticated);
+                sendPacket(new Packet("Login", "Login Success", isAuthenticated));
+            }else{
+                System.out.println("Invalid credentials for user: " + username);
+                sendPacket(new Packet("Login", "Login Failed"));
+            }
+        }
+    }
+
     public void sendPacket(Packet packet){
             try{
                     outputStream.writeObject(packet);
@@ -68,33 +92,6 @@ public class ClientHandler implements Runnable {
                 e.printStackTrace();
                 closeEverything(socket,outputStream,inputStream);
             }
-    }
-
-
-    public boolean loginAuth(String username, String password) {
-        try (Connection conn = DatabaseConnection.getConnection()) {
-            String sqlQuery = "SELECT * FROM usersInfo WHERE username = ? AND password = ?";
-
-            try (PreparedStatement statement = conn.prepareStatement(sqlQuery)) {
-                statement.setString(1, username);
-                statement.setString(2, password);
-                try (ResultSet rs = statement.executeQuery()) {
-                    if (rs.next()) {
-                        String role = rs.getString("role");
-                        System.out.println("Login Successful for user: " + username + " with role: " + role);
-                        sendPacket(new Packet("Login", "Login Success", role));
-                        return true;
-                    } else {
-                        System.out.println("Invalid credentials for user: " + username);
-                        sendPacket(new Packet("Login", "Login Failed"));
-                        return false;
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
     }
 
     public void removeClientHandler(){

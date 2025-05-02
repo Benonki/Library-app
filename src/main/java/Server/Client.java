@@ -15,7 +15,6 @@ public class Client {
     private Socket socket;
     private ObjectOutputStream outputStream;
     private ObjectInputStream inputStream;
-    private Packet rcvPacket;
     private BiConsumer<Boolean, String> callBack;
 
     private Client(){
@@ -52,10 +51,6 @@ public class Client {
         }catch (Exception e){
             e.printStackTrace();
         }
-    }
-
-    public Packet getReceivedPacket() {
-        return rcvPacket;
     }
 
     public void listenForPacket() {
