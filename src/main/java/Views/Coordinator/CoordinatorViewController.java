@@ -18,7 +18,7 @@ public class CoordinatorViewController {
     @FXML
     private Button backButton;
     @FXML
-    private Button testInventory;
+    private Button getInventoryBtn;
     @FXML
     private Label testLabel;
     @FXML
@@ -26,7 +26,7 @@ public class CoordinatorViewController {
     @FXML
     private TableColumn<InventoryItem, Integer> magazynId;
     @FXML
-    private TableColumn<InventoryItem, Integer> ksiazkaId;
+    private TableColumn<InventoryItem, String> tytulKsiazki;
     @FXML
     private TableColumn<InventoryItem, Integer> ilosc;
     @FXML
@@ -41,7 +41,7 @@ public class CoordinatorViewController {
     @FXML
     public void initialize() {
         magazynId.setCellValueFactory(data -> new javafx.beans.property.SimpleIntegerProperty(data.getValue().getMagazynId()).asObject());
-        ksiazkaId.setCellValueFactory(data -> new javafx.beans.property.SimpleIntegerProperty(data.getValue().getKsiazkaId()).asObject());
+        tytulKsiazki.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getTytul()));
         ilosc.setCellValueFactory(data -> new javafx.beans.property.SimpleIntegerProperty(data.getValue().getIlosc()).asObject());
         sektor.setCellValueFactory(data -> new javafx.beans.property.SimpleIntegerProperty(data.getValue().getSektor()).asObject());
         rzad.setCellValueFactory(data -> new javafx.beans.property.SimpleIntegerProperty(data.getValue().getRzad()).asObject());
@@ -59,7 +59,7 @@ public class CoordinatorViewController {
     }
 
     @FXML
-    public void testInvetory(ActionEvent event){
+    public void getInventory(ActionEvent event){
         System.out.println("BUTTON WORKS");
 
         Client client = Client.getInstance();
