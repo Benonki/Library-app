@@ -1,5 +1,6 @@
 package Server;
 
+import Classes.Coordinator.InventoryItem;
 import javafx.application.Platform;
 
 import java.io.IOException;
@@ -16,6 +17,8 @@ public class Client {
     private ObjectOutputStream outputStream;
     private ObjectInputStream inputStream;
     private BiConsumer<Boolean, String> callBack;
+    private java.util.function.Consumer<java.util.List<InventoryItem>> inventoryCallback;
+
 
     private Client(){
         try{
@@ -76,10 +79,17 @@ public class Client {
                 break;
             case"GetInventoryStatus":
                 System.out.println("INVENTORY RETURNED");
+                if (inventoryCallback != null) {
+                    inventoryCallback.accept(receivedPacket.warehouseItems);
+                }
                 break;
             default:
                 System.out.println("This type is not supported ");
         }
+    }
+
+    public void setInventoryCallback(java.util.function.Consumer<java.util.List<InventoryItem>> callback) {
+        this.inventoryCallback = callback;
     }
 
 
