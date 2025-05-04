@@ -1,7 +1,6 @@
 package Views.Coordinator;
 
-import Classes.Coordinator.InventoryItem;
-import Classes.User.UserSession;
+import Classes.Coordinator.Util.InventoryItem;
 import Server.Client;
 import Server.Packet;
 import Views.SceneController;
@@ -21,6 +20,8 @@ public class CoordinatorViewController {
     @FXML
     private Button getInventoryBtn;
     @FXML
+    private Button makeAnOrderBtn;
+    @FXML
     private Label testLabel;
     @FXML
     private TableView<InventoryItem> inventoryTable;
@@ -38,13 +39,9 @@ public class CoordinatorViewController {
     private TableColumn<InventoryItem, Integer> polka;
     @FXML
     private TableColumn<InventoryItem, Integer> miejsce;
-    @FXML
-    private Label welcomeLabel;
 
     @FXML
     public void initialize() {
-        String username = UserSession.getUsername();
-        welcomeLabel.setText("Witaj " + username + "!");
         magazynId.setCellValueFactory(data -> new javafx.beans.property.SimpleIntegerProperty(data.getValue().getMagazynId()).asObject());
         tytulKsiazki.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getTytul()));
         ilosc.setCellValueFactory(data -> new javafx.beans.property.SimpleIntegerProperty(data.getValue().getIlosc()).asObject());
@@ -57,7 +54,6 @@ public class CoordinatorViewController {
     @FXML
     public void switchToLoginView(ActionEvent event) {
         try {
-            UserSession.clear();
             sceneController.switchToLoginView(event);
         } catch (Exception e) {
             e.printStackTrace();
@@ -77,6 +73,15 @@ public class CoordinatorViewController {
         });
 
         client.sendPacket(new Packet("GetInventoryStatus", "TEST"));
+    }
+
+    @FXML
+    public void switchToOrderView(ActionEvent event) {
+        try {
+            sceneController.switchToCoordinatorOrderView(event);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
