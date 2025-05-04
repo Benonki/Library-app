@@ -1,5 +1,6 @@
 package Server;
 
+import Classes.Coordinator.InventoryItem;
 import javafx.application.Platform;
 
 import java.io.IOException;
@@ -15,8 +16,9 @@ public class Client {
     private Socket socket;
     private ObjectOutputStream outputStream;
     private ObjectInputStream inputStream;
-    private Packet rcvPacket;
     private BiConsumer<Boolean, String> callBack;
+    private java.util.function.Consumer<java.util.List<InventoryItem>> inventoryCallback;
+
 
     private Client(){
         try{
@@ -54,10 +56,6 @@ public class Client {
         }
     }
 
-    public Packet getReceivedPacket() {
-        return rcvPacket;
-    }
-
     public void listenForPacket() {
         new Thread(() -> {
             try {
@@ -71,7 +69,7 @@ public class Client {
         }).start();
     }
 
-    private void handlePacket(Packet receivedPacket) {
+    private void handlePacket(Packet receivedPacket) { //Handle answer from server
         switch (receivedPacket.type) {
             case "Login":
                 boolean success = receivedPacket.message.equals("Login Success");
@@ -79,9 +77,19 @@ public class Client {
                     Platform.runLater(() -> callBack.accept(success, receivedPacket.role));
                 }
                 break;
+            case"GetInventoryStatus":
+                System.out.println("INVENTORY RETURNED");
+                if (inventoryCallback != null) {
+                    inventoryCallback.accept(receivedPacket.warehouseItems);
+                }
+                break;
             default:
                 System.out.println("This type is not supported ");
         }
+    }
+
+    public void setInventoryCallback(java.util.function.Consumer<java.util.List<InventoryItem>> callback) {
+        this.inventoryCallback = callback;
     }
 
 

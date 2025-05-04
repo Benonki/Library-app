@@ -2,11 +2,25 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Views.Coordinator.CoordinatorViewController">
+<AnchorPane prefHeight="495.0" prefWidth="864.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Views.Coordinator.CoordinatorViewController">
    <children>
-      <Button fx:id="backButton" layoutX="274.0" layoutY="187.0" mnemonicParsing="false" onAction="#switchToLoginView" text="Wyloguj się" />
-      <Label fx:id="testLabel" layoutX="272.0" layoutY="148.0" text="Coordinator View" />
+      <Button fx:id="backButton" layoutX="757.0" layoutY="338.0" mnemonicParsing="false" onAction="#switchToLoginView" text="Wyloguj się" />
+      <Label fx:id="testLabel" layoutX="750.0" layoutY="20.0" text="Coordinator View" />
+      <Button fx:id="getInventoryBtn" layoutX="752.0" layoutY="51.0" mnemonicParsing="false" onAction="#getInventory" text="Get Inventory" />
+      <TableView fx:id="inventoryTable" layoutX="30.0" layoutY="29.0" prefHeight="352.0" prefWidth="526.0">
+        <columns>
+          <TableColumn fx:id="magazynId" prefWidth="75.0" text="Magazyn" />
+          <TableColumn fx:id="tytulKsiazki" prefWidth="75.0" text="Książka" />
+            <TableColumn fx:id="ilosc" prefWidth="75.0" text="Ilość" />
+            <TableColumn fx:id="sektor" prefWidth="75.0" text="Sektor" />
+            <TableColumn fx:id="rzad" prefWidth="75.0" text="Rząd" />
+            <TableColumn fx:id="polka" prefWidth="75.0" text="Półka" />
+            <TableColumn fx:id="miejsce" prefWidth="75.0" text="Miejsce" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>

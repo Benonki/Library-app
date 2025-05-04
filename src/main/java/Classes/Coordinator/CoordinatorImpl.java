@@ -1,0 +1,25 @@
+package Classes.Coordinator;
+
+import Classes.User.User;
+import Server.Packet;
+
+public class CoordinatorImpl extends User {
+
+    public CoordinatorImpl(String username){
+        super(username,"Coordinator");
+    }
+
+    @Override
+    public Packet handlePacket(Packet packet) {
+        switch (packet.type){
+            case "GetInventoryStatus":
+                return Warehouse.getInventoryStatus();
+            default:
+                return new Packet(packet.type,"Unsupported in Coordinator");
+        }
+    }
+
+
+}
+
+
