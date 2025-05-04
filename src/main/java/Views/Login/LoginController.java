@@ -1,5 +1,6 @@
 package Views.Login;
 
+import Classes.User.UserSession;
 import Server.Client;
 import Server.Packet;
 import Views.SceneController;
@@ -31,6 +32,8 @@ public class LoginController {
         Client client = Client.getInstance();
         client.setCallBack((success, role) ->{
             if(success){
+                String username = loginTxtField.getText();
+                UserSession.setUser(username, role);
                 try{
                     switch(role) {
                         case "Reader":
@@ -45,6 +48,8 @@ public class LoginController {
                         case "Coordinator":
                             sceneController.switchToCoordinatorView(new ActionEvent(loginButton,null));
                             break;
+                        default:
+                            System.out.println("Unknown role: " + role);
                     }
                 }catch (IOException e){
                     e.printStackTrace();

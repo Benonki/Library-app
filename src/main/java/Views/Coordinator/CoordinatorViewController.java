@@ -1,6 +1,7 @@
 package Views.Coordinator;
 
 import Classes.Coordinator.InventoryItem;
+import Classes.User.UserSession;
 import Server.Client;
 import Server.Packet;
 import Views.SceneController;
@@ -37,9 +38,13 @@ public class CoordinatorViewController {
     private TableColumn<InventoryItem, Integer> polka;
     @FXML
     private TableColumn<InventoryItem, Integer> miejsce;
+    @FXML
+    private Label welcomeLabel;
 
     @FXML
     public void initialize() {
+        String username = UserSession.getUsername();
+        welcomeLabel.setText("Witaj " + username + "!");
         magazynId.setCellValueFactory(data -> new javafx.beans.property.SimpleIntegerProperty(data.getValue().getMagazynId()).asObject());
         tytulKsiazki.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getTytul()));
         ilosc.setCellValueFactory(data -> new javafx.beans.property.SimpleIntegerProperty(data.getValue().getIlosc()).asObject());
@@ -52,6 +57,7 @@ public class CoordinatorViewController {
     @FXML
     public void switchToLoginView(ActionEvent event) {
         try {
+            UserSession.clear();
             sceneController.switchToLoginView(event);
         } catch (Exception e) {
             e.printStackTrace();

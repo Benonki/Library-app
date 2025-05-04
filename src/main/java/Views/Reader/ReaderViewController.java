@@ -1,5 +1,6 @@
 package Views.Reader;
 
+import Classes.User.UserSession;
 import Views.SceneController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,10 +14,19 @@ public class ReaderViewController {
     private Button backButton;
     @FXML
     private Label testLabel;
+    @FXML
+    private Label welcomeLabel;
+
+    @FXML
+    public void initialize() {
+        String username = UserSession.getUsername();
+        welcomeLabel.setText("Witaj " + username + "!");
+    }
 
     @FXML
     public void switchToLoginView(ActionEvent event) {
         try {
+            UserSession.clear();
             sceneController.switchToLoginView(event);
         } catch (Exception e) {
             e.printStackTrace();
