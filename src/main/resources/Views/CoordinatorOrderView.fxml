@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="553.0" prefWidth="710.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Views.Coordinator.CoordinatorOderViewController">
+   <children>
+      <Button fx:id="backBtn" layoutX="632.0" layoutY="19.0" mnemonicParsing="false" onAction="#goBack" text="Back" />
+      <TableView fx:id="inventoryTable" layoutX="14.0" layoutY="19.0" prefHeight="125.0" prefWidth="457.0">
+        <columns>
+          <TableColumn fx:id="bookTitle" prefWidth="75.0" text="Ksiazka" />
+          <TableColumn fx:id="amount" prefWidth="75.0" text="Ilość" />
+        </columns>
+      </TableView>
+      <Button fx:id="getInventoryBtn" layoutX="608.0" layoutY="82.0" mnemonicParsing="false" onAction="#getInventory" text="Get Inventory" />
+      <Button fx:id="addBtn" layoutX="488.0" layoutY="19.0" mnemonicParsing="false" onAction="#addBookToOrder" text="Add" />
+      <TableView fx:id="bookOrderTableView" layoutX="14.0" layoutY="165.0" prefHeight="114.0" prefWidth="458.0">
+        <columns>
+          <TableColumn fx:id="bookOrderIntegerTableColumn" prefWidth="75.0" text="Książka" />
+          <TableColumn fx:id="bookOrderStringTableColumn" prefWidth="124.800048828125" text="Ilość do zamówienia" />
+        </columns>
+      </TableView>
+      <Button fx:id="deleteBtn" layoutX="488.0" layoutY="165.0" mnemonicParsing="false" onAction="#daleteBookFromOrder" text="Delete" />
+      <Button fx:id="finishBtn" layoutX="613.0" layoutY="145.0" mnemonicParsing="false" onAction="#finishOrder" text="Finish order" />
+      <TableView fx:id="deliveryTableView" layoutX="14.0" layoutY="290.0" prefHeight="114.0" prefWidth="458.0">
+        <columns>
+          <TableColumn fx:id="deliveryStringTableColumn" prefWidth="75.0" text="Nazwa" />
+        </columns>
+      </TableView>
+      <Button fx:id="selectBtn" layoutX="487.0" layoutY="290.0" mnemonicParsing="false" onAction="#selectDelivery" text="Select" />
+      <Label fx:id="selectedLabel" layoutX="25.0" layoutY="416.0" text="Selected" />
+      <Label fx:id="deliveryLabel" layoutX="97.0" layoutY="416.0" />
+   </children>
+</AnchorPane>

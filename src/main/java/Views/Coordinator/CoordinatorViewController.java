@@ -1,6 +1,6 @@
 package Views.Coordinator;
 
-import Classes.Coordinator.InventoryItem;
+import Classes.Coordinator.Util.InventoryItem;
 import Server.Client;
 import Server.Packet;
 import Views.SceneController;
@@ -19,6 +19,8 @@ public class CoordinatorViewController {
     private Button backButton;
     @FXML
     private Button getInventoryBtn;
+    @FXML
+    private Button makeAnOrderBtn;
     @FXML
     private Label testLabel;
     @FXML
@@ -71,6 +73,15 @@ public class CoordinatorViewController {
         });
 
         client.sendPacket(new Packet("GetInventoryStatus", "TEST"));
+    }
+
+    @FXML
+    public void switchToOrderView(ActionEvent event) {
+        try {
+            sceneController.switchToCoordinatorOrderView(event);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

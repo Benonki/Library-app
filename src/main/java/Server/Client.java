@@ -1,6 +1,7 @@
 package Server;
 
-import Classes.Coordinator.InventoryItem;
+import Classes.Coordinator.Delivery;
+import Classes.Coordinator.Util.InventoryItem;
 import javafx.application.Platform;
 
 import java.io.IOException;
@@ -18,6 +19,7 @@ public class Client {
     private ObjectInputStream inputStream;
     private BiConsumer<Boolean, String> callBack;
     private java.util.function.Consumer<java.util.List<InventoryItem>> inventoryCallback;
+    private java.util.function.Consumer<java.util.List<Delivery>> deliveryCallback;
 
 
     private Client(){
@@ -83,13 +85,27 @@ public class Client {
                     inventoryCallback.accept(receivedPacket.warehouseItems);
                 }
                 break;
+            case"GetDeliveryInformation":
+                System.out.println("DELIVERY INFORMATION RETURNED");
+                if(deliveryCallback != null){
+                    deliveryCallback.accept(receivedPacket.deliveryInfo);
+                }
+                break;
+            case "CreateNewOrder":
+                System.out.println("Order created");
+                break;
             default:
                 System.out.println("This type is not supported ");
+                System.out.println(receivedPacket.type);
         }
     }
 
     public void setInventoryCallback(java.util.function.Consumer<java.util.List<InventoryItem>> callback) {
         this.inventoryCallback = callback;
+    }
+
+    public void setDeliveryCallback(java.util.function.Consumer<java.util.List<Delivery>> callback) {
+        this.deliveryCallback = callback;
     }
 
 

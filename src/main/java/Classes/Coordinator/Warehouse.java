@@ -1,5 +1,6 @@
 package Classes.Coordinator;
 
+import Classes.Coordinator.Util.InventoryItem;
 import Server.DatabaseConnection;
 import Server.Packet;
 
@@ -42,6 +43,7 @@ public class Warehouse {
             return new Packet("GetInventoryStatus","Error");
         }
         System.out.println("IN COORDINATOR INV WAS CALLED");
-        return new Packet("GetInventoryStatus","Success", inventory);
+        Packet packet = Packet.withWarehouseItems("GetInventoryStatus","Success", inventory);
+        return packet;
     }
 }
