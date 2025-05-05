@@ -14,6 +14,10 @@ public class CoordinatorImpl extends User {
         switch (packet.type){
             case "GetInventoryStatus":
                 return Warehouse.getInventoryStatus();
+            case"GetDeliveryInformation":
+                return Delivery.getDeliveryInfo();
+            case "CreateNewOrder":
+                return Order.createOrder(packet.orderInfo);
             default:
                 return new Packet(packet.type,"Unsupported in Coordinator");
         }

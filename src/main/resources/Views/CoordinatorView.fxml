@@ -35,5 +35,6 @@
             <TableColumn fx:id="miejsce" prefWidth="75.0" text="Miejsce" />
         </columns>
       </TableView>
+      <Button fx:id="makeAnOrderBtn" layoutX="749.0" layoutY="95.0" mnemonicParsing="false" onAction="#switchToOrderView" text="Make an order" />
    </children>
 </AnchorPane>

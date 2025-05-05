@@ -1,4 +1,4 @@
-package Classes.Coordinator;
+package Classes.Coordinator.Util;
 
 import java.io.Serializable;
 
