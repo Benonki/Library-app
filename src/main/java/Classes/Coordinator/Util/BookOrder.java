@@ -4,20 +4,14 @@ import java.io.Serializable;
 
 public class BookOrder implements Serializable {
 
-    private String Title;
+    private String title;
+    private int bookID;
     private int amount;
 
-    public BookOrder(int amount, String title) {
+    public BookOrder(int amount, String title, int bookID) {
         this.amount = amount;
-        Title = title;
-    }
-
-    public String getTitle() {
-        return Title;
-    }
-
-    public void setTitle(String title) {
-        Title = title;
+        this.title = title;
+        this.bookID = bookID;
     }
 
     public void setAmount(int amount) {
@@ -26,5 +20,21 @@ public class BookOrder implements Serializable {
 
     public int getAmount() {
         return amount;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public int getBookID() {
+        return bookID;
+    }
+
+    public void setBookID(int bookID) {
+        this.bookID = bookID;
     }
 }

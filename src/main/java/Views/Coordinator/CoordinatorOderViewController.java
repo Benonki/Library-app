@@ -108,6 +108,7 @@ public class CoordinatorOderViewController {
 
         if(!selectedBooks.isEmpty()){
             String selectedTitle = selectedBooks.get(0).getTytul();
+            int selectedBookId = selectedBooks.get(0).getKsiazkaID();
             Boolean bookAlreadyAdded = false;
             for(BookOrder book : booksToOrder) {
                 if (book.getTitle().equals(selectedTitle)) {
@@ -125,7 +126,7 @@ public class CoordinatorOderViewController {
                 Optional<String> result = tiDialog.showAndWait();
                 if(result.isPresent()){
                     int resultInt = Integer.parseInt(result.get());
-                    booksToOrder.add(new BookOrder(resultInt, selectedTitle));
+                    booksToOrder.add(new BookOrder(resultInt, selectedTitle, selectedBookId));
                     Platform.runLater(() -> {
                         bookOrderTableView.getItems().setAll(booksToOrder);
                     });

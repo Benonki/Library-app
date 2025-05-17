@@ -159,7 +159,7 @@ public class Order implements Serializable {
                 System.out.println("LICZBA RÓŻNYCH EGZEMPLARZY: " + orderInfo.booksToOrder.size());
                 for(BookOrder book : orderInfo.booksToOrder){
                     statement.setInt(1, orderID);
-                    statement.setInt(2, 1);
+                    statement.setInt(2, book.getBookID());
                     statement.setInt(3, book.getAmount());
 
                     rowsAffected = statement.executeUpdate();
