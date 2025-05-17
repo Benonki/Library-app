@@ -18,6 +18,8 @@ public class CoordinatorImpl extends User {
                 return Delivery.getDeliveryInfo();
             case "CreateNewOrder":
                 return Order.createOrder(packet.orderInfo);
+            case "GetOrderInformation":
+                return Order.getOrderInfo();
             default:
                 return new Packet(packet.type,"Unsupported in Coordinator");
         }

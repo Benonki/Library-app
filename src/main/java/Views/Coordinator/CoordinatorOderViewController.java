@@ -198,7 +198,7 @@ public class CoordinatorOderViewController {
         LocalDate localDate = LocalDate.now();
         Date currentDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant()); // Change date now to be the current one
 
-        Order order = new Order(2, selectedDeliveryOption, amountOfBooks, currentDate, booksToOrder);
+        Order order = new Order(2, selectedDeliveryOption, amountOfBooks, currentDate ,currentDate, booksToOrder,"Nowe");
         Packet packet = Packet.withOrderInfo("CreateNewOrder","TEST", order);
         client.sendPacket(packet);
 

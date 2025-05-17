@@ -7,6 +7,7 @@ import Server.Packet;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,15 +18,67 @@ public class Order implements Serializable {
     private Delivery deliveryService;
     private int amount;
     private Date realizationDate;
+    private Date creationDate;
     private List<BookOrder> booksToOrder;
+    private String status;
 
-    public Order(int orderMaker, Delivery deliveryService, int amount, Date realizationDate, List<BookOrder> booksToOrder) {
+    public void setOrderMaker(int orderMaker) {
+        this.orderMaker = orderMaker;
+    }
+
+    public void setDeliveryService(Delivery deliveryService) {
+        this.deliveryService = deliveryService;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public void setRealizationDate(Date realizationDate) {
+        this.realizationDate = realizationDate;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public void setBooksToOrder(List<BookOrder> booksToOrder) {
+        this.booksToOrder = booksToOrder;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Order(int orderMaker, Delivery deliveryService, int amount, Date realizationDate, Date creationDate, List<BookOrder> booksToOrder, String status) {
         this.orderMaker = orderMaker;
         this.deliveryService = deliveryService;
         this.amount = amount;
         this.realizationDate = realizationDate;
-        this.booksToOrder = new ArrayList<>(booksToOrder);;
+        this.creationDate = creationDate;
+        this.booksToOrder = new ArrayList<>(booksToOrder);
+        this.status = status;
     }
+
+    public Order(Delivery deliveryService, int amount, Date realizationDate, Date creationDate, String status) {
+        this.deliveryService = deliveryService;
+        this.amount = amount;
+        this.realizationDate = realizationDate;
+        this.creationDate = creationDate;
+        this.status = status;
+    }
+
+
+
+
 
     public Date getRealizationDate() {
         return realizationDate;
@@ -50,7 +103,7 @@ public class Order implements Serializable {
 
     private static int insertNewOrderToDB(Order orderInfo){
         try(Connection conn = DatabaseConnection.getConnection()){
-            String sqlQuery = "INSERT INTO Zamowienie (Uzytkownik_ID, Dostawca_ID, Ilosc, Termin_Realizacji) VALUES (?, ?, ?, ?)";
+            String sqlQuery = "INSERT INTO Zamowienie (Uzytkownik_ID, Dostawca_ID, Ilosc, Termin_Realizacji, Status) VALUES (?, ?, ?, ?, ?)";
             try(PreparedStatement statement = conn.prepareStatement(sqlQuery, new String[]{"Zamowienie_ID"} )){
                 statement.setInt(1, orderInfo.getOrderMaker());
                 statement.setInt(2, 1);
@@ -58,6 +111,7 @@ public class Order implements Serializable {
 
                 java.sql.Date sqlDate = new java.sql.Date(orderInfo.getRealizationDate().getTime());
                 statement.setDate(4, sqlDate);
+                statement.setString(5,orderInfo.getStatus());
 
                 int rowsAffected = statement.executeUpdate();
 
@@ -124,5 +178,33 @@ public class Order implements Serializable {
         } else {
             return new Packet("CreateNewOrder", "Failed");
         }
+    }
+
+    public static Packet getOrderInfo() {
+        List<Order> orders = new ArrayList<>();
+
+        try(Connection conn = DatabaseConnection.getConnection()){
+            String sqlQuery = "SELECT d.nazwa, z.ilosc, z.data_zamowienia, z.termin_realizacji, z.status FROM Zamowienie z JOIN Dostawca d ON z.dostawca_id = d.dostawca_id";
+            try(PreparedStatement statement = conn.prepareStatement(sqlQuery)){
+                try(ResultSet rs = statement.executeQuery()){
+                    while (rs.next()){
+                        String deliveryName = rs.getString("nazwa");
+                        int amountOfBooks = rs.getInt("ilosc");
+                        Date creationDate = rs.getDate("data_zamowienia");
+                        Date rezlizationDate = rs.getDate("termin_realizacji");
+                        String status = rs.getString("status");
+
+                        orders.add(new Order(new Delivery(deliveryName),amountOfBooks,rezlizationDate,creationDate,status));
+                    }
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return new Packet("GetOrderInformation","Error");
+        }
+        System.out.println("GET ORDER INFO CALLED");
+        Packet packet = Packet.withOrdersInfo("GetOrderInformation","Success",orders);
+        return packet;
+
     }
 }
