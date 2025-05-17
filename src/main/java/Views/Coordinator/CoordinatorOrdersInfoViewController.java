@@ -5,6 +5,7 @@ import Server.Client;
 import Server.Packet;
 import Views.SceneController;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -19,15 +20,20 @@ import java.util.Date;
 public class CoordinatorOrdersInfoViewController {
 
     private SceneController sceneController = new SceneController();
+    private Order selectedOrderToDelete = new Order();
 
     @FXML
     private Button backButton;
+    @FXML
+    private Button deleteOrder;
     @FXML
     private TableView<Order> ordersTableView;
     @FXML
     private TableColumn<Order, String> orderDeliveryNameTableColumn;
     @FXML
     private TableColumn<Order, Integer> orderAmountTableColumn;
+    @FXML
+    private TableColumn<Order, Integer> orderIDTableColumn;
     @FXML
     private TableColumn<Order, Date> orderCreationDateTableColumn;
     @FXML
@@ -98,6 +104,9 @@ public class CoordinatorOrdersInfoViewController {
         });
 
         client.sendPacket(new Packet("GetOrderInformation", "TEST"));
+
+        selectOrder();
+
     }
 
     @FXML
@@ -108,4 +117,31 @@ public class CoordinatorOrdersInfoViewController {
             e.printStackTrace();
         }
     }
+
+
+    @FXML
+    protected void selectOrder(){
+        ordersTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null && !newVal.getStatus().equals("Zakończone")) {
+                selectedOrderToDelete = newVal;
+                System.out.println(newVal.getOrderID());
+            }else {
+                selectedOrderToDelete = null;
+            }
+        });
+    }
+
+    @FXML
+    protected void deleteOrder(){
+        if(selectedOrderToDelete != null){
+            Client client = Client.getInstance();
+            Packet packet = Packet.withOrderInfo("DeleteOrder","TEST",selectedOrderToDelete);
+            client.sendPacket(packet);
+            ordersTableView.getItems().remove(selectedOrderToDelete);
+        }else {
+            System.out.println("Nie wybrano zamówienia");
+        }
+    }
+
+
 }

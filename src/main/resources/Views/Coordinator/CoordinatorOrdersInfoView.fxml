@@ -5,11 +5,10 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane prefHeight="426.0" prefWidth="731.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Views.Coordinator.CoordinatorOrdersInfoViewController">
    <children>
       <Button fx:id="backButton" layoutX="641.0" layoutY="32.0" mnemonicParsing="false" onAction="#goBack" text="Back" />
-      <TableView fx:id="ordersTableView" layoutX="26.0" layoutY="38.0" prefHeight="224.0" prefWidth="430.0">
+      <TableView fx:id="ordersTableView" layoutX="26.0" layoutY="38.0" prefHeight="224.0" prefWidth="513.0">
         <columns>
           <TableColumn fx:id="orderDeliveryNameTableColumn" prefWidth="75.0" text="Dostawca" />
           <TableColumn fx:id="orderAmountTableColumn" prefWidth="75.0" text="Ilość książęk" />
@@ -18,5 +17,6 @@
             <TableColumn fx:id="orderStatusTableColumn" prefWidth="75.0" text="Status" />
         </columns>
       </TableView>
+      <Button fx:id="deleteOrder" layoutX="618.0" layoutY="75.0" mnemonicParsing="false" onAction="#deleteOrder" text="Cancel Order" />
    </children>
 </AnchorPane>

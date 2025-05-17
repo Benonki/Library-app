@@ -101,7 +101,10 @@ public class Client {
                 if(ordersCallback != null){
                     ordersCallback.accept(receivedPacket.ordersInfo);
                 }
-
+                break;
+            case "DeleteOrder":
+                System.out.println("ORDER WAS SUCCESSFULLY DELETED");
+                break;
             default:
                 System.out.println("This type is not supported ");
                 System.out.println(receivedPacket.type);

@@ -14,11 +14,21 @@ import java.util.List;
 
 public class Order implements Serializable {
 
+    private int orderID;
     private int orderMaker;
     private Delivery deliveryService;
     private int amount;
     private Date realizationDate;
     private Date creationDate;
+
+    public int getOrderID() {
+        return orderID;
+    }
+
+    public void setOrderID(int orderID) {
+        this.orderID = orderID;
+    }
+
     private List<BookOrder> booksToOrder;
     private String status;
 
@@ -58,6 +68,10 @@ public class Order implements Serializable {
         this.status = status;
     }
 
+    public Order(){
+
+    }
+
     public Order(int orderMaker, Delivery deliveryService, int amount, Date realizationDate, Date creationDate, List<BookOrder> booksToOrder, String status) {
         this.orderMaker = orderMaker;
         this.deliveryService = deliveryService;
@@ -68,12 +82,13 @@ public class Order implements Serializable {
         this.status = status;
     }
 
-    public Order(Delivery deliveryService, int amount, Date realizationDate, Date creationDate, String status) {
+    public Order(Delivery deliveryService, int amount, Date realizationDate, Date creationDate, String status,int orderID) {
         this.deliveryService = deliveryService;
         this.amount = amount;
         this.realizationDate = realizationDate;
         this.creationDate = creationDate;
         this.status = status;
+        this.orderID = orderID;
     }
 
 
@@ -184,17 +199,18 @@ public class Order implements Serializable {
         List<Order> orders = new ArrayList<>();
 
         try(Connection conn = DatabaseConnection.getConnection()){
-            String sqlQuery = "SELECT d.nazwa, z.ilosc, z.data_zamowienia, z.termin_realizacji, z.status FROM Zamowienie z JOIN Dostawca d ON z.dostawca_id = d.dostawca_id";
+            String sqlQuery = "SELECT z.zamowienie_id, d.nazwa, z.ilosc, z.data_zamowienia, z.termin_realizacji, z.status FROM Zamowienie z JOIN Dostawca d ON z.dostawca_id = d.dostawca_id";
             try(PreparedStatement statement = conn.prepareStatement(sqlQuery)){
                 try(ResultSet rs = statement.executeQuery()){
                     while (rs.next()){
+                        int orderID = rs.getInt("zamowienie_id");
                         String deliveryName = rs.getString("nazwa");
                         int amountOfBooks = rs.getInt("ilosc");
                         Date creationDate = rs.getDate("data_zamowienia");
                         Date rezlizationDate = rs.getDate("termin_realizacji");
                         String status = rs.getString("status");
 
-                        orders.add(new Order(new Delivery(deliveryName),amountOfBooks,rezlizationDate,creationDate,status));
+                        orders.add(new Order(new Delivery(deliveryName),amountOfBooks,rezlizationDate,creationDate,status,orderID));
                     }
                 }
             }
@@ -205,6 +221,46 @@ public class Order implements Serializable {
         System.out.println("GET ORDER INFO CALLED");
         Packet packet = Packet.withOrdersInfo("GetOrderInformation","Success",orders);
         return packet;
+    }
 
+    public static Packet deleteOrder(int zamowienieId) {
+        String deleteDostawaSQL = "DELETE FROM Dostawa WHERE Zamowienie_Ksiazka_ID IN (SELECT Zamowienie_Ksiazka_ID FROM Zamowienie_Ksiazka WHERE Zamowienie_ID = ?)";
+        String deleteZamowienieKsiazkaSQL = "DELETE FROM Zamowienie_Ksiazka WHERE Zamowienie_ID = ?";
+        String deleteZamowienieSQL = "DELETE FROM Zamowienie WHERE Zamowienie_ID = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            conn.setAutoCommit(false);
+            try (PreparedStatement ps1 = conn.prepareStatement(deleteDostawaSQL);
+                 PreparedStatement ps2 = conn.prepareStatement(deleteZamowienieKsiazkaSQL);
+                 PreparedStatement ps3 = conn.prepareStatement(deleteZamowienieSQL)) {
+
+                ps1.setInt(1, zamowienieId);
+                ps1.executeUpdate();
+
+                ps2.setInt(1, zamowienieId);
+                ps2.executeUpdate();
+
+                ps3.setInt(1, zamowienieId);
+                int affectedRows = ps3.executeUpdate();
+
+                conn.commit();
+
+                if (affectedRows > 0) {
+                    return new Packet("DeleteOrder", "Success");
+                } else {
+                    return new Packet("DeleteOrder", "Order was not found");
+                }
+            } catch (Exception e) {
+                conn.rollback();
+                e.printStackTrace();
+                return new Packet("DeleteOrder", "Error");
+            } finally {
+                conn.setAutoCommit(true);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Packet("DeleteOrder", "Error");
+        }
     }
 }
