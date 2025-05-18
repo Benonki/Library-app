@@ -8,10 +8,10 @@ import Classes.Reader.ReaderImpl;
 public class UserFactory {
     public static User createUser(String username, String role){
         return switch (role){
-            case "Coordinator" -> new CoordinatorImpl(username);
-            case "Employee" -> new EmployeeImpl(username);
-             case "Manager" -> new ManagerImpl(username);
-             case "Reader" -> new ReaderImpl(username);
+            case "koordynator" -> new CoordinatorImpl(username);
+            case "bibliotekarz" -> new EmployeeImpl(username);
+             case "kierownik" -> new ManagerImpl(username);
+             case "czytelnik" -> new ReaderImpl(username);
             default -> null;
         };
     }
