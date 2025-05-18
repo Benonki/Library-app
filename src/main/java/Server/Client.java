@@ -103,7 +103,10 @@ public class Client {
                 }
                 break;
             case "DeleteOrder":
-                System.out.println("ORDER WAS SUCCESSFULLY DELETED");
+                System.out.println("ORDER WAS SUCCESSFULLY DELETED " + receivedPacket.message);
+                break;
+            case "UpdateOrderStatus":
+                System.out.println("ORDER STATUS CHANGED " + receivedPacket.message);
                 break;
             default:
                 System.out.println("This type is not supported ");

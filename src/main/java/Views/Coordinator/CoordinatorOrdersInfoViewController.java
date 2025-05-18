@@ -8,9 +8,7 @@ import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.StringConverter;
@@ -26,6 +24,8 @@ public class CoordinatorOrdersInfoViewController {
     private Button backButton;
     @FXML
     private Button deleteOrder;
+    @FXML
+    private Button chagneOrderStatusButton;
     @FXML
     private TableView<Order> ordersTableView;
     @FXML
@@ -122,7 +122,7 @@ public class CoordinatorOrdersInfoViewController {
     @FXML
     protected void selectOrder(){
         ordersTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
-            if (newVal != null && !newVal.getStatus().equals("Zakończone")) {
+            if (newVal != null && !newVal.getStatus().equals("Zrealizowane") && !newVal.getStatus().equals("Anulowane")) {
                 selectedOrderToDelete = newVal;
                 System.out.println(newVal.getOrderID());
             }else {
@@ -140,6 +140,43 @@ public class CoordinatorOrdersInfoViewController {
             ordersTableView.getItems().remove(selectedOrderToDelete);
         }else {
             System.out.println("Nie wybrano zamówienia");
+        }
+    }
+
+    @FXML
+    protected void changeStatusOfSelectedOrder(){
+        if (selectedOrderToDelete != null) {
+            Dialog<String> dialog = new Dialog<>();
+            dialog.setTitle("Zmień status zamówienia");
+            dialog.setHeaderText("Wybierz nowy status dla zamówienia ID: " + selectedOrderToDelete.getOrderID());
+
+            ButtonType okButtonType = new ButtonType("Zmień", ButtonBar.ButtonData.OK_DONE);
+            dialog.getDialogPane().getButtonTypes().addAll(okButtonType, ButtonType.CANCEL);
+
+            ComboBox<String> statusComboBox = new ComboBox<>();
+            statusComboBox.getItems().addAll("W trakcie", "Oczekujące", "Zrealizowane", "Anulowane");
+            statusComboBox.setValue(selectedOrderToDelete.getStatus());
+
+            dialog.getDialogPane().setContent(statusComboBox);
+
+            dialog.setResultConverter(dialogButton -> {
+                if (dialogButton == okButtonType) {
+                    return statusComboBox.getValue();
+                }
+                return null;
+            });
+
+            dialog.showAndWait().ifPresent(newStatus -> {
+                selectedOrderToDelete.setStatus(newStatus);
+
+                Client client = Client.getInstance();
+                Packet packet = Packet.withOrderInfo("UpdateOrderStatus", "TEST", selectedOrderToDelete);
+                client.sendPacket(packet);
+
+                ordersTableView.refresh();
+            });
+        } else {
+            System.out.println("Nie wybrano zamówienia lub jest zakończone.");
         }
     }
 

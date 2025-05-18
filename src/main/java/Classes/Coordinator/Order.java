@@ -263,4 +263,26 @@ public class Order implements Serializable {
             return new Packet("DeleteOrder", "Error");
         }
     }
+
+
+    public static Packet updateOrderStatus(Order orderInfo) {
+        String sqlUpdateQuery = "UPDATE Zamowienie SET status = ? WHERE Zamowienie_ID = ?";
+        try(Connection conn = DatabaseConnection.getConnection()){
+            try(PreparedStatement statement = conn.prepareStatement(sqlUpdateQuery)){
+                statement.setString(1, orderInfo.getStatus());
+                statement.setInt(2, orderInfo.getOrderID());
+
+                int affectedRows = statement.executeUpdate();
+
+                if(affectedRows > 0){
+                    return new Packet("UpdateOrderStatus","SUCCESS");
+                }else {
+                    return new Packet("UpdateOrderStatus","FAILED");
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return new Packet("UpdateOrderStatus","FAILED");
+        }
+    }
 }

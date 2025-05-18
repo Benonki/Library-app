@@ -18,5 +18,6 @@
         </columns>
       </TableView>
       <Button fx:id="deleteOrder" layoutX="618.0" layoutY="75.0" mnemonicParsing="false" onAction="#deleteOrder" text="Cancel Order" />
+      <Button fx:id="chagneOrderStatusButton" layoutX="598.0" layoutY="116.0" mnemonicParsing="false" onAction="#changeStatusOfSelectedOrder" text="Change Order Status" />
    </children>
 </AnchorPane>
