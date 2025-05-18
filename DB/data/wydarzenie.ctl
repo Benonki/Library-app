@@ -1,13 +1,12 @@
 LOAD DATA
-INFILE 'wydarzenie.csv'
-INTO TABLE wydarzenie
-APPEND
+INFILE 'Wydarzenie.csv'
+INTO TABLE WYDARZENIE
 FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"'
 TRAILING NULLCOLS
 (
-    id,
-    temat,
-    data DATE "YYYY-MM-DD",
-    godzina,
-    miejsce
+Wydarzenie_ID,
+Temat,
+Data DATE "YYYY-MM-DD",
+Godzina,
+Miejsce
 )

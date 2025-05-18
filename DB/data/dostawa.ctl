@@ -1,12 +1,12 @@
 LOAD DATA
-INFILE 'dostawa.csv'
-INTO TABLE dostawa
-APPEND
+INFILE 'Dostawa.csv'
+INTO TABLE DOSTAWA
 FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"'
 TRAILING NULLCOLS
 (
-    id,
-    data_dostawy DATE "YYYY-MM-DD",
-    status,
-    zamowienie_id
+Dostawa_ID,
+Zamowienie_Ksiazka_ID,
+Data_Dostawy DATE "YYYY-MM-DD",
+Ilosc,
+Status
 )

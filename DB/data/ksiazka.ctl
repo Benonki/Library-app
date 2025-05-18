@@ -1,16 +1,14 @@
 LOAD DATA
-INFILE 'ksiazka.csv'
-INTO TABLE ksiazka
-APPEND
+INFILE 'Ksiazka.csv'
+INTO TABLE KSIAZKA
 FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"'
 TRAILING NULLCOLS
 (
-    id,
-    tytul,
-    autor,
-    data_wydania DATE "YYYY-MM-DD",
-    wydawnictwo,
-    typ_okladki,
-    gatunek,
-    status
+Ksiazka_ID,
+Tytul,
+Autor_ID,
+ISBN,
+Data_Wydania DATE "YYYY-MM-DD",
+Wydawnictwo_ID,
+Typ_Okladki_ID
 )

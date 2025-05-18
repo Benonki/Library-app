@@ -1,0 +1,55 @@
+
+SQL*Loader: Release 21.0.0.0.0 - Production on Sun May 18 20:08:24 2025
+Version 21.3.0.0.0
+
+Copyright (c) 1982, 2021, Oracle and/or its affiliates.  All rights reserved.
+
+Control File:   Zamowienie_Ksiazka.ctl
+Data File:      Zamowienie_Ksiazka.csv
+  Bad File:     Zamowienie_Ksiazka.bad
+  Discard File:  none specified
+ 
+ (Allow all discards)
+
+Number to load: ALL
+Number to skip: 0
+Errors allowed: 50
+Bind array:     250 rows, maximum of 1048576 bytes
+Continuation:    none specified
+Path used:      Conventional
+
+Table ZAMOWIENIE_KSIAZKA, loaded from every logical record.
+Insert option in effect for this table: INSERT
+TRAILING NULLCOLS option in effect
+
+   Column Name                  Position   Len  Term Encl Datatype
+------------------------------ ---------- ----- ---- ---- ---------------------
+ZAMOWIENIE_KSIAZKA_ID               FIRST     *   ,  O(") CHARACTER            
+ZAMOWIENIE_ID                        NEXT     *   ,  O(") CHARACTER            
+KSIAZKA_ID                           NEXT     *   ,  O(") CHARACTER            
+ILOSC                                NEXT     *   ,  O(") CHARACTER            
+
+Record 1: Rejected - Error on table ZAMOWIENIE_KSIAZKA, column ZAMOWIENIE_KSIAZKA_ID.
+ORA-01722: invalid number
+
+
+Table ZAMOWIENIE_KSIAZKA:
+  3 Rows successfully loaded.
+  1 Row not loaded due to data errors.
+  0 Rows not loaded because all WHEN clauses were failed.
+  0 Rows not loaded because all fields were null.
+
+
+Space allocated for bind array:                 258000 bytes(250 rows)
+Read   buffer bytes: 1048576
+
+Total logical records skipped:          0
+Total logical records read:             4
+Total logical records rejected:         1
+Total logical records discarded:        0
+
+Run began on Sun May 18 20:08:24 2025
+Run ended on Sun May 18 20:08:24 2025
+
+Elapsed time was:     00:00:00.19
+CPU time was:         00:00:00.13

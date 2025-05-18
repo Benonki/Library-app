@@ -1,13 +1,12 @@
 LOAD DATA
-INFILE 'raport.csv'
-INTO TABLE raport
-APPEND
+INFILE 'Raport.csv'
+INTO TABLE RAPORT
 FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"'
 TRAILING NULLCOLS
 (
-    id,
-    typ,
-    data_generacji DATE "YYYY-MM-DD",
-    zawartosc,
-    uzytkownik_id
+Raport_ID,
+Typ,
+Data_Generacji DATE "YYYY-MM-DD",
+Zawartosc,
+Uzytkownik_ID
 )

@@ -1,11 +1,10 @@
 LOAD DATA
-INFILE 'uczestnik_wydarzenia.csv'
-INTO TABLE uczestnik_wydarzenia
-APPEND
+INFILE 'Uczestnik_Wydarzenia.csv'
+INTO TABLE UCZESTNIK_WYDARZENIA
 FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"'
 TRAILING NULLCOLS
 (
-    id,
-    uzytkownik_id,
-    wydarzenie_id
+Uczestnik_Wydarzenia_ID,
+Uzytkownik_ID,
+Wydarzenie_ID
 )

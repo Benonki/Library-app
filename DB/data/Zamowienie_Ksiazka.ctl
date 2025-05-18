@@ -1,0 +1,11 @@
+LOAD DATA
+INFILE 'Zamowienie_Ksiazka.csv'
+INTO TABLE ZAMOWIENIE_KSIAZKA
+FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"'
+TRAILING NULLCOLS
+(
+Zamowienie_Ksiazka_ID,
+Zamowienie_ID,
+Ksiazka_ID,
+Ilosc
+)

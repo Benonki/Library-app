@@ -1,11 +1,4 @@
-id,dostawca,data_zamowienia,termin_realizacji,status
-1,Bystrek Sp. z o.o. Sp.k.,2022-06-05,2028-02-28,anulowane
-2,Makieła-Botor Sp.k.,2023-06-21,2028-04-13,anulowane
-3,Fundacja Krokosz S.A.,2024-03-25,2028-01-11,oczekujące
-4,Sprawka s.c.,2024-03-08,2028-01-12,oczekujące
-5,Gabinety Małas Sp. z o.o. Sp.k.,2022-10-25,2028-10-29,zrealizowane
-6,FPUH Lisoń-Grabias Sp. z o.o.,2022-09-13,2029-08-06,oczekujące
-7,Stowarzyszenie Plich s.c.,2025-04-05,2028-05-14,oczekujące
-8,Banek-Goj s.c.,2022-02-27,2026-11-28,oczekujące
-9,Nieradzik Sp.j.,2022-05-27,2026-06-07,oczekujące
-10,Gabinety Dziugieł Sp. z o.o.,2020-02-15,2026-01-19,oczekujące
+Zamowienie_ID,Uzytkownik_ID,Dostawca_ID,Ilosc,Data_Zamowienia,Termin_Realizacji,Status
+1,1,1,5,2024-10-02,2025-04-25,Nowe
+2,2,2,10,2024-11-25,2025-04-20,Zrealizowane
+3,3,1,7,2024-12-16,2025-04-27,W realizacji

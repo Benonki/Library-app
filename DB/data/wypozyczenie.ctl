@@ -1,15 +1,14 @@
 LOAD DATA
-INFILE 'wypozyczenie.csv'
-INTO TABLE wypozyczenie
-APPEND
+INFILE 'Wypozyczenie.csv'
+INTO TABLE WYPOZYCZENIE
 FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"'
 TRAILING NULLCOLS
 (
-    id,
-    data_wypozyczenia DATE "YYYY-MM-DD",
-    planowana_data_zwrotu DATE "YYYY-MM-DD",
-    rzeczywista_data_zwrotu DATE "YYYY-MM-DD",
-    kara,
-    uzytkownik_id,
-    ksiazka_id
+Wypozyczenie_ID,
+Data_Wypozyczenia DATE "YYYY-MM-DD",
+Planowana_Data_Zwrotu DATE "YYYY-MM-DD",
+Rzeczywista_Data_Zwrotu DATE "YYYY-MM-DD",
+Kara,
+Uzytkownik_ID,
+Ksiazka_ID
 )

@@ -36,16 +36,16 @@ public class LoginController {
                 UserSession.setUser(username, role);
                 try{
                     switch(role) {
-                        case "czytelnik":
+                        case "Czytelnik":
                             sceneController.switchToReaderView(new ActionEvent(loginButton,null));
                             break;
-                        case "bibliotekarz":
+                        case "Bibliotekarz":
                             sceneController.switchToEmployeeView(new ActionEvent(loginButton,null));
                             break;
-                        case "kierownik":
+                        case "Kierownik":
                             sceneController.switchToManagerView(new ActionEvent(loginButton,null));
                             break;
-                        case "koordynator":
+                        case "Koordynator":
                             sceneController.switchToCoordinatorView(new ActionEvent(loginButton,null));
                             break;
                         default:

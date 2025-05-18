@@ -1,14 +1,14 @@
 LOAD DATA
-INFILE 'uzytkownik.csv'
-INTO TABLE uzytkownik
-APPEND
+INFILE 'Uzytkownik.csv'
+INTO TABLE UZYTKOWNIK
 FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"'
 TRAILING NULLCOLS
 (
-    id,
-    imie,
-    nazwisko,
-    email,
-    haslo,
-    typ_uzytkownika
+Uzytkownik_ID,
+Imie,
+Nazwisko,
+Email,
+Telefon,
+Haslo,
+Rola_ID
 )
