@@ -1,11 +1,11 @@
-id,tytul,autor,data_wydania,wydawnictwo,typ_okladki,gatunek,status
-1,Brzeg pogoda południe.,pan Arkadiusz Bieszke,1994-01-18,Osiadacz i syn s.c.,twarda,biografia,wypożyczona
-2,Pustynia plaża wolność.,Jerzy Konat,1992-08-12,FPUH Hubert Sp. z o.o.,twarda,fantasy,wypożyczona
-3,Sport wybuch.,Marek Łyczak,2005-03-13,Spółdzielnia Gałach,miękka,fantasy,dostępna
-4,Wtedy kwestia kapusta.,pani Melania Smyl,1981-11-13,Siemek s.c.,miękka,biografia,wypożyczona
-5,Światło pokryć.,pani Aniela Adamaszek,2007-11-29,Budkiewicz i syn s.c.,miękka,fantasy,dostępna
-6,Rachunek lęk.,Witold Pawlaczek,2005-09-17,Kieloch-Calik S.A.,miękka,fantasy,dostępna
-7,Dziewczyna piosenka cisza.,Filip Gogola,2005-12-14,Spółdzielnia Kara Sp.k.,miękka,naukowa,wypożyczona
-8,Żaden według firma.,Marianna Kwapisiewicz,1986-05-17,Grupa Gałat,twarda,naukowa,wypożyczona
-9,Śmiech otrzymywać wujek.,Alan Drabczyk,2018-01-03,Wężyk i syn s.c.,miękka,biografia,wypożyczona
-10,Wymagać przeprowadzać.,pani Elżbieta Podpora,2018-06-18,Grupa Niewola-Gabrych i syn s.c.,twarda,biografia,wypożyczona
+Ksiazka_ID,Tytul,Autor_ID,ISBN,Data_Wydania,Wydawnictwo_ID,Typ_Okladki_ID
+1,Pan Tadeusz,1,1000000000000,2024-09-09,1,1
+2,Roty,2,1000000000001,2024-09-12,2,2
+3,Ogniem i mieczem,3,1000000000002,2024-06-12,3,1
+4,Lalka,4,1000000000003,2025-02-12,1,1
+5,Balladyna,5,1000000000004,2024-11-09,2,2
+6,Quo Vadis,3,1000000000005,2024-10-10,3,2
+7,Nad Niemnem,4,1000000000006,2024-07-25,1,1
+8,Krzyżacy,3,1000000000007,2024-10-19,2,1
+9,Dziady,1,1000000000008,2025-03-29,3,2
+10,Kamienie na szaniec,2,1000000000009,2024-08-20,1,1

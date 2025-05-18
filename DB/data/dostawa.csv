@@ -1,11 +1,4 @@
-id,data_dostawy,status,zamowienie_id
-1,2022-06-01,dostarczona,9
-2,2022-10-15,dostarczona,9
-3,2022-03-20,dostarczona,4
-4,2021-04-08,dostarczona,5
-5,2024-01-19,dostarczona,3
-6,2020-03-06,dostarczona,1
-7,2025-07-19,dostarczona,2
-8,2023-06-01,w drodze,9
-9,2020-02-02,w drodze,5
-10,2025-03-16,dostarczona,1
+Dostawa_ID,Zamowienie_Ksiazka_ID,Data_Dostawy,Ilosc,Status
+1,1,2025-01-25,2,Oczekujaca
+2,2,2024-07-08,5,Dostarczona
+3,3,2025-02-01,7,W drodze

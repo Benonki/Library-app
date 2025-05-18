@@ -1,0 +1,54 @@
+
+SQL*Loader: Release 21.0.0.0.0 - Production on Sun May 18 20:08:26 2025
+Version 21.3.0.0.0
+
+Copyright (c) 1982, 2021, Oracle and/or its affiliates.  All rights reserved.
+
+Control File:   Uczestnik_Wydarzenia.ctl
+Data File:      Uczestnik_Wydarzenia.csv
+  Bad File:     Uczestnik_Wydarzenia.bad
+  Discard File:  none specified
+ 
+ (Allow all discards)
+
+Number to load: ALL
+Number to skip: 0
+Errors allowed: 50
+Bind array:     250 rows, maximum of 1048576 bytes
+Continuation:    none specified
+Path used:      Conventional
+
+Table UCZESTNIK_WYDARZENIA, loaded from every logical record.
+Insert option in effect for this table: INSERT
+TRAILING NULLCOLS option in effect
+
+   Column Name                  Position   Len  Term Encl Datatype
+------------------------------ ---------- ----- ---- ---- ---------------------
+UCZESTNIK_WYDARZENIA_ID             FIRST     *   ,  O(") CHARACTER            
+UZYTKOWNIK_ID                        NEXT     *   ,  O(") CHARACTER            
+WYDARZENIE_ID                        NEXT     *   ,  O(") CHARACTER            
+
+Record 1: Rejected - Error on table UCZESTNIK_WYDARZENIA, column UCZESTNIK_WYDARZENIA_ID.
+ORA-01722: invalid number
+
+
+Table UCZESTNIK_WYDARZENIA:
+  2 Rows successfully loaded.
+  1 Row not loaded due to data errors.
+  0 Rows not loaded because all WHEN clauses were failed.
+  0 Rows not loaded because all fields were null.
+
+
+Space allocated for bind array:                 193500 bytes(250 rows)
+Read   buffer bytes: 1048576
+
+Total logical records skipped:          0
+Total logical records read:             3
+Total logical records rejected:         1
+Total logical records discarded:        0
+
+Run began on Sun May 18 20:08:26 2025
+Run ended on Sun May 18 20:08:26 2025
+
+Elapsed time was:     00:00:00.17
+CPU time was:         00:00:00.11

@@ -1,11 +1,3 @@
-id,temat,data,godzina,miejsce
-1,Synchronized interactive matrix,2021-12-25,9:00,Wieluń
-2,Customer-focused radical firmware,2024-09-29,17:00,Ostrów Mazowiecka
-3,Synergistic bottom-line artificial intelligence,2020-02-19,16:30,Chojnice
-4,Innovative logistical neural-net,2020-02-09,14:30,Zambrów
-5,Streamlined hybrid utilization,2021-08-04,14:30,Świętochłowice
-6,Assimilated 4thgeneration core,2023-09-15,17:30,Siedlce
-7,Front-line analyzing attitude,2025-12-04,9:30,Bochnia
-8,Universal background flexibility,2021-03-24,18:00,Kościerzyna
-9,Synchronized intermediate parallelism,2025-05-11,17:30,Świętochłowice
-10,Phased 4thgeneration software,2023-04-25,8:00,Świętochłowice
+Wydarzenie_ID,Temat,Data,Godzina,Miejsce
+1,Wieczór autorski,2024-09-09,2025-05-18,Sala główna
+2,Premiera książki,2024-10-18,2025-05-18,Czytelnia

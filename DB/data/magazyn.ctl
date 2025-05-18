@@ -1,12 +1,14 @@
 LOAD DATA
-INFILE 'magazyn.csv'
-INTO TABLE magazyn
-APPEND
+INFILE 'Magazyn.csv'
+INTO TABLE MAGAZYN
 FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"'
 TRAILING NULLCOLS
 (
-    id,
-    ilosc,
-    lokalizacja,
-    ksiazka_id
+Magazyn_ID,
+Ksiazka_ID,
+Ilosc,
+Sektor,
+Rzad,
+Polka,
+MiejsceNaPolce
 )

@@ -22,6 +22,8 @@ public class CoordinatorImpl extends User {
                 return Order.getOrderInfo();
             case "DeleteOrder":
                 return Order.deleteOrder(packet.orderInfo.getOrderID());
+            case "UpdateOrderStatus":
+                return Order.updateOrderStatus(packet.orderInfo);
             default:
                 return new Packet(packet.type,"Unsupported in Coordinator");
         }

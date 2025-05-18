@@ -1,17 +1,3 @@
-id,typ,data_generacji,zawartosc,uzytkownik_id
-1,miesięczny,2025-11-05,Narząd ocean Morze Śródziemne chrześcijaństwo Japonia. Gość wydarzenie praca prywatny wyrażać. Zacząć Słońce trudny pociąg język kult futro.,2
-2,roczny,2025-06-23,"Czyli działać kontynent po prostu. Wiedza cały efekt chleb.
-Słoneczny pasek opisać kraj siedziba atmosfera pozwalać Boże Narodzenie. Herb dać korzeń 4 ozdoba. Poważny moralny wy morze podatek.",3
-3,roczny,2024-07-25,"Język pióro sto moc 30 pokój. Epoka tkanina złapać numer nadmierny.
-Ból kłaść składać gałąź. Robota rzeczownik zjeść cierpieć cały ani udział.",4
-4,roczny,2020-04-26,"Przynosić motyl mierzyć ziemia cyfra. Stosunek naturalny gotować. Przychodzić zimny liść kłaść wyraz postępować.
-Prawda zdarzenie pszczoła męski otrzymywać kula wychodzić wzgląd.",7
-5,miesięczny,2021-07-20,"Szacunek właściciel wzgórze okrągły dotyczyć dawno. Wioska krok specjalny nocny.
-Uderzać mieszkanie wysokość oddać udać się pierwiastek chemiczny.",6
-6,roczny,2025-05-24,Temperatura ozdobny struktura południowy w formie los ogólny. Zawartość sprawiedliwość wodny nauka na pomiędzy.,3
-7,roczny,2025-09-06,Spowodować wzrok naprawdę wąż spotkać bezpośrednio organ. Poziom studiować suma stolica moralny.,7
-8,roczny,2024-04-30,Leczenie specjalny rasa powiedzieć. Białoruś Słońce kolej zadanie elektryczny Grecja akt Japonia. Połączyć hałas spowodować przyjemny stopień rzymski.,4
-9,miesięczny,2024-11-29,"Swój wykonanie wzrost świadczyć bank ten. Telefon odważny łańcuch funkcja od.
-Słaby ogród tył.",7
-10,roczny,2024-02-23,"Gazeta wierny nasz nie Węgry. Narząd fabryka idea blady grzyb styl.
-Bilet złoto materiał smutek. Potem bank władza podobny. Jechać wstyd rodzic roślina przerwa uniwersytet.",5
+Raport_ID,Typ,Data_Generacji,Zawartosc,Uzytkownik_ID
+1,Miesięczny,2024-09-16,Raport dot. wypożyczeń,1
+2,Roczny,2024-08-28,Raport dot. ubytków,3

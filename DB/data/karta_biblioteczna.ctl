@@ -1,14 +1,13 @@
 LOAD DATA
-INFILE 'karta_biblioteczna.csv'
-INTO TABLE karta_biblioteczna
-APPEND
+INFILE 'Karta_Biblioteczna.csv'
+INTO TABLE KARTA_BIBLIOTECZNA
 FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"'
 TRAILING NULLCOLS
 (
-    id,
-    numer_karty,
-    data_wydania DATE "YYYY-MM-DD",
-    data_waznosci DATE "YYYY-MM-DD",
-    status,
-    uzytkownik_id
+Karta_Biblioteczna_ID,
+Numer_Karty,
+Data_Wydania DATE "YYYY-MM-DD",
+Data_Waznosci DATE "YYYY-MM-DD",
+Status,
+Uzytkownik_ID
 )
