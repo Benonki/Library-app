@@ -41,10 +41,14 @@ public class SceneController {
     }
 
     public void switchToCoordinatorView(ActionEvent event) throws IOException {
-        switchScene(event, "/Views/CoordinatorView.fxml");
+        switchScene(event, "/Views/Coordinator/CoordinatorView.fxml");
     }
 
     public void switchToCoordinatorOrderView(ActionEvent event) throws IOException {
-        switchScene(event, "/Views/CoordinatorOrderView.fxml");
+        switchScene(event, "/Views/Coordinator/CoordinatorOrderView.fxml");
+    }
+
+    public void switchToCoordinatorOrdersInfo(ActionEvent event) throws IOException {
+        switchScene(event, "/Views/Coordinator/CoordinatorOrdersInfoView.fxml");
     }
 }

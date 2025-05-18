@@ -18,6 +18,8 @@ public class CoordinatorViewController {
     @FXML
     private Button backButton;
     @FXML
+    private Button checkOrders;
+    @FXML
     private Button getInventoryBtn;
     @FXML
     private Button makeAnOrderBtn;
@@ -62,7 +64,7 @@ public class CoordinatorViewController {
 
     @FXML
     public void getInventory(ActionEvent event){
-        System.out.println("BUTTON WORKS");
+
 
         Client client = Client.getInstance();
 
@@ -83,5 +85,16 @@ public class CoordinatorViewController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    public void switchToOrdersInfo(ActionEvent event) {
+        try {
+            sceneController.switchToCoordinatorOrdersInfo(event);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 }

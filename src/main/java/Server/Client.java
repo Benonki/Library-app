@@ -1,6 +1,7 @@
 package Server;
 
 import Classes.Coordinator.Delivery;
+import Classes.Coordinator.Order;
 import Classes.Coordinator.Util.InventoryItem;
 import javafx.application.Platform;
 
@@ -20,6 +21,7 @@ public class Client {
     private BiConsumer<Boolean, String> callBack;
     private java.util.function.Consumer<java.util.List<InventoryItem>> inventoryCallback;
     private java.util.function.Consumer<java.util.List<Delivery>> deliveryCallback;
+    private java.util.function.Consumer<java.util.List<Order>> ordersCallback;
 
 
     private Client(){
@@ -94,6 +96,15 @@ public class Client {
             case "CreateNewOrder":
                 System.out.println("Order created");
                 break;
+            case "GetOrderInformation":
+                System.out.println("ORDERS INFORMATION RETURNED");
+                if(ordersCallback != null){
+                    ordersCallback.accept(receivedPacket.ordersInfo);
+                }
+                break;
+            case "DeleteOrder":
+                System.out.println("ORDER WAS SUCCESSFULLY DELETED");
+                break;
             default:
                 System.out.println("This type is not supported ");
                 System.out.println(receivedPacket.type);
@@ -106,6 +117,10 @@ public class Client {
 
     public void setDeliveryCallback(java.util.function.Consumer<java.util.List<Delivery>> callback) {
         this.deliveryCallback = callback;
+    }
+
+    public void setOrdersCallback(java.util.function.Consumer<java.util.List<Order>> callback){
+        this.ordersCallback = callback;
     }
 
 

@@ -6,6 +6,7 @@ public class InventoryItem implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private int magazynId;
+    private int ksiazkaID;
     private String tytul;
     private int ilosc;
     private int rzad;
@@ -19,6 +20,14 @@ public class InventoryItem implements Serializable {
 
     public int getMagazynId() {
         return magazynId;
+    }
+
+    public int getKsiazkaID() {
+        return ksiazkaID;
+    }
+
+    public void setKsiazkaID(int ksiazkaID) {
+        this.ksiazkaID = ksiazkaID;
     }
 
     public String getTytul() {
@@ -41,8 +50,9 @@ public class InventoryItem implements Serializable {
         return miejsceNaPolce;
     }
 
-    public InventoryItem(int magazynId, String tytul, int ilosc, int rzad, int sektor, int polka, int miejsceNaPolce) {
+    public InventoryItem(int magazynId,int ksiazkaID, String tytul, int ilosc, int rzad, int sektor, int polka, int miejsceNaPolce) {
         this.magazynId = magazynId;
+        this.ksiazkaID = ksiazkaID;
         this.tytul = tytul;
         this.ilosc = ilosc;
         this.rzad = rzad;

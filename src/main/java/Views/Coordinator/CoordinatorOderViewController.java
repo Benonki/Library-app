@@ -108,6 +108,7 @@ public class CoordinatorOderViewController {
 
         if(!selectedBooks.isEmpty()){
             String selectedTitle = selectedBooks.get(0).getTytul();
+            int selectedBookId = selectedBooks.get(0).getKsiazkaID();
             Boolean bookAlreadyAdded = false;
             for(BookOrder book : booksToOrder) {
                 if (book.getTitle().equals(selectedTitle)) {
@@ -125,7 +126,7 @@ public class CoordinatorOderViewController {
                 Optional<String> result = tiDialog.showAndWait();
                 if(result.isPresent()){
                     int resultInt = Integer.parseInt(result.get());
-                    booksToOrder.add(new BookOrder(resultInt, selectedTitle));
+                    booksToOrder.add(new BookOrder(resultInt, selectedTitle, selectedBookId));
                     Platform.runLater(() -> {
                         bookOrderTableView.getItems().setAll(booksToOrder);
                     });
@@ -198,7 +199,7 @@ public class CoordinatorOderViewController {
         LocalDate localDate = LocalDate.now();
         Date currentDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant()); // Change date now to be the current one
 
-        Order order = new Order(2, selectedDeliveryOption, amountOfBooks, currentDate, booksToOrder);
+        Order order = new Order(2, selectedDeliveryOption, amountOfBooks, currentDate ,currentDate, booksToOrder,"Nowe");
         Packet packet = Packet.withOrderInfo("CreateNewOrder","TEST", order);
         client.sendPacket(packet);
 

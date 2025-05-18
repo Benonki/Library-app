@@ -14,6 +14,7 @@ public class Packet implements Serializable {
     public String role;
     public List<InventoryItem> warehouseItems;
     public Order orderInfo;
+    public List<Order> ordersInfo;
     public List<Delivery> deliveryInfo;
 
     public Packet(String type,String message){
@@ -42,6 +43,12 @@ public class Packet implements Serializable {
     public static Packet withDeliveries(String type, String message, List<Delivery> deliveries) {
         Packet p = new Packet(type, message);
         p.deliveryInfo = deliveries;
+        return p;
+    }
+
+    public static Packet withOrdersInfo(String type, String message, List<Order> orders){
+        Packet p = new Packet(type, message);
+        p.ordersInfo = orders;
         return p;
     }
 
