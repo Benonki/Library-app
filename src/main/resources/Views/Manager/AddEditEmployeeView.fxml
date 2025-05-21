@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.shape.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Views.Manager.AddEditEmployeeController">
+    <children>
+        <Label fx:id="titleLabel" layoutX="20.0" layoutY="20.0" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Dodaj nowego pracownika"/>
+
+        <Label layoutX="20.0" layoutY="60.0" text="Imię:"/>
+        <TextField fx:id="firstNameField" layoutX="120.0" layoutY="56.0" prefWidth="200.0"/>
+
+        <Label layoutX="20.0" layoutY="100.0" text="Nazwisko:"/>
+        <TextField fx:id="lastNameField" layoutX="120.0" layoutY="96.0" prefWidth="200.0"/>
+
+        <Label layoutX="20.0" layoutY="140.0" text="Email:"/>
+        <TextField fx:id="emailField" layoutX="120.0" layoutY="136.0" prefWidth="200.0"/>
+
+        <Label layoutX="20.0" layoutY="180.0" text="Telefon:"/>
+        <TextField fx:id="phoneField" layoutX="120.0" layoutY="176.0" prefWidth="200.0"/>
+
+        <Label layoutX="20.0" layoutY="220.0" text="Hasło:"/>
+        <PasswordField fx:id="passwordField" layoutX="120.0" layoutY="216.0" prefWidth="200.0"/>
+
+        <Button fx:id="saveButton" layoutX="120.0" layoutY="260.0" mnemonicParsing="false" text="Zapisz" onAction="#handleSave"/>
+        <Button fx:id="cancelButton" layoutX="220.0" layoutY="260.0" mnemonicParsing="false" text="Anuluj" onAction="#handleCancel"/>
+    </children>
+</AnchorPane>

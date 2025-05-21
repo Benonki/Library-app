@@ -11,6 +11,10 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.function.BiConsumer;
 
+import Classes.Manager.Employee;
+import java.util.List;
+import java.util.function.Consumer;
+
 public class Client {
 
     private static Client instance;
@@ -19,6 +23,7 @@ public class Client {
     private ObjectOutputStream outputStream;
     private ObjectInputStream inputStream;
     private BiConsumer<Boolean, String> callBack;
+    private Consumer<List<Employee>> employeesCallback;
     private java.util.function.Consumer<java.util.List<InventoryItem>> inventoryCallback;
     private java.util.function.Consumer<java.util.List<Delivery>> deliveryCallback;
     private java.util.function.Consumer<java.util.List<Order>> ordersCallback;
@@ -108,6 +113,20 @@ public class Client {
             case "UpdateOrderStatus":
                 System.out.println("ORDER STATUS CHANGED " + receivedPacket.message);
                 break;
+            case "GetEmployees":
+                if (employeesCallback != null && receivedPacket.employees != null) {
+                    Platform.runLater(() -> employeesCallback.accept(receivedPacket.employees));
+                }
+                break;
+            case "CreateEmployee":
+                System.out.println("Employee creation result: " + receivedPacket.message);
+                if (callBack != null) {
+                    Platform.runLater(() -> callBack.accept(
+                            receivedPacket.message.startsWith("Employee created"),
+                            receivedPacket.message
+                    ));
+                }
+                break;
             default:
                 System.out.println("This type is not supported ");
                 System.out.println(receivedPacket.type);
@@ -124,6 +143,10 @@ public class Client {
 
     public void setOrdersCallback(java.util.function.Consumer<java.util.List<Order>> callback){
         this.ordersCallback = callback;
+    }
+
+    public void setEmployeesCallback(Consumer<List<Employee>> callback) {
+        this.employeesCallback = callback;
     }
 
 

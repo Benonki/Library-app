@@ -6,18 +6,38 @@ import Server.Packet;
 public class ManagerImpl extends User {
 
     public ManagerImpl(String username) {
-        super(username,"Manager");
+        super(username, "Manager");
     }
 
     @Override
     public Packet handlePacket(Packet packet) {
-        switch (packet.type){
+        switch (packet.type) {
+            case "GetEmployees":
+                return handleGetEmployees();
+            case "CreateEmployee":
+                return handleCreateEmployee(packet);
+            case "UpdateEmployee":
+                return handleUpdateEmployee(packet);
+            case "DeleteEmployee":
+                return handleDeleteEmployee(packet);
             default:
-                return new Packet(packet.type,"Unsupported in Manager");
+                return new Packet(packet.type, "Unsupported in Manager");
         }
     }
 
+    private Packet handleGetEmployees() {
+        return EmployeeManager.getEmployees();
+    }
 
+    private Packet handleCreateEmployee(Packet packet) {
+        return EmployeeManager.createEmployee(packet);
+    }
+
+    private Packet handleUpdateEmployee(Packet packet) {
+        return EmployeeManager.updateEmployee(packet);
+    }
+
+    private Packet handleDeleteEmployee(Packet packet) {
+        return EmployeeManager.deleteEmployee(packet);
+    }
 }
-
-

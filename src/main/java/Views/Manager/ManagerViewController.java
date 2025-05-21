@@ -16,6 +16,8 @@ public class ManagerViewController {
     private Label testLabel;
     @FXML
     private Label welcomeLabel;
+    @FXML
+    private Button manageEmployeesButton;
 
     @FXML
     public void initialize() {
@@ -28,6 +30,15 @@ public class ManagerViewController {
         try {
             UserSession.clear();
             sceneController.switchToLoginView(event);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void switchToManageEmployees(ActionEvent event) {
+        try {
+            sceneController.switchToManageEmployees(event);
         } catch (Exception e) {
             e.printStackTrace();
         }

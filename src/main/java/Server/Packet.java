@@ -4,6 +4,8 @@ import Classes.Coordinator.Delivery;
 import Classes.Coordinator.Order;
 import Classes.Coordinator.Util.InventoryItem;
 
+import Classes.Manager.Employee;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -16,6 +18,8 @@ public class Packet implements Serializable {
     public Order orderInfo;
     public List<Order> ordersInfo;
     public List<Delivery> deliveryInfo;
+    public Object data;
+    public List<Employee> employees;
 
     public Packet(String type,String message){
         this.type = type;
@@ -52,7 +56,10 @@ public class Packet implements Serializable {
         return p;
     }
 
-
-
+    public static Packet withEmployees(String type, String message, List<Employee> employees) {
+        Packet p = new Packet(type, message);
+        p.employees = employees;
+        return p;
+    }
 
 }

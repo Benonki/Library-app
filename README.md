@@ -45,7 +45,7 @@ A library management system developed in Java with Oracle Database integration, 
 5. Right-click on the `LoginApplication` class file. 
 6. Select `Run 'LoginApplication.main()'`.
 7. Example logins for every role:
-   - **Pyzel**  : **c4slHKll*f**      - _Employee_
-   - **Falba** :   **l^68HMGabu**    - _Reader_
-   - **Maciejczuk** :   **q#8sAsJh8V**    - _Manager_
-   - **Gamon** :   **M@t2ND1nBd**    - _Coordinator_
+   - **user2@mail.com**  : **haslo2**      - _Employee_
+   - **user1@mail.com** :   **haslo1**    - _Reader_
+   - **user10@mail.com** :   **haslo10**    - _Manager_
+   - **user7@mail.com** :   **haslo7**    - _Coordinator_

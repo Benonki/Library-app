@@ -37,7 +37,15 @@ public class SceneController {
     }
 
     public void switchToManagerView(ActionEvent event) throws IOException {
-        switchScene(event, "/Views/ManagerView.fxml");
+        switchScene(event, "/Views/Manager/ManagerView.fxml");
+    }
+
+    public void switchToManageEmployees(ActionEvent event) throws IOException {
+        switchScene(event, "/Views/Manager/EmployeeManagementView.fxml");
+    }
+
+    public void switchToAddEditEmployees(ActionEvent event) throws IOException {
+        switchScene(event, "/Views/Manager/AddEditEmployeeView.fxml");
     }
 
     public void switchToCoordinatorView(ActionEvent event) throws IOException {
