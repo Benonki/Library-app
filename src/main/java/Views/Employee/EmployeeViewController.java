@@ -16,11 +16,17 @@ public class EmployeeViewController {
     private Label testLabel;
     @FXML
     private Label welcomeLabel;
+    @FXML
+    private Button returnToManagerButton;
 
     @FXML
     public void initialize() {
         String username = UserSession.getUsername();
         welcomeLabel.setText("Witaj " + username + "!");
+
+        if ("Kierownik".equals(UserSession.getRole())) {
+            returnToManagerButton.setVisible(true);
+        }
     }
 
     @FXML
@@ -28,6 +34,15 @@ public class EmployeeViewController {
         try {
             UserSession.clear();
             sceneController.switchToLoginView(event);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void returnToManagerView(ActionEvent event) {
+        try {
+            sceneController.switchToManagerView(event);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -29,11 +29,11 @@ public class SceneController {
     }
 
     public void switchToReaderView(ActionEvent event) throws IOException {
-        switchScene(event, "/Views/ReaderView.fxml");
+        switchScene(event, "/Views/Reader/ReaderView.fxml");
     }
 
     public void switchToEmployeeView(ActionEvent event) throws IOException {
-        switchScene(event, "/Views/EmployeeView.fxml");
+        switchScene(event, "/Views/Employee/EmployeeView.fxml");
     }
 
     public void switchToManagerView(ActionEvent event) throws IOException {

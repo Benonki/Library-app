@@ -44,4 +44,13 @@ public class ManagerViewController {
         }
     }
 
+    @FXML
+    public void switchToEmployeeView(ActionEvent event) {
+        try {
+            sceneController.switchToEmployeeView(event);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
