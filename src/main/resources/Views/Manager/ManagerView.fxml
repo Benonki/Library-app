@@ -21,10 +21,10 @@
       <TableView fx:id="eventTable" layoutX="20.0" layoutY="90.0" prefHeight="100.0" prefWidth="560.0">
          <columns>
             <TableColumn fx:id="idColumn" prefWidth="40.0" text="ID" />
-            <TableColumn fx:id="themeColumn" prefWidth="85.0" text="Temat" />
-            <TableColumn fx:id="dateColumn" prefWidth="145.0" text="Data" />
-            <TableColumn fx:id="timeColumn" prefWidth="145.0" text="Godzina" />
-            <TableColumn fx:id="placeColumn" prefWidth="145.0" text="Miejsce" />
+            <TableColumn fx:id="themeColumn" prefWidth="210.0" text="Temat" />
+            <TableColumn fx:id="dateColumn" prefWidth="100.0" text="Data" />
+            <TableColumn fx:id="timeColumn" prefWidth="60.0" text="Godzina" />
+            <TableColumn fx:id="placeColumn" prefWidth="150.0" text="Miejsce" />
          </columns>
       </TableView>
 

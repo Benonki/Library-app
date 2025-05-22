@@ -1,10 +1,11 @@
 package Classes.Manager;
 
+import Classes.Manager.Util.EmployeeManager;
+import Classes.Manager.Util.EventManager;
 import Classes.User.User;
 import Server.Packet;
 
 public class ManagerImpl extends User {
-
     public ManagerImpl(String username) {
         super(username, "Manager");
     }
@@ -20,6 +21,8 @@ public class ManagerImpl extends User {
                 return handleUpdateEmployee(packet);
             case "DeleteEmployee":
                 return handleDeleteEmployee(packet);
+            case "GetEvents":
+                return handleGetEvents();
             default:
                 return new Packet(packet.type, "Unsupported in Manager");
         }
@@ -39,5 +42,9 @@ public class ManagerImpl extends User {
 
     private Packet handleDeleteEmployee(Packet packet) {
         return EmployeeManager.deleteEmployee(packet);
+    }
+
+    private Packet handleGetEvents() {
+        return EventManager.getEvents();
     }
 }

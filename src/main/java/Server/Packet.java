@@ -5,6 +5,7 @@ import Classes.Coordinator.Order;
 import Classes.Coordinator.Util.InventoryItem;
 
 import Classes.Manager.Employee;
+import Classes.Manager.Event;
 
 import java.io.Serializable;
 import java.util.List;
@@ -20,6 +21,7 @@ public class Packet implements Serializable {
     public List<Delivery> deliveryInfo;
     public Object data;
     public List<Employee> employees;
+    public List<Event> events;
 
     public Packet(String type,String message){
         this.type = type;
@@ -62,4 +64,9 @@ public class Packet implements Serializable {
         return p;
     }
 
+    public static Packet withEvents(String type, String message, List<Event> events) {
+        Packet p = new Packet(type, message);
+        p.events = events;
+        return p;
+    }
 }
