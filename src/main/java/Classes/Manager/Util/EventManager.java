@@ -1,6 +1,7 @@
 package Classes.Manager.Util;
 
 import Classes.Manager.Event;
+import Classes.Manager.Participant;
 import Server.DatabaseConnection;
 import Server.Packet;
 import java.sql.*;
@@ -56,6 +57,31 @@ public class EventManager {
         } catch (SQLException e) {
             e.printStackTrace();
             return new Packet("GetEvents", "Error retrieving events: " + e.getMessage());
+        }
+    }
+
+    public static Packet getEventParticipants(int eventId) {
+        List<Participant> participants = new ArrayList<>();
+        String query = "SELECT u.Imie, u.Nazwisko, u.Email FROM Uzytkownik u " +
+                "JOIN Uczestnik_Wydarzenia uw ON u.Uzytkownik_ID = uw.Uzytkownik_ID " +
+                "WHERE uw.Wydarzenie_ID = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setInt(1, eventId);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String fullName = rs.getString("Imie") + " " + rs.getString("Nazwisko");
+                String email = rs.getString("Email");
+                participants.add(new Participant(fullName, email));
+            }
+
+            return Packet.withParticipants("GetEventParticipants", "Participants retrieved", participants);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new Packet("GetEventParticipants", "Error retrieving participants: " + e.getMessage());
         }
     }
 }

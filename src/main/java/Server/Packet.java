@@ -6,6 +6,7 @@ import Classes.Coordinator.Util.InventoryItem;
 
 import Classes.Manager.Employee;
 import Classes.Manager.Event;
+import Classes.Manager.Participant;
 
 import java.io.Serializable;
 import java.util.List;
@@ -67,6 +68,12 @@ public class Packet implements Serializable {
     public static Packet withEvents(String type, String message, List<Event> events) {
         Packet p = new Packet(type, message);
         p.events = events;
+        return p;
+    }
+
+    public static Packet withParticipants(String type, String message, List<Participant> participants) {
+        Packet p = new Packet(type, message);
+        p.data = participants;
         return p;
     }
 }

@@ -4,6 +4,7 @@ import Classes.Coordinator.Delivery;
 import Classes.Coordinator.Order;
 import Classes.Coordinator.Util.InventoryItem;
 import Classes.Manager.Event;
+import Classes.Manager.Participant;
 import javafx.application.Platform;
 
 import java.io.IOException;
@@ -26,6 +27,7 @@ public class Client {
     private BiConsumer<Boolean, String> callBack;
     private Consumer<List<Employee>> employeesCallback;
     private Consumer<List<Event>> eventsCallback;
+    private Consumer<List<Participant>> participantsCallback;
     private java.util.function.Consumer<java.util.List<InventoryItem>> inventoryCallback;
     private java.util.function.Consumer<java.util.List<Delivery>> deliveryCallback;
     private java.util.function.Consumer<java.util.List<Order>> ordersCallback;
@@ -134,6 +136,11 @@ public class Client {
                     Platform.runLater(() -> eventsCallback.accept(receivedPacket.events));
                 }
                 break;
+            case "GetEventParticipants":
+                if (participantsCallback != null && receivedPacket.data instanceof List) {
+                    Platform.runLater(() -> participantsCallback.accept((List<Participant>) receivedPacket.data));
+                }
+                break;
             default:
                 System.out.println("This type is not supported ");
                 System.out.println(receivedPacket.type);
@@ -158,6 +165,10 @@ public class Client {
 
     public void setEventsCallback(Consumer<List<Event>> callback) {
         this.eventsCallback = callback;
+    }
+
+    public void setParticipantsCallback(Consumer<List<Participant>> callback) {
+        this.participantsCallback = callback;
     }
 
 

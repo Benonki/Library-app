@@ -23,6 +23,8 @@ public class ManagerImpl extends User {
                 return handleDeleteEmployee(packet);
             case "GetEvents":
                 return handleGetEvents();
+            case "GetEventParticipants":
+                return handleGetEventParticipants(packet);
             default:
                 return new Packet(packet.type, "Unsupported in Manager");
         }
@@ -46,5 +48,14 @@ public class ManagerImpl extends User {
 
     private Packet handleGetEvents() {
         return EventManager.getEvents();
+    }
+
+    private Packet handleGetEventParticipants(Packet packet) {
+        try {
+            int eventId = Integer.parseInt(packet.message);
+            return EventManager.getEventParticipants(eventId);
+        } catch (NumberFormatException e) {
+            return new Packet("GetEventParticipants", "Invalid event ID format");
+        }
     }
 }
