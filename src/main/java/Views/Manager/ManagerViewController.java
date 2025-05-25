@@ -113,11 +113,9 @@ public class ManagerViewController {
         dialog.setTitle("Szczegóły wydarzenia");
         dialog.setHeaderText("Szczegóły wydarzenia: " + event.getTheme());
 
-        // Główny kontener
         VBox vbox = new VBox(10);
         vbox.setPadding(new Insets(10));
 
-        // Informacje o wydarzeniu
         Label eventInfo = new Label(
                 "ID: " + event.getId() + "\n" +
                         "Temat: " + event.getTheme() + "\n" +
@@ -126,7 +124,6 @@ public class ManagerViewController {
                         "Miejsce: " + event.getPlace()
         );
 
-        // Lista uczestników
         Label participantsLabel = new Label("Uczestnicy:");
         ListView<String> participantsList = new ListView<>();
         ObservableList<String> items = FXCollections.observableArrayList();
@@ -140,17 +137,14 @@ public class ManagerViewController {
         }
 
         participantsList.setItems(items);
-        participantsList.setPrefHeight(200); // Ustaw wysokość listy
+        participantsList.setPrefHeight(200);
 
-        // Dodaj elementy do kontenera
         vbox.getChildren().addAll(eventInfo, participantsLabel, participantsList);
 
-        // Ustaw zawartość dialogu
         dialog.getDialogPane().setContent(vbox);
-        dialog.getDialogPane().setPrefSize(400, 400); // Większe wymiary dla lepszej czytelności
+        dialog.getDialogPane().setPrefSize(400, 400);
         dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
 
-        // Wyświetl dialog
         dialog.showAndWait();
     }
 
