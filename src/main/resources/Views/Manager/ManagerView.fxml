@@ -31,6 +31,7 @@
       <Button fx:id="manageEmployeesButton" layoutX="20.0" layoutY="210.0" mnemonicParsing="false" onAction="#switchToManageEmployees" text="Zarządzanie kontami pracowników" />
       <Button fx:id="switchToEmployeeButton" layoutX="20.0" layoutY="250.0" mnemonicParsing="false" onAction="#switchToEmployeeView" text="Tryb pracownika" />
       <Button fx:id="viewDetailsButton" layoutX="410.0" layoutY="210.0" mnemonicParsing="false" onAction="#viewEventDetails" text="Zobacz szczegóły wydarzenia" />
+      <Button fx:id="addEventButton" layoutX="410.0" layoutY="250.0" mnemonicParsing="false" onAction="#switchToAddEventView" text="Dodaj nowe wydarzenie" />
       <Button fx:id="backButton" layoutX="500.0" layoutY="360.0" mnemonicParsing="false" onAction="#switchToLoginView" text="Wyloguj się" />
       <Label fx:id="testLabel" layoutX="20.0" layoutY="50.0" text="Manager View" />
    </children>

@@ -1,4 +1,4 @@
-package Classes.Manager;
+package Classes.Manager.Util;
 
 import java.io.Serializable;
 

@@ -1,6 +1,6 @@
-package Classes.Manager.Util;
+package Classes.Manager;
 
-import Classes.Manager.Employee;
+import Classes.Manager.Util.Employee;
 import Server.DatabaseConnection;
 import Server.Packet;
 

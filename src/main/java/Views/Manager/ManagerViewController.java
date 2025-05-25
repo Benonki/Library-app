@@ -1,7 +1,7 @@
 package Views.Manager;
 
-import Classes.Manager.Event;
-import Classes.Manager.Participant;
+import Classes.Manager.Util.Event;
+import Classes.Manager.Util.Participant;
 import Classes.User.UserSession;
 import Server.Client;
 import Server.Packet;
@@ -16,6 +16,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class ManagerViewController {
@@ -39,6 +40,8 @@ public class ManagerViewController {
     private Button switchToEmployeeButton;
     @FXML
     private Button viewDetailsButton;
+    @FXML
+    private Button addEventButton;
 
     @FXML
     public void initialize() {
@@ -116,11 +119,14 @@ public class ManagerViewController {
         VBox vbox = new VBox(10);
         vbox.setPadding(new Insets(10));
 
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+
         Label eventInfo = new Label(
                 "ID: " + event.getId() + "\n" +
                         "Temat: " + event.getTheme() + "\n" +
-                        "Data: " + event.getDate() + "\n" +
-                        "Godzina: " + event.getTime() + "\n" +
+                        "Data: " + event.getDate().format(dateFormatter) + "\n" +
+                        "Godzina: " + event.getTime().format(timeFormatter) + "\n" +
                         "Miejsce: " + event.getPlace()
         );
 
@@ -128,23 +134,21 @@ public class ManagerViewController {
         ListView<String> participantsList = new ListView<>();
         ObservableList<String> items = FXCollections.observableArrayList();
 
-        if (participants.isEmpty()) {
+        if (participants == null || participants.isEmpty()) {
             items.add("Brak uczestników");
         } else {
-            for (Participant p : participants) {
-                items.add("- " + p.getFullName() + " (" + p.getEmail() + ")");
-            }
+            participants.forEach(p ->
+                    items.add(p.getFullName() + " <" + p.getEmail() + ">")
+            );
         }
 
         participantsList.setItems(items);
         participantsList.setPrefHeight(200);
 
         vbox.getChildren().addAll(eventInfo, participantsLabel, participantsList);
-
         dialog.getDialogPane().setContent(vbox);
         dialog.getDialogPane().setPrefSize(400, 400);
         dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
-
         dialog.showAndWait();
     }
 
@@ -176,4 +180,12 @@ public class ManagerViewController {
         }
     }
 
+    @FXML
+    public void switchToAddEventView(ActionEvent event) {
+        try {
+            sceneController.switchToAddEventView(event);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

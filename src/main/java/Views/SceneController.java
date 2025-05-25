@@ -1,5 +1,6 @@
 package Views;
 
+import Views.Manager.AddParticipantsController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -58,5 +59,21 @@ public class SceneController {
 
     public void switchToCoordinatorOrdersInfo(ActionEvent event) throws IOException {
         switchScene(event, "/Views/Coordinator/CoordinatorOrdersInfoView.fxml");
+    }
+
+    public void switchToAddEventView(ActionEvent event) throws IOException {
+        switchScene(event, "/Views/Manager/AddEventView.fxml");
+    }
+
+    public static void switchToAddParticipantsView(ActionEvent event, int eventId) throws IOException {
+        FXMLLoader loader = new FXMLLoader(SceneController.class.getResource("/Views/Manager/AddParticipantsView.fxml"));
+        Parent root = loader.load();
+
+        AddParticipantsController controller = loader.getController();
+        controller.initializeWithEventId(eventId);
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 }

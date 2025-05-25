@@ -4,9 +4,9 @@ import Classes.Coordinator.Delivery;
 import Classes.Coordinator.Order;
 import Classes.Coordinator.Util.InventoryItem;
 
-import Classes.Manager.Employee;
-import Classes.Manager.Event;
-import Classes.Manager.Participant;
+import Classes.Manager.Util.Employee;
+import Classes.Manager.Util.Event;
+import Classes.Manager.Util.Participant;
 
 import java.io.Serializable;
 import java.util.List;
@@ -23,6 +23,7 @@ public class Packet implements Serializable {
     public Object data;
     public List<Employee> employees;
     public List<Event> events;
+    public List<Participant> participants;
 
     public Packet(String type,String message){
         this.type = type;
@@ -71,9 +72,9 @@ public class Packet implements Serializable {
         return p;
     }
 
-    public static Packet withParticipants(String type, String message, List<Participant> participants) {
-        Packet p = new Packet(type, message);
-        p.data = participants;
+    public static Packet withParticipants(String type, List<Participant> participants) {
+        Packet p = new Packet(type, "Participants data");
+        p.participants = participants;
         return p;
     }
 }

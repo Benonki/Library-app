@@ -1,9 +1,13 @@
 package Classes.Manager;
 
-import Classes.Manager.Util.EmployeeManager;
-import Classes.Manager.Util.EventManager;
 import Classes.User.User;
 import Server.Packet;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class ManagerImpl extends User {
     public ManagerImpl(String username) {
@@ -25,6 +29,12 @@ public class ManagerImpl extends User {
                 return handleGetEvents();
             case "GetEventParticipants":
                 return handleGetEventParticipants(packet);
+            case "CreateEvent":
+                return handleCreateEvent(packet);
+            case "AddParticipants":
+                return handleAddParticipants(packet);
+            case "GetAllUsers":
+                return handleGetAllUsers();
             default:
                 return new Packet(packet.type, "Unsupported in Manager");
         }
@@ -57,5 +67,39 @@ public class ManagerImpl extends User {
         } catch (NumberFormatException e) {
             return new Packet("GetEventParticipants", "Invalid event ID format");
         }
+    }
+
+    private Packet handleCreateEvent(Packet packet) {
+        try {
+            String[] parts = packet.message.split("\\|");
+            String theme = parts[0];
+            LocalDate date = LocalDate.parse(parts[1]);
+            LocalTime time = LocalTime.parse(parts[2]);
+            String place = parts[3];
+
+            return EventManager.createEvent(theme, date, time, place);
+        } catch (Exception e) {
+            return new Packet("CreateEvent", "Invalid event data format");
+        }
+    }
+
+    private Packet handleAddParticipants(Packet packet) {
+        try {
+            String[] parts = packet.message.split("\\|");
+            int eventId = Integer.parseInt(parts[0]);
+            List<String> userEmails = new ArrayList<>();
+
+            for (int i = 1; i < parts.length; i++) {
+                userEmails.add(parts[i].trim());
+            }
+
+            return EventManager.addParticipants(eventId, userEmails);
+        } catch (Exception e) {
+            return new Packet("AddParticipants", "Invalid participant data format");
+        }
+    }
+
+    private Packet handleGetAllUsers() {
+        return EventManager.getAllUsers();
     }
 }

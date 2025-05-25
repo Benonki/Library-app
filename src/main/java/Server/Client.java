@@ -3,17 +3,18 @@ package Server;
 import Classes.Coordinator.Delivery;
 import Classes.Coordinator.Order;
 import Classes.Coordinator.Util.InventoryItem;
-import Classes.Manager.Event;
-import Classes.Manager.Participant;
+import Classes.Manager.Util.Event;
+import Classes.Manager.Util.Participant;
 import javafx.application.Platform;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.function.BiConsumer;
 
-import Classes.Manager.Employee;
+import Classes.Manager.Util.Employee;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -28,6 +29,7 @@ public class Client {
     private Consumer<List<Employee>> employeesCallback;
     private Consumer<List<Event>> eventsCallback;
     private Consumer<List<Participant>> participantsCallback;
+    private Packet lastPacket;
     private java.util.function.Consumer<java.util.List<InventoryItem>> inventoryCallback;
     private java.util.function.Consumer<java.util.List<Delivery>> deliveryCallback;
     private java.util.function.Consumer<java.util.List<Order>> ordersCallback;
@@ -83,6 +85,7 @@ public class Client {
     }
 
     private void handlePacket(Packet receivedPacket) { //Handle answer from server
+        this.lastPacket = receivedPacket;
         switch (receivedPacket.type) {
             case "Login":
                 boolean success = receivedPacket.message.equals("Login Success");
@@ -137,8 +140,36 @@ public class Client {
                 }
                 break;
             case "GetEventParticipants":
-                if (participantsCallback != null && receivedPacket.data instanceof List) {
-                    Platform.runLater(() -> participantsCallback.accept((List<Participant>) receivedPacket.data));
+                if (participantsCallback != null) {
+                    Platform.runLater(() -> {
+                        if (receivedPacket.participants != null) {
+                            participantsCallback.accept(receivedPacket.participants);
+                        } else {
+                            participantsCallback.accept(new ArrayList<>());
+                        }
+                    });
+                }
+                break;
+            case "CreateEvent":
+                System.out.println("CreateEvent result - Success: " +
+                        (receivedPacket.message != null && !receivedPacket.message.startsWith("Failed")) +
+                        ", Message: " + receivedPacket.message);
+                if (callBack != null) {
+                    boolean successEvent = receivedPacket.message != null && !receivedPacket.message.startsWith("Failed");
+                    Platform.runLater(() -> callBack.accept(successEvent, receivedPacket.message));
+                }
+                break;
+            case "GetAllUsers":
+                System.out.println("Users data received: " + (receivedPacket.participants != null ? receivedPacket.participants.size() : "null"));
+                if (participantsCallback != null && receivedPacket.participants != null) {
+                    Platform.runLater(() -> participantsCallback.accept(receivedPacket.participants));
+                }
+                break;
+            case "AddParticipants":
+                System.out.println("AddParticipants result: " + receivedPacket.message);
+                boolean successPart = !receivedPacket.message.startsWith("Error");
+                if (callBack != null) {
+                    Platform.runLater(() -> callBack.accept(successPart, receivedPacket.message));
                 }
                 break;
             default:
@@ -171,6 +202,9 @@ public class Client {
         this.participantsCallback = callback;
     }
 
+    public Packet getLastPacket() {
+        return lastPacket;
+    }
 
     public void closeEverything(Socket socket,ObjectOutputStream outputStream,ObjectInputStream inputStream){
         try{
