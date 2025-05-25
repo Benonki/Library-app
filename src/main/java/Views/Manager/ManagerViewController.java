@@ -11,8 +11,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
 
 import java.util.List;
 
@@ -107,30 +109,49 @@ public class ManagerViewController {
     }
 
     private void showEventDetailsDialog(Event event, List<Participant> participants) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Szczegóły wydarzenia");
-        alert.setHeaderText("Szczegóły wydarzenia: " + event.getTheme());
+        Dialog<Void> dialog = new Dialog<>();
+        dialog.setTitle("Szczegóły wydarzenia");
+        dialog.setHeaderText("Szczegóły wydarzenia: " + event.getTheme());
 
-        StringBuilder content = new StringBuilder();
-        content.append("ID: ").append(event.getId()).append("\n");
-        content.append("Temat: ").append(event.getTheme()).append("\n");
-        content.append("Data: ").append(event.getDate()).append("\n");
-        content.append("Godzina: ").append(event.getTime()).append("\n");
-        content.append("Miejsce: ").append(event.getPlace()).append("\n\n");
-        content.append("Uczestnicy:\n");
+        // Główny kontener
+        VBox vbox = new VBox(10);
+        vbox.setPadding(new Insets(10));
+
+        // Informacje o wydarzeniu
+        Label eventInfo = new Label(
+                "ID: " + event.getId() + "\n" +
+                        "Temat: " + event.getTheme() + "\n" +
+                        "Data: " + event.getDate() + "\n" +
+                        "Godzina: " + event.getTime() + "\n" +
+                        "Miejsce: " + event.getPlace()
+        );
+
+        // Lista uczestników
+        Label participantsLabel = new Label("Uczestnicy:");
+        ListView<String> participantsList = new ListView<>();
+        ObservableList<String> items = FXCollections.observableArrayList();
 
         if (participants.isEmpty()) {
-            content.append("Brak uczestników");
+            items.add("Brak uczestników");
         } else {
             for (Participant p : participants) {
-                content.append("- ").append(p.getFullName()).append(" (").append(p.getEmail()).append(")\n");
+                items.add("- " + p.getFullName() + " (" + p.getEmail() + ")");
             }
         }
 
-        alert.setContentText(content.toString());
-        alert.setResizable(true);
-        alert.getDialogPane().setPrefSize(400, 300);
-        alert.showAndWait();
+        participantsList.setItems(items);
+        participantsList.setPrefHeight(200); // Ustaw wysokość listy
+
+        // Dodaj elementy do kontenera
+        vbox.getChildren().addAll(eventInfo, participantsLabel, participantsList);
+
+        // Ustaw zawartość dialogu
+        dialog.getDialogPane().setContent(vbox);
+        dialog.getDialogPane().setPrefSize(400, 400); // Większe wymiary dla lepszej czytelności
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+
+        // Wyświetl dialog
+        dialog.showAndWait();
     }
 
     @FXML
