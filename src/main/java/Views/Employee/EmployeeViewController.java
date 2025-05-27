@@ -18,6 +18,8 @@ public class EmployeeViewController {
     private Label welcomeLabel;
     @FXML
     private Button returnToManagerButton;
+    @FXML
+    private Button libraryResourcesButton;
 
     @FXML
     public void initialize() {
@@ -43,6 +45,15 @@ public class EmployeeViewController {
     public void returnToManagerView(ActionEvent event) {
         try {
             sceneController.switchToManagerView(event);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void showLibraryResources(ActionEvent event) {
+        try {
+            sceneController.switchToLibraryResourcesView(event);
         } catch (Exception e) {
             e.printStackTrace();
         }

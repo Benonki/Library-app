@@ -76,4 +76,8 @@ public class SceneController {
         stage.setScene(new Scene(root));
         stage.show();
     }
+
+    public void switchToLibraryResourcesView(ActionEvent event) throws IOException {
+        switchScene(event, "/Views/Employee/EmployeeLibraryResourcesView.fxml");
+    }
 }

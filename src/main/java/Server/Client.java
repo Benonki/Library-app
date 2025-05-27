@@ -5,6 +5,7 @@ import Classes.Coordinator.Order;
 import Classes.Coordinator.Util.InventoryItem;
 import Classes.Manager.Util.Event;
 import Classes.Manager.Util.Participant;
+import Classes.Employee.Util.LibraryItem;
 import javafx.application.Platform;
 
 import java.io.IOException;
@@ -33,6 +34,7 @@ public class Client {
     private java.util.function.Consumer<java.util.List<InventoryItem>> inventoryCallback;
     private java.util.function.Consumer<java.util.List<Delivery>> deliveryCallback;
     private java.util.function.Consumer<java.util.List<Order>> ordersCallback;
+    private java.util.function.Consumer<java.util.List<LibraryItem>> libraryCallback;
 
 
     private Client(){
@@ -172,6 +174,12 @@ public class Client {
                     Platform.runLater(() -> callBack.accept(successPart, receivedPacket.message));
                 }
                 break;
+            case "GetLibraryResources":
+                System.out.println("LIBRARY RESOURCES RETURNED");
+                if (libraryCallback != null) {
+                    libraryCallback.accept(receivedPacket.libraryItems);
+                }
+                break;
             default:
                 System.out.println("This type is not supported ");
                 System.out.println(receivedPacket.type);
@@ -188,6 +196,10 @@ public class Client {
 
     public void setOrdersCallback(java.util.function.Consumer<java.util.List<Order>> callback){
         this.ordersCallback = callback;
+    }
+
+    public void setLibraryCallback(java.util.function.Consumer<java.util.List<LibraryItem>> callback) {
+        this.libraryCallback = callback;
     }
 
     public void setEmployeesCallback(Consumer<List<Employee>> callback) {

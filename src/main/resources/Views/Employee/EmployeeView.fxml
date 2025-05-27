@@ -22,5 +22,12 @@
       <Button fx:id="returnToManagerButton" layoutX="20.0" layoutY="100.0" mnemonicParsing="false" onAction="#returnToManagerView" text="Powrót do trybu kierownika" visible="false" />
       <Button fx:id="backButton" layoutX="274.0" layoutY="187.0" mnemonicParsing="false" onAction="#switchToLoginView" text="Wyloguj się" />
       <Label fx:id="testLabel" layoutX="272.0" layoutY="148.0" text="Employee View" />
+
+      <Button fx:id="libraryResourcesButton"
+              layoutX="20.0"
+              layoutY="150.0"
+              mnemonicParsing="false"
+              onAction="#showLibraryResources"
+              text="Zasoby biblioteki" />
    </children>
 </AnchorPane>

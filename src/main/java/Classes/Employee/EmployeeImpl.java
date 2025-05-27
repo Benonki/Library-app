@@ -12,12 +12,12 @@ public class EmployeeImpl extends User {
     @Override
     public Packet handlePacket(Packet packet) {
         switch (packet.type){
+            case "GetLibraryResources":
+                return Library.getLibraryResources();
             default:
                 return new Packet(packet.type,"Unsupported in Employee");
         }
     }
-
-
 }
 
 
