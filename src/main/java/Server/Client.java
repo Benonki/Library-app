@@ -35,6 +35,8 @@ public class Client {
     private java.util.function.Consumer<java.util.List<Delivery>> deliveryCallback;
     private java.util.function.Consumer<java.util.List<Order>> ordersCallback;
     private java.util.function.Consumer<java.util.List<LibraryItem>> libraryCallback;
+    private Consumer<String> addBookCallback;
+    private Consumer<String> deleteBookCallback;
 
 
     private Client(){
@@ -180,10 +182,31 @@ public class Client {
                     libraryCallback.accept(receivedPacket.libraryItems);
                 }
                 break;
+            case "AddNewBook":
+                System.out.println("AddNewBook result: " + receivedPacket.message);
+                if (addBookCallback != null) {
+                    Platform.runLater(() -> addBookCallback.accept(receivedPacket.message));
+                }
+                break;
+
+            case "DeleteBookCopy":
+                System.out.println("DeleteBookCopy result: " + receivedPacket.message);
+                if (deleteBookCallback != null) {
+                    Platform.runLater(() -> deleteBookCallback.accept(receivedPacket.message));
+                }
+                break;
             default:
                 System.out.println("This type is not supported ");
                 System.out.println(receivedPacket.type);
         }
+    }
+
+    public void setAddBookCallback(Consumer<String> callback) {
+        this.addBookCallback = callback;
+    }
+
+    public void setDeleteBookCallback(Consumer<String> callback) {
+        this.deleteBookCallback = callback;
     }
 
     public void setInventoryCallback(java.util.function.Consumer<java.util.List<InventoryItem>> callback) {

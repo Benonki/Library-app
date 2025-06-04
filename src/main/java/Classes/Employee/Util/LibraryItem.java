@@ -5,20 +5,27 @@ import java.io.Serializable;
 public class LibraryItem implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private int ksiazkaId;
+    private int egzemplarzId;
     private String tytul;
     private String autor;
-    private int ilosc;
+    private String status;
+    private String lokalizacja;
+    private String wydawnictwo;
+    private String typOkladki;
 
-    public LibraryItem(int ksiazkaId, String tytul, String autor, int ilosc) {
-        this.ksiazkaId = ksiazkaId;
+    public LibraryItem(int egzemplarzId, String tytul, String autor, String status,
+                       String lokalizacja, String wydawnictwo, String typOkladki) {
+        this.egzemplarzId = egzemplarzId;
         this.tytul = tytul;
         this.autor = autor;
-        this.ilosc = ilosc;
+        this.status = status;
+        this.lokalizacja = lokalizacja;
+        this.wydawnictwo = wydawnictwo;
+        this.typOkladki = typOkladki;
     }
 
-    public int getKsiazkaId() {
-        return ksiazkaId;
+    public int getEgzemplarzId() {
+        return egzemplarzId;
     }
 
     public String getTytul() {
@@ -29,7 +36,19 @@ public class LibraryItem implements Serializable {
         return autor;
     }
 
-    public int getIlosc() {
-        return ilosc;
+    public String getStatus() {
+        return status;
+    }
+
+    public String getLokalizacja() {
+        return lokalizacja;
+    }
+
+    public String getWydawnictwo() {
+        return wydawnictwo;
+    }
+
+    public String getTypOkladki() {
+        return typOkladki;
     }
 }

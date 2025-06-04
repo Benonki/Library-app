@@ -20,4 +20,5 @@ module com.example.library {
     opens Classes.Manager to javafx.base;
     opens Views.Employee to javafx.fxml;
     opens Classes.Manager.Util to javafx.base;
+    opens Classes.Employee.Util to javafx.base;
 }
