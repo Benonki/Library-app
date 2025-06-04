@@ -1,4 +1,3 @@
-Magazyn_ID,Ksiazka_ID,Ilosc,Sektor,Rzad,Polka,MiejsceNaPolce
-1,1,20,1,1,1,1
-2,2,30,1,2,1,2
-3,3,15,2,1,2,3
+1,20,1,1,1,1
+2,30,1,2,1,2
+3,15,2,1,2,3

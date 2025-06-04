@@ -5,7 +5,6 @@ APPEND
 FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"'
 TRAILING NULLCOLS
 (
-    id,
     ilosc,
     ksiazka_id,
     zamowienie_id
