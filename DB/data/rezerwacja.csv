@@ -1,3 +1,3 @@
 Rezerwacja_ID,Data_Rezerwacji,Data_Wygasniecia,Status,Uzytkownik_ID,Ksiazka_ID
-1,15/08/2024,19/05/2025,Aktywna,1,1
-2,05/10/2024,28/05/2025,Wygas≥a,2,2
+1,2024-08-15,2025-05-19,Aktywna,1,1
+2,2024-10-05,2025-05-28,Wygas≈Ça,2,2
