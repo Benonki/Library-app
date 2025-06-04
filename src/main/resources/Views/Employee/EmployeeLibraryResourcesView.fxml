@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Views.Employee.EmployeeLibraryResourcesViewController">
+    <VBox spacing="10.0" AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="10.0"
+          AnchorPane.rightAnchor="10.0" AnchorPane.bottomAnchor="10.0">
+
+        <Label text="Zasoby Biblioteki" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+
+        <TableView fx:id="libraryTable">
+            <columns>
+                <TableColumn fx:id="egzemplarzIdColumn" text="Egzemplarz ID" />
+                <TableColumn fx:id="titleColumn" text="Tytuł" />
+                <TableColumn fx:id="authorColumn" text="Autor" />
+                <TableColumn fx:id="statusColumn" text="Status" />
+                <TableColumn fx:id="locationColumn" text="Lokalizacja" />
+                <TableColumn fx:id="publisherColumn" text="Wydawnictwo" />
+                <TableColumn fx:id="coverTypeColumn" text="Typ okładki" />
+            </columns>
+        </TableView>
+
+        <HBox spacing="10">
+            <Button onAction="#handleAddNewBook" text="Dodaj nową książkę" />
+            <Button onAction="#deleteBookCopy" text="Usuń egzemplarz" />
+            <Button onAction="#handleBackButton" text="Powrót" />
+        </HBox>
+    </VBox>
+</AnchorPane>

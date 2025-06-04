@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefWidth="600" prefHeight="420" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Views.Employee.AddNewBookController">
+    <children>
+        <Label layoutX="20" layoutY="20" text="Tytuł:"/>
+        <TextField fx:id="titleField" layoutX="150" layoutY="20" prefWidth="300"/>
+
+        <Label layoutX="20" layoutY="60" text="Autor - Imię:"/>
+        <TextField fx:id="authorFirstNameField" layoutX="150" layoutY="60"/>
+
+        <Label layoutX="20" layoutY="100" text="Autor - Nazwisko:"/>
+        <TextField fx:id="authorLastNameField" layoutX="150" layoutY="100"/>
+
+        <Label layoutX="20" layoutY="140" text="ISBN:"/>
+        <TextField fx:id="isbnField" layoutX="150" layoutY="140"/>
+
+        <Label layoutX="20" layoutY="180" text="Data wydania:"/>
+        <DatePicker fx:id="releaseDatePicker" layoutX="150" layoutY="180"/>
+
+        <Label layoutX="20" layoutY="220" text="Wydawnictwo:"/>
+        <TextField fx:id="publisherField" layoutX="150" layoutY="220"/>
+
+        <Label layoutX="20" layoutY="260" text="Typ okładki (ID):"/>
+        <TextField fx:id="coverTypeField" layoutX="150" layoutY="260"/>
+
+        <Label layoutX="20" layoutY="300" text="Lokalizacja:"/>
+        <TextField fx:id="locationField" layoutX="150" layoutY="300"/>
+
+        <Label layoutX="20" layoutY="340" text="Liczba egzemplarzy:"/>
+        <Spinner fx:id="quantitySpinner" layoutX="150" layoutY="340" prefWidth="80"/>
+
+        <Button layoutX="150" layoutY="380" text="Dodaj książkę" onAction="#handleAddBook"/>
+        <Button layoutX="250" layoutY="380" text="Wróć" onAction="#handleBack"/>
+    </children>
+</AnchorPane>

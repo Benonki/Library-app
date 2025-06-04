@@ -26,6 +26,7 @@ sqlldr userid=%CONNSTR% control='Rezerwacja.ctl'
 sqlldr userid=%CONNSTR% control='Wydarzenie.ctl'
 sqlldr userid=%CONNSTR% control='Uczestnik_Wydarzenia.ctl'
 sqlldr userid=%CONNSTR% control='Wypozyczenie.ctl'
+sqlldr userid=%CONNSTR% control='Biblioteka_Ksiazka.ctl'
 
 echo Importowanie zakonczone.
 pause

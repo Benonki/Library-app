@@ -5,6 +5,7 @@ import Classes.Coordinator.Order;
 import Classes.Coordinator.Util.InventoryItem;
 import Classes.Manager.Util.Event;
 import Classes.Manager.Util.Participant;
+import Classes.Employee.Util.LibraryItem;
 import javafx.application.Platform;
 
 import java.io.IOException;
@@ -33,6 +34,9 @@ public class Client {
     private java.util.function.Consumer<java.util.List<InventoryItem>> inventoryCallback;
     private java.util.function.Consumer<java.util.List<Delivery>> deliveryCallback;
     private java.util.function.Consumer<java.util.List<Order>> ordersCallback;
+    private java.util.function.Consumer<java.util.List<LibraryItem>> libraryCallback;
+    private Consumer<String> addBookCallback;
+    private Consumer<String> deleteBookCallback;
 
 
     private Client(){
@@ -172,10 +176,37 @@ public class Client {
                     Platform.runLater(() -> callBack.accept(successPart, receivedPacket.message));
                 }
                 break;
+            case "GetLibraryResources":
+                System.out.println("LIBRARY RESOURCES RETURNED");
+                if (libraryCallback != null) {
+                    libraryCallback.accept(receivedPacket.libraryItems);
+                }
+                break;
+            case "AddNewBook":
+                System.out.println("AddNewBook result: " + receivedPacket.message);
+                if (addBookCallback != null) {
+                    Platform.runLater(() -> addBookCallback.accept(receivedPacket.message));
+                }
+                break;
+
+            case "DeleteBookCopy":
+                System.out.println("DeleteBookCopy result: " + receivedPacket.message);
+                if (deleteBookCallback != null) {
+                    Platform.runLater(() -> deleteBookCallback.accept(receivedPacket.message));
+                }
+                break;
             default:
                 System.out.println("This type is not supported ");
                 System.out.println(receivedPacket.type);
         }
+    }
+
+    public void setAddBookCallback(Consumer<String> callback) {
+        this.addBookCallback = callback;
+    }
+
+    public void setDeleteBookCallback(Consumer<String> callback) {
+        this.deleteBookCallback = callback;
     }
 
     public void setInventoryCallback(java.util.function.Consumer<java.util.List<InventoryItem>> callback) {
@@ -188,6 +219,10 @@ public class Client {
 
     public void setOrdersCallback(java.util.function.Consumer<java.util.List<Order>> callback){
         this.ordersCallback = callback;
+    }
+
+    public void setLibraryCallback(java.util.function.Consumer<java.util.List<LibraryItem>> callback) {
+        this.libraryCallback = callback;
     }
 
     public void setEmployeesCallback(Consumer<List<Employee>> callback) {
