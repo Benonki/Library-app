@@ -23,7 +23,7 @@
               mnemonicParsing="false" onAction="#returnToManagerView"
               text="Powrót do trybu kierownika" visible="false" />
 
-      <StackPane layoutX="0.0" layoutY="80.0" prefWidth="600.0" prefHeight="320.0">
+      <StackPane layoutX="0.0" layoutY="140.0" prefWidth="600.0" prefHeight="260.0">
          <VBox spacing="15.0" alignment="CENTER">
             <Label fx:id="testLabel" text="Rola uzytkownika: Bibliotekarz" />
             <Button fx:id="libraryResourcesButton" text="Zasoby biblioteki" onAction="#showLibraryResources" />
