@@ -20,9 +20,11 @@ public class EmployeeLibraryResourcesViewController {
     @FXML private TableColumn<LibraryItem, String> titleColumn;
     @FXML private TableColumn<LibraryItem, String> authorColumn;
     @FXML private TableColumn<LibraryItem, String> statusColumn;
+    @FXML private TableColumn<LibraryItem, String> releaseDateColumn;
     @FXML private TableColumn<LibraryItem, String> locationColumn;
     @FXML private TableColumn<LibraryItem, String> publisherColumn;
     @FXML private TableColumn<LibraryItem, String> coverTypeColumn;
+    @FXML private TableColumn<LibraryItem, String> isbnColumn;
 
     @FXML
     public void initialize() {
@@ -30,9 +32,11 @@ public class EmployeeLibraryResourcesViewController {
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("tytul"));
         authorColumn.setCellValueFactory(new PropertyValueFactory<>("autor"));
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+        releaseDateColumn.setCellValueFactory(new PropertyValueFactory<>("dataWydania"));
         locationColumn.setCellValueFactory(new PropertyValueFactory<>("lokalizacja"));
         publisherColumn.setCellValueFactory(new PropertyValueFactory<>("wydawnictwo"));
         coverTypeColumn.setCellValueFactory(new PropertyValueFactory<>("typOkladki"));
+        isbnColumn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
 
         Client.getInstance().setLibraryCallback(items -> {
             Platform.runLater(() -> {

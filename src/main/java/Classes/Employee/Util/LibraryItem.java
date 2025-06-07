@@ -1,6 +1,7 @@
 package Classes.Employee.Util;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class LibraryItem implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -9,19 +10,23 @@ public class LibraryItem implements Serializable {
     private String tytul;
     private String autor;
     private String status;
+    private Date dataWydania;
     private String lokalizacja;
     private String wydawnictwo;
     private String typOkladki;
+    private String isbn;
 
     public LibraryItem(int egzemplarzId, String tytul, String autor, String status,
-                       String lokalizacja, String wydawnictwo, String typOkladki) {
+                       Date dataWydania, String lokalizacja, String wydawnictwo, String typOkladki, String isbn) {
         this.egzemplarzId = egzemplarzId;
         this.tytul = tytul;
         this.autor = autor;
         this.status = status;
+        this.dataWydania = dataWydania;
         this.lokalizacja = lokalizacja;
         this.wydawnictwo = wydawnictwo;
         this.typOkladki = typOkladki;
+        this.isbn = isbn;
     }
 
     public int getEgzemplarzId() {
@@ -51,4 +56,8 @@ public class LibraryItem implements Serializable {
     public String getTypOkladki() {
         return typOkladki;
     }
+
+    public Date getDataWydania() { return dataWydania; }
+
+    public String getIsbn() { return isbn; }
 }

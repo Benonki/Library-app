@@ -7,6 +7,7 @@ import Server.Packet;
 
 import java.sql.*;
 import java.util.*;
+import java.util.Date;
 
 public class Library {
 
@@ -21,8 +22,10 @@ public class Library {
                 a.Imie || ' ' || a.Nazwisko AS Autor,
                 bk.Status,
                 bk.Lokalizacja,
+                k.data_wydania,
                 w.Nazwa AS Wydawnictwo,
-                tokl.Nazwa AS Typ_Okladki
+                tokl.Nazwa AS Typ_Okladki,
+                k.isbn
             FROM 
                 Biblioteka_Ksiazka bk
             JOIN 
@@ -44,11 +47,13 @@ public class Library {
                     String tytul = rs.getString("Tytul");
                     String autor = rs.getString("Autor");
                     String status = rs.getString("Status");
+                    Date dataWydania = rs.getDate("data_wydania");
                     String lokalizacja = rs.getString("Lokalizacja");
                     String wydawnictwo = rs.getString("Wydawnictwo");
                     String typOkladki = rs.getString("Typ_Okladki");
+                    String isbn = rs.getString("isbn");
 
-                    books.add(new LibraryItem(egzId, tytul, autor, status, lokalizacja, wydawnictwo, typOkladki));
+                    books.add(new LibraryItem(egzId, tytul, autor, status, dataWydania, lokalizacja, wydawnictwo, typOkladki, isbn));
                 }
             }
 

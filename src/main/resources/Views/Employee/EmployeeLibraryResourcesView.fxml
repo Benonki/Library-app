@@ -16,9 +16,11 @@
                 <TableColumn fx:id="titleColumn" text="Tytuł" />
                 <TableColumn fx:id="authorColumn" text="Autor" />
                 <TableColumn fx:id="statusColumn" text="Status" />
+                <TableColumn fx:id="releaseDateColumn" text="Data Wydania"/>
                 <TableColumn fx:id="locationColumn" text="Lokalizacja" />
                 <TableColumn fx:id="publisherColumn" text="Wydawnictwo" />
                 <TableColumn fx:id="coverTypeColumn" text="Typ okładki" />
+                <TableColumn fx:id="isbnColumn" text="ISBN"/>
             </columns>
         </TableView>
 
