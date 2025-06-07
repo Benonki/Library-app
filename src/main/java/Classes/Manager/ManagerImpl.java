@@ -1,5 +1,6 @@
 package Classes.Manager;
 
+import Classes.Employee.EmployeeImpl;
 import Classes.User.User;
 import Server.Packet;
 
@@ -9,9 +10,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ManagerImpl extends User {
+public class ManagerImpl extends EmployeeImpl {
     public ManagerImpl(String username) {
-        super(username, "Manager");
+        super(username);
     }
 
     @Override
@@ -36,7 +37,7 @@ public class ManagerImpl extends User {
             case "GetAllUsers":
                 return handleGetAllUsers();
             default:
-                return new Packet(packet.type, "Unsupported in Manager");
+                return super.handlePacket(packet);
         }
     }
 
