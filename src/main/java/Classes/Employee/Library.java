@@ -78,10 +78,10 @@ public class Library {
 
             int typOkladkiId = data.getTypOkladki();
 
-            String sql = "INSERT INTO Ksiazka (Tytul, Autor_ID, ISBN, Data_Wydania, Wydawnictwo_ID, Typ_Okladki_ID) " +
-                    "VALUES (?, ?, ?, ?, ?, ?)";
+            Integer ksiazkaId = null;
+            String selectSql = " SELECT Ksiazka_ID FROM Ksiazka WHERE Tytul = ? AND Autor_ID = ? AND ISBN = ? AND Data_Wydania = ? AND Wydawnictwo_ID = ? AND Typ_Okladki_ID = ? ";
 
-            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            try (PreparedStatement stmt = conn.prepareStatement(selectSql)) {
                 stmt.setString(1, data.getTytul());
                 stmt.setInt(2, autorId);
                 stmt.setString(3, data.getIsbn());
@@ -95,18 +95,36 @@ public class Library {
                 stmt.setInt(5, wydawnictwoId);
                 stmt.setInt(6, typOkladkiId);
 
-                stmt.executeUpdate();
-            }
-
-            int ksiazkaId;
-            try (PreparedStatement stmt = conn.prepareStatement("SELECT Ksiazka_ID FROM Ksiazka WHERE ISBN = ?")) {
-                stmt.setString(1, data.getIsbn());
                 ResultSet rs = stmt.executeQuery();
                 if (rs.next()) {
                     ksiazkaId = rs.getInt("Ksiazka_ID");
-                } else {
-                    conn.rollback();
-                    return new Packet("AddNewBook", "Nie udało się pobrać Ksiazka_ID po dodaniu");
+                }
+            }
+
+            if (ksiazkaId == null) {
+                String insertSql = " INSERT INTO Ksiazka (Tytul, Autor_ID, ISBN, Data_Wydania, Wydawnictwo_ID, Typ_Okladki_ID) VALUES (?, ?, ?, ?, ?, ?) ";
+                try (PreparedStatement stmt = conn.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS)) {
+                    stmt.setString(1, data.getTytul());
+                    stmt.setInt(2, autorId);
+                    stmt.setString(3, data.getIsbn());
+
+                    if (data.getDataWydania() != null) {
+                        stmt.setDate(4, new java.sql.Date(data.getDataWydania().getTime()));
+                    } else {
+                        stmt.setNull(4, java.sql.Types.DATE);
+                    }
+
+                    stmt.setInt(5, wydawnictwoId);
+                    stmt.setInt(6, typOkladkiId);
+
+                    stmt.executeUpdate();
+                    ResultSet keys = stmt.getGeneratedKeys();
+                    if (keys.next()) {
+                        ksiazkaId = keys.getInt(1);
+                    } else {
+                        conn.rollback();
+                        return new Packet("AddNewBook", "Nie udało się pobrać Ksiazka_ID");
+                    }
                 }
             }
 
@@ -119,9 +137,8 @@ public class Library {
                     stmt.executeUpdate();
                 }
             }
-
             conn.commit();
-            System.out.println("Dodano książkę i egzemplarze pomyślnie.");
+            System.out.println("Ksiazka dodana pomyslnie");
             return new Packet("AddNewBook", "Success");
 
         } catch (Exception e) {
