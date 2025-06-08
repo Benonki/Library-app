@@ -26,6 +26,7 @@
 
         <HBox spacing="10">
             <Button onAction="#handleAddNewBook" text="Dodaj nową książkę" />
+            <Button onAction="#handleEditBook" text="Edytuj"/>
             <Button onAction="#deleteBookCopy" text="Usuń egzemplarz" />
             <Button onAction="#handleBackButton" text="Powrót" />
         </HBox>

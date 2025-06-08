@@ -23,7 +23,7 @@
         <Label layoutX="20" layoutY="220" text="Wydawnictwo:"/>
         <TextField fx:id="publisherField" layoutX="150" layoutY="220"/>
 
-        <Label layoutX="20" layoutY="260" text="Typ okładki (ID):"/>
+        <Label layoutX="20" layoutY="260" text="Typ okładki:"/>
         <TextField fx:id="coverTypeField" layoutX="150" layoutY="260"/>
 
         <Label layoutX="20" layoutY="300" text="Lokalizacja:"/>
@@ -32,7 +32,7 @@
         <Label layoutX="20" layoutY="340" text="Liczba egzemplarzy:"/>
         <Spinner fx:id="quantitySpinner" layoutX="150" layoutY="340" prefWidth="80"/>
 
-        <Button layoutX="150" layoutY="380" text="Dodaj książkę" onAction="#handleAddBook"/>
+        <Button layoutX="150" layoutY="380" text="Zapisz zmiany" onAction="#handleAddBook"/>
         <Button layoutX="250" layoutY="380" text="Wróć" onAction="#handleBack"/>
     </children>
 </AnchorPane>

@@ -86,4 +86,17 @@ public class EmployeeLibraryResourcesViewController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    public void handleEditBook(ActionEvent event) {
+        LibraryItem selectedItem = libraryTable.getSelectionModel().getSelectedItem();
+        if (selectedItem != null) {
+            AddNewBookController.setItemToEdit(selectedItem);
+            try {
+                new Views.SceneController().switchScene(event, "/Views/Employee/AddNewBookView.fxml");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

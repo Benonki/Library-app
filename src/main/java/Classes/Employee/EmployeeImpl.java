@@ -19,6 +19,8 @@ public class EmployeeImpl extends User {
                 return Library.addNewBook((NewBookData) packet.data);
             case "DeleteBookCopy":
                 return Library.deleteBookCopy((int) packet.data);
+            case "EditBook":
+                return Library.editBook((NewBookData) packet.data);
             default:
                 return new Packet(packet.type,"Unsupported in Employee");
         }

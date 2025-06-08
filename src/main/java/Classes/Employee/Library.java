@@ -81,24 +81,18 @@ public class Library {
                     "INSERT INTO Wydawnictwo (Nazwa) VALUES (?)",
                     data.getWydawnictwo());
 
-            int typOkladkiId = data.getTypOkladki();
+            int typOkladkiId = getOrCreateId(conn,
+                    "SELECT Typ_Okladki_ID FROM Typ_Okladki WHERE Nazwa = ?",
+                    "INSERT INTO Typ_Okladki (Nazwa) VALUES (?)",
+                    data.getTypOkladki());
 
             Integer ksiazkaId = null;
-            String selectSql = " SELECT Ksiazka_ID FROM Ksiazka WHERE Tytul = ? AND Autor_ID = ? AND ISBN = ? AND Data_Wydania = ? AND Wydawnictwo_ID = ? AND Typ_Okladki_ID = ? ";
+            String selectSql = " SELECT Ksiazka_ID FROM Ksiazka WHERE Tytul = ? AND Autor_ID = ? AND ISBN = ?";
 
             try (PreparedStatement stmt = conn.prepareStatement(selectSql)) {
                 stmt.setString(1, data.getTytul());
                 stmt.setInt(2, autorId);
                 stmt.setString(3, data.getIsbn());
-
-                if (data.getDataWydania() != null) {
-                    stmt.setDate(4, new java.sql.Date(data.getDataWydania().getTime()));
-                } else {
-                    stmt.setNull(4, java.sql.Types.DATE);
-                }
-
-                stmt.setInt(5, wydawnictwoId);
-                stmt.setInt(6, typOkladkiId);
 
                 ResultSet rs = stmt.executeQuery();
                 if (rs.next()) {
@@ -107,8 +101,8 @@ public class Library {
             }
 
             if (ksiazkaId == null) {
-                String insertSql = " INSERT INTO Ksiazka (Tytul, Autor_ID, ISBN, Data_Wydania, Wydawnictwo_ID, Typ_Okladki_ID) VALUES (?, ?, ?, ?, ?, ?) ";
-                try (PreparedStatement stmt = conn.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS)) {
+                String insertSql = "INSERT INTO Ksiazka (Tytul, Autor_ID, ISBN, Data_Wydania, Wydawnictwo_ID, Typ_Okladki_ID) VALUES (?, ?, ?, ?, ?, ?)";
+                try (PreparedStatement stmt = conn.prepareStatement(insertSql, new String[] { "Ksiazka_ID" })) {
                     stmt.setString(1, data.getTytul());
                     stmt.setInt(2, autorId);
                     stmt.setString(3, data.getIsbn());
@@ -123,9 +117,11 @@ public class Library {
                     stmt.setInt(6, typOkladkiId);
 
                     stmt.executeUpdate();
+
                     ResultSet keys = stmt.getGeneratedKeys();
                     if (keys.next()) {
-                        ksiazkaId = keys.getInt(1);
+                        String key = keys.getString(1);
+                        ksiazkaId = Integer.parseInt(key);
                     } else {
                         conn.rollback();
                         return new Packet("AddNewBook", "Nie udało się pobrać Ksiazka_ID");
@@ -199,6 +195,62 @@ public class Library {
         } catch (SQLException e) {
             e.printStackTrace();
             return new Packet("DeleteBookCopy", "Error");
+        }
+    }
+
+    public static Packet editBook(NewBookData data) {
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            conn.setAutoCommit(false);
+
+            int autorId = getOrCreateId(conn,
+                    "SELECT Autor_ID FROM Autor WHERE Imie = ? AND Nazwisko = ?",
+                    "INSERT INTO Autor (Imie, Nazwisko) VALUES (?, ?)",
+                    data.getImieAutora(), data.getNazwiskoAutora());
+
+            int wydawnictwoId = getOrCreateId(conn,
+                    "SELECT Wydawnictwo_ID FROM Wydawnictwo WHERE Nazwa = ?",
+                    "INSERT INTO Wydawnictwo (Nazwa) VALUES (?)",
+                    data.getWydawnictwo());
+
+            int typOkladkiId = getOrCreateId(conn,
+                    "SELECT Typ_Okladki_ID FROM Typ_Okladki WHERE Nazwa = ?",
+                    "INSERT INTO Typ_Okladki (Nazwa) VALUES (?)",
+                    data.getTypOkladki());
+
+            String updateBook = "UPDATE Ksiazka SET Tytul = ?, Autor_ID = ?, ISBN = ?, Data_Wydania = ?, Wydawnictwo_ID = ?, Typ_Okladki_ID = ? WHERE Ksiazka_ID = (SELECT Ksiazka_ID FROM Biblioteka_Ksiazka WHERE Egzemplarz_ID = ?) ";
+
+            try (PreparedStatement stmt = conn.prepareStatement(updateBook)) {
+                stmt.setString(1, data.getTytul());
+                stmt.setInt(2, autorId);
+                stmt.setString(3, data.getIsbn());
+
+                if (data.getDataWydania() != null) {
+                    stmt.setDate(4, new java.sql.Date(data.getDataWydania().getTime()));
+                } else {
+                    stmt.setNull(4, java.sql.Types.DATE);
+                }
+
+                stmt.setInt(5, wydawnictwoId);
+                stmt.setInt(6, typOkladkiId);
+                stmt.setInt(7, data.getEgzemplarzId());
+
+                stmt.executeUpdate();
+            }
+
+            String updateCopy = "UPDATE Biblioteka_Ksiazka SET Status = ?, Lokalizacja = ? WHERE Egzemplarz_ID = ?";
+            try (PreparedStatement stmt = conn.prepareStatement(updateCopy)) {
+                stmt.setString(1, data.getStatus());
+                stmt.setString(2, data.getLokalizacja());
+                stmt.setInt(3, data.getEgzemplarzId());
+                stmt.executeUpdate();
+            }
+
+            conn.commit();
+            return new Packet("EditBook", "Success");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new Packet("EditBook", "Error");
         }
     }
 }

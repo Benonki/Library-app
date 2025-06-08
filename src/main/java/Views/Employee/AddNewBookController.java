@@ -6,6 +6,7 @@ import Server.Packet;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import Classes.Employee.Util.LibraryItem;
 
 import java.time.ZoneId;
 import java.util.Date;
@@ -22,9 +23,19 @@ public class AddNewBookController {
     @FXML private Spinner<Integer> quantitySpinner;
     @FXML private TextField locationField;
 
+    private boolean isEditMode = false;
+    private int editingEgzemplarzId = -1;
+    private static LibraryItem itemToEdit = null;
+
     @FXML
     public void initialize() {
         quantitySpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 50, 1));
+
+        if (itemToEdit != null) {
+            fillFormFromItem(itemToEdit);
+            isEditMode = true;
+            editingEgzemplarzId = itemToEdit.getEgzemplarzId();
+        }
     }
 
     @FXML
@@ -36,7 +47,7 @@ public class AddNewBookController {
             String isbn = isbnField.getText();
             Date data = Date.from(releaseDatePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
             String wydawnictwo = publisherField.getText();
-            int typOkladki = Integer.parseInt(coverTypeField.getText());
+            String typOkladki = coverTypeField.getText();
             int ilosc = quantitySpinner.getValue();
             String lokalizacja = locationField.getText();
 
@@ -47,7 +58,20 @@ public class AddNewBookController {
             NewBookData book = new NewBookData(tytul, imie, nazwisko, isbn, data, wydawnictwo, typOkladki, ilosc);
             book.setLokalizacja(lokalizacja);
 
-            Packet packet = new Packet("AddNewBook", "Dodaj ksiazke");
+            Packet packet;
+
+            if (isEditMode) {
+                book.setEgzemplarzId(editingEgzemplarzId);
+                if (itemToEdit != null) {
+                    book.setStatus(itemToEdit.getStatus());
+                } else {
+                    System.err.println("Błąd: itemToEdit jest null w trybie edycji!");
+                }
+                packet = new Packet("EditBook", "Edytuj ksiazke");
+            } else {
+                packet = new Packet("AddNewBook", "Dodaj ksiazke");
+            }
+
             packet.data = book;
             Client.getInstance().sendPacket(packet);
 
@@ -59,9 +83,34 @@ public class AddNewBookController {
     @FXML
     public void handleBack(ActionEvent event) {
         try {
+            isEditMode = false;
+            itemToEdit = null;
             new Views.SceneController().switchToLibraryResourcesView(event);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void fillFormFromItem(LibraryItem item) {
+        titleField.setText(item.getTytul());
+
+        String[] autor = item.getAutor().split(" ", 2);
+        authorFirstNameField.setText(autor[0]);
+        authorLastNameField.setText(autor.length > 1 ? autor[1] : "");
+
+        locationField.setText(item.getLokalizacja());
+        publisherField.setText(item.getWydawnictwo());
+        coverTypeField.setText(item.getTypOkladki());
+        isbnField.setText(item.getIsbn());
+
+        if (item.getDataWydania() != null) {
+            releaseDatePicker.setValue(((java.sql.Date) item.getDataWydania()).toLocalDate());
+        }
+        isEditMode = true;
+        editingEgzemplarzId = item.getEgzemplarzId();
+    }
+
+    public static void setItemToEdit(LibraryItem item) {
+        itemToEdit = item;
     }
 }

@@ -13,6 +13,7 @@ module com.example.library {
     exports Views.Reader;
     exports Views.Manager;
     exports Views.Employee;
+    exports Classes.Employee.Util;
     opens Views.Login to javafx.fxml;
     opens Views.Coordinator to javafx.fxml;
     opens Views.Reader to javafx.fxml;
