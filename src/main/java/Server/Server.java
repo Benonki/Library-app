@@ -27,7 +27,6 @@ public class Server {
         }
     }
 
-
     public void closeServerSocket(){
         try{
             if(serverSocket !=null){

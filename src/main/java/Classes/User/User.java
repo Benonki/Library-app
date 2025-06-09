@@ -28,14 +28,12 @@ public abstract class User implements Serializable {
 
     public static String login(String username, String password){
         try (Connection conn = DatabaseConnection.getConnection()) {
-            String sqlQuery = "SELECT u.email,r.nazwa FROM uzytkownik u JOIN Rola r ON u.rola_id = r.rola_id WHERE email = ? AND haslo = ?";
 
             try (PreparedStatement statement = conn.prepareStatement(sqlQuery)) {
                 statement.setString(1, username);
                 statement.setString(2, password);
                 try (ResultSet rs = statement.executeQuery()) {
                     if (rs.next()) {
-                        String role = rs.getString("Nazwa");
                         System.out.println("Login Successful for user: " + username + " with role: " + role);
                         return role;
                     } else {

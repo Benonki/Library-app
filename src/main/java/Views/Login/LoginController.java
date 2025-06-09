@@ -30,10 +30,8 @@ public class LoginController {
     @FXML
     public void initialize(){
         Client client = Client.getInstance();
-        client.setCallBack((success, role) ->{
             if(success){
                 String username = loginTxtField.getText();
-                UserSession.setUser(username, role);
                 try{
                     switch(role) {
                         case "Czytelnik":
@@ -68,5 +66,4 @@ public class LoginController {
             Client client = Client.getInstance();
             client.sendPacket(new Packet("Login",username + ";" + password));
     }
-
 }
