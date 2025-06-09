@@ -5,6 +5,7 @@ module com.example.library {
     requires java.sql;
 
 
+    opens Classes.Reader to javafx.base;
 
     opens Views to javafx.fxml;
     exports Views;
