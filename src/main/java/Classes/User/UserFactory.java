@@ -7,6 +7,7 @@ import Classes.Reader.ReaderImpl;
 
 public class UserFactory {
     public static User createUser(String username, String role){
+        return switch (role){
             case "Koordynator" -> new CoordinatorImpl(username);
             case "Bibliotekarz" -> new EmployeeImpl(username);
              case "Kierownik" -> new ManagerImpl(username);

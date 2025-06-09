@@ -31,6 +31,7 @@ public class ClientHandler implements Runnable {
             e.printStackTrace();
             closeEverything(socket,outputStream,inputStream);
         }
+
     }
 
     @Override
@@ -53,6 +54,7 @@ public class ClientHandler implements Runnable {
         }
     }
 
+    private void checkPacketType(Packet packet){ // Handle request sent by client
         if(packet.type.equals("Login")){
             loginHandler(packet);
         }else if(user != null){
@@ -73,6 +75,7 @@ public class ClientHandler implements Runnable {
             if(!role.isEmpty()){
                 this.user = UserFactory.createUser(username, role);
                 System.out.println("Login Successful for user: " + username + " with role: " + role);
+                sendPacket(new Packet("Login", "Login Success", role));
             }else{
                 System.out.println("Invalid credentials for user: " + username);
                 sendPacket(new Packet("Login", "Login Failed"));
@@ -97,8 +100,18 @@ public class ClientHandler implements Runnable {
     public void closeEverything(Socket socket, ObjectOutputStream outputStream, ObjectInputStream inputStream){
         removeClientHandler();
         try{
+            if(inputStream != null){
+                inputStream.close();
+            }
+            if(outputStream != null){
+                outputStream.close();
+            }
+            if(socket != null){
+                socket.close();
+            }
         }catch (IOException e){
             e.printStackTrace();
         }
     }
+
 }

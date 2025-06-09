@@ -4,6 +4,7 @@ public class UserSession {
     private static String username;
     private static String role;
 
+    public static void setUser(String username, String role) {
         UserSession.username = username;
         UserSession.role = role;
     }
