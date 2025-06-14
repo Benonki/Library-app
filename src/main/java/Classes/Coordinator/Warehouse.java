@@ -14,10 +14,6 @@ public class Warehouse {
 
     public Warehouse(){}
 
-    public void createReport(){
-
-    }
-
     public static Packet getInventoryStatus(){
         List<InventoryItem> inventory = new ArrayList<>();
 
