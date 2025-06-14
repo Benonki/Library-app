@@ -58,4 +58,13 @@ public class EmployeeViewController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    public void showReaderService(ActionEvent event) {
+        try {
+           sceneController.switchToReaderServiceView(event);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -6,6 +6,7 @@ import Classes.Coordinator.Util.InventoryItem;
 import Classes.Manager.Util.Event;
 import Classes.Manager.Util.Participant;
 import Classes.Employee.Util.LibraryItem;
+import Classes.Employee.Util.Reader;
 import javafx.application.Platform;
 
 import java.io.IOException;
@@ -37,6 +38,7 @@ public class Client {
     private java.util.function.Consumer<java.util.List<LibraryItem>> libraryCallback;
     private Consumer<String> addBookCallback;
     private Consumer<String> deleteBookCallback;
+    private Consumer<List<Reader>> readersCallback;
 
 
     private Client(){
@@ -195,6 +197,12 @@ public class Client {
                     Platform.runLater(() -> deleteBookCallback.accept(receivedPacket.message));
                 }
                 break;
+            case "getReadersList":
+                System.out.println("READERS LIST RETURNED");
+                if (readersCallback != null && receivedPacket.readersList != null) {
+                    Platform.runLater(() -> readersCallback.accept(receivedPacket.readersList));
+                }
+                break;
             default:
                 System.out.println("This type is not supported ");
                 System.out.println(receivedPacket.type);
@@ -223,6 +231,10 @@ public class Client {
 
     public void setLibraryCallback(java.util.function.Consumer<java.util.List<LibraryItem>> callback) {
         this.libraryCallback = callback;
+    }
+
+    public void setReadersCallback(Consumer<List<Reader>> callback) {
+        this.readersCallback = callback;
     }
 
     public void setEmployeesCallback(Consumer<List<Employee>> callback) {

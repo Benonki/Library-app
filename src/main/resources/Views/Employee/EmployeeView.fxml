@@ -27,6 +27,7 @@
          <VBox spacing="15.0" alignment="CENTER">
             <Label fx:id="testLabel" text="Rola uzytkownika: Bibliotekarz" />
             <Button fx:id="libraryResourcesButton" text="Zasoby biblioteki" onAction="#showLibraryResources" />
+            <Button fx:id="readerServiceButton" text="Zarządzaj czytelnikami" onAction="#showReaderService" />
             <Button fx:id="backButton" text="Wyloguj się" onAction="#switchToLoginView" />
          </VBox>
       </StackPane>
