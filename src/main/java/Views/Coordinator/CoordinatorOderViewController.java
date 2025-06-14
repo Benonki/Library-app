@@ -23,10 +23,7 @@ import java.util.Optional;
 public class CoordinatorOderViewController {
     private SceneController sceneController = new SceneController();
 
-    @FXML
-    private Label selectedLabel;
-    @FXML
-    private Label deliveryLabel;
+
     @FXML
     private Button backBtn;
     @FXML
@@ -176,7 +173,6 @@ public class CoordinatorOderViewController {
         if(!selectedDelivery.isEmpty()){
             if(selectedDeliveryOption.getName().isEmpty() || !selectedDeliveryOption.getName().equals(selectedDelivery.get(0).getName())){
                 selectedDeliveryOption = selectedDelivery.get(0);
-                deliveryLabel.setText(selectedDeliveryOption.getName());
             }
 
         }
@@ -242,8 +238,6 @@ public class CoordinatorOderViewController {
             booksToOrder.clear();
             bookOrderTableView.getItems().clear();
             selectedDeliveryOption = new Delivery("");
-            deliveryLabel.setText("");
-
         }
     }
 
