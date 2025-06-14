@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Views.Reader.ReaderViewController"
+            prefHeight="600.0" prefWidth="800.0">
+
+   <children>
+
+      <!-- Powitanie -->
+      <Label fx:id="welcomeLabel"
+             layoutX="30.0" layoutY="20.0"
+             style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+
+      <!-- Opis tabeli dostępnych książek -->
+      <Label layoutX="30.0" layoutY="50.0"
+             text="Dostępne książki:"
+             style="-fx-font-weight: bold;" />
+
+      <!-- Tabela dostępnych książek -->
+      <TableView fx:id="bookTable"
+                 layoutX="30.0" layoutY="70.0"
+                 prefWidth="730.0" prefHeight="180.0">
+         <columns>
+            <TableColumn fx:id="idColumn" text="ID" prefWidth="50.0"/>
+            <TableColumn fx:id="titleColumn" text="Tytuł" prefWidth="350.0"/>
+            <TableColumn fx:id="authorColumn" text="Autor" prefWidth="300.0"/>
+         </columns>
+      </TableView>
+
+      <!-- Opis tabeli wypożyczonych książek -->
+      <Label layoutX="30.0" layoutY="260.0"
+             text="Twoje wypożyczone książki:"
+             style="-fx-font-weight: bold;" />
+
+      <!-- Tabela wypożyczonych książek -->
+      <TableView fx:id="borrowedTable"
+                 layoutX="30.0" layoutY="280.0"
+                 prefWidth="730.0" prefHeight="180.0">
+         <columns>
+            <TableColumn fx:id="borrowedIdColumn" text="ID" prefWidth="50.0"/>
+            <TableColumn fx:id="borrowedTitleColumn" text="Tytuł" prefWidth="350.0"/>
+            <TableColumn fx:id="borrowedAuthorColumn" text="Autor" prefWidth="300.0"/>
+         </columns>
+      </TableView>
+
+      <!-- Przyciski na dole -->
+      <Button fx:id="borrowButton"
+              layoutX="60.0" layoutY="500.0"
+              prefWidth="180.0"
+              text="Wypożycz książkę"
+              onAction="#handleBorrowClick" />
+
+      <Button fx:id="reserveButton"
+              layoutX="260.0" layoutY="500.0"
+              prefWidth="180.0"
+              text="Zarezerwuj książkę"
+              onAction="#handleReserveClick" />
+
+      <Button fx:id="reservedBooksButton"
+              layoutX="460.0" layoutY="500.0"
+              prefWidth="180.0"
+              text="Moje rezerwacje"
+              onAction="#openReservedBooksWindow" />
+
+      <Button fx:id="logoutButton"
+              layoutX="660.0" layoutY="500.0"
+              prefWidth="100.0"
+              text="Wyloguj"
+              onAction="#switchToLoginView" />
+
+   </children>
+</AnchorPane>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Views.Manager.ManagerViewController">
+   <children>
+      <Label fx:id="welcomeLabel" layoutX="20.0" layoutY="20.0" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+
+      <ImageView fitHeight="75.0" fitWidth="125.0" layoutX="470.0" layoutY="0.0" preserveRatio="true">
+         <image>
+            <Image url="@../../images/Logo.png" />
+         </image>
+      </ImageView>
+
+      <Line startX="0.0" startY="80.0" endX="600.0" endY="80.0" stroke="#000" strokeWidth="2.0" />
+
+      <TableView fx:id="eventTable" layoutX="20.0" layoutY="90.0" prefHeight="100.0" prefWidth="560.0">
+         <columns>
+            <TableColumn fx:id="idColumn" prefWidth="40.0" text="ID" />
+            <TableColumn fx:id="themeColumn" prefWidth="210.0" text="Temat" />
+            <TableColumn fx:id="dateColumn" prefWidth="100.0" text="Data" />
+            <TableColumn fx:id="timeColumn" prefWidth="60.0" text="Godzina" />
+            <TableColumn fx:id="placeColumn" prefWidth="150.0" text="Miejsce" />
+         </columns>
+      </TableView>
+
+      <Button fx:id="manageEmployeesButton" layoutX="20.0" layoutY="210.0" mnemonicParsing="false" onAction="#switchToManageEmployees" text="Zarządzanie kontami pracowników" />
+      <Button fx:id="switchToEmployeeButton" layoutX="20.0" layoutY="250.0" mnemonicParsing="false" onAction="#switchToEmployeeView" text="Tryb pracownika" />
+      <Button fx:id="viewDetailsButton" layoutX="410.0" layoutY="210.0" mnemonicParsing="false" onAction="#viewEventDetails" text="Zobacz szczegóły wydarzenia" />
+      <Button fx:id="addEventButton" layoutX="410.0" layoutY="250.0" mnemonicParsing="false" onAction="#switchToAddEventView" text="Dodaj nowe wydarzenie" />
+      <Button fx:id="backButton" layoutX="500.0" layoutY="360.0" mnemonicParsing="false" onAction="#switchToLoginView" text="Wyloguj się" />
+      <Label fx:id="testLabel" layoutX="20.0" layoutY="50.0" text="Manager View" />
+   </children>
+</AnchorPane>

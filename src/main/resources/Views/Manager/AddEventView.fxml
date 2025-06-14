@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefWidth="290.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Views.Manager.AddEventController">
+    <VBox spacing="10" alignment="CENTER" AnchorPane.topAnchor="20" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
+        <Label text="Dodaj nowe wydarzenie" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+
+        <GridPane hgap="10" vgap="10">
+            <Label text="Temat:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <TextField fx:id="themeField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+            <Label text="Data:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <DatePicker fx:id="datePicker" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+            <Label text="Godzina:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <TextField fx:id="timeField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+            <Label text="Miejsce:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+            <TextField fx:id="placeField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+        </GridPane>
+
+        <HBox spacing="10" alignment="CENTER">
+            <Button text="Dalej" onAction="#handleNextButton"/>
+            <Button text="Powrót" onAction="#handleBackButton"/>
+        </HBox>
+    </VBox>
+</AnchorPane>

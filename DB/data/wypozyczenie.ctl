@@ -4,7 +4,6 @@ INTO TABLE WYPOZYCZENIE
 FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"'
 TRAILING NULLCOLS
 (
-Wypozyczenie_ID,
 Data_Wypozyczenia DATE "YYYY-MM-DD",
 Planowana_Data_Zwrotu DATE "YYYY-MM-DD",
 Rzeczywista_Data_Zwrotu DATE "YYYY-MM-DD",

@@ -1,5 +1,6 @@
 package Views;
 
+import Views.Manager.AddParticipantsController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -29,15 +30,23 @@ public class SceneController {
     }
 
     public void switchToReaderView(ActionEvent event) throws IOException {
-        switchScene(event, "/Views/ReaderView.fxml");
+        switchScene(event, "/Views/Reader/ReaderView.fxml");
     }
 
     public void switchToEmployeeView(ActionEvent event) throws IOException {
-        switchScene(event, "/Views/EmployeeView.fxml");
+        switchScene(event, "/Views/Employee/EmployeeView.fxml");
     }
 
     public void switchToManagerView(ActionEvent event) throws IOException {
-        switchScene(event, "/Views/ManagerView.fxml");
+        switchScene(event, "/Views/Manager/ManagerView.fxml");
+    }
+
+    public void switchToManageEmployees(ActionEvent event) throws IOException {
+        switchScene(event, "/Views/Manager/EmployeeManagementView.fxml");
+    }
+
+    public void switchToAddEditEmployees(ActionEvent event) throws IOException {
+        switchScene(event, "/Views/Manager/AddEditEmployeeView.fxml");
     }
 
     public void switchToCoordinatorView(ActionEvent event) throws IOException {
@@ -50,5 +59,25 @@ public class SceneController {
 
     public void switchToCoordinatorOrdersInfo(ActionEvent event) throws IOException {
         switchScene(event, "/Views/Coordinator/CoordinatorOrdersInfoView.fxml");
+    }
+
+    public void switchToAddEventView(ActionEvent event) throws IOException {
+        switchScene(event, "/Views/Manager/AddEventView.fxml");
+    }
+
+    public static void switchToAddParticipantsView(ActionEvent event, int eventId) throws IOException {
+        FXMLLoader loader = new FXMLLoader(SceneController.class.getResource("/Views/Manager/AddParticipantsView.fxml"));
+        Parent root = loader.load();
+
+        AddParticipantsController controller = loader.getController();
+        controller.initializeWithEventId(eventId);
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
+    public void switchToLibraryResourcesView(ActionEvent event) throws IOException {
+        switchScene(event, "/Views/Employee/EmployeeLibraryResourcesView.fxml");
     }
 }

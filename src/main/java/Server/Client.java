@@ -3,13 +3,21 @@ package Server;
 import Classes.Coordinator.Delivery;
 import Classes.Coordinator.Order;
 import Classes.Coordinator.Util.InventoryItem;
+import Classes.Manager.Util.Event;
+import Classes.Manager.Util.Participant;
+import Classes.Employee.Util.LibraryItem;
 import javafx.application.Platform;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.function.BiConsumer;
+
+import Classes.Manager.Util.Employee;
+import java.util.List;
+import java.util.function.Consumer;
 
 public class Client {
 
@@ -19,9 +27,16 @@ public class Client {
     private ObjectOutputStream outputStream;
     private ObjectInputStream inputStream;
     private BiConsumer<Boolean, String> callBack;
+    private Consumer<List<Employee>> employeesCallback;
+    private Consumer<List<Event>> eventsCallback;
+    private Consumer<List<Participant>> participantsCallback;
+    private Packet lastPacket;
     private java.util.function.Consumer<java.util.List<InventoryItem>> inventoryCallback;
     private java.util.function.Consumer<java.util.List<Delivery>> deliveryCallback;
     private java.util.function.Consumer<java.util.List<Order>> ordersCallback;
+    private java.util.function.Consumer<java.util.List<LibraryItem>> libraryCallback;
+    private Consumer<String> addBookCallback;
+    private Consumer<String> deleteBookCallback;
 
 
     private Client(){
@@ -74,6 +89,7 @@ public class Client {
     }
 
     private void handlePacket(Packet receivedPacket) { //Handle answer from server
+        this.lastPacket = receivedPacket;
         switch (receivedPacket.type) {
             case "Login":
                 boolean success = receivedPacket.message.equals("Login Success");
@@ -108,10 +124,89 @@ public class Client {
             case "UpdateOrderStatus":
                 System.out.println("ORDER STATUS CHANGED " + receivedPacket.message);
                 break;
+            case "GetEmployees":
+                if (employeesCallback != null && receivedPacket.employees != null) {
+                    Platform.runLater(() -> employeesCallback.accept(receivedPacket.employees));
+                }
+                break;
+            case "CreateEmployee":
+                System.out.println("Employee creation result: " + receivedPacket.message);
+                if (callBack != null) {
+                    Platform.runLater(() -> callBack.accept(
+                            receivedPacket.message.startsWith("Employee created"),
+                            receivedPacket.message
+                    ));
+                }
+                break;
+            case "GetEvents":
+                if (eventsCallback != null && receivedPacket.events != null) {
+                    Platform.runLater(() -> eventsCallback.accept(receivedPacket.events));
+                }
+                break;
+            case "GetEventParticipants":
+                if (participantsCallback != null) {
+                    Platform.runLater(() -> {
+                        if (receivedPacket.participants != null) {
+                            participantsCallback.accept(receivedPacket.participants);
+                        } else {
+                            participantsCallback.accept(new ArrayList<>());
+                        }
+                    });
+                }
+                break;
+            case "CreateEvent":
+                System.out.println("CreateEvent result - Success: " +
+                        (receivedPacket.message != null && !receivedPacket.message.startsWith("Failed")) +
+                        ", Message: " + receivedPacket.message);
+                if (callBack != null) {
+                    boolean successEvent = receivedPacket.message != null && !receivedPacket.message.startsWith("Failed");
+                    Platform.runLater(() -> callBack.accept(successEvent, receivedPacket.message));
+                }
+                break;
+            case "GetAllUsers":
+                System.out.println("Users data received: " + (receivedPacket.participants != null ? receivedPacket.participants.size() : "null"));
+                if (participantsCallback != null && receivedPacket.participants != null) {
+                    Platform.runLater(() -> participantsCallback.accept(receivedPacket.participants));
+                }
+                break;
+            case "AddParticipants":
+                System.out.println("AddParticipants result: " + receivedPacket.message);
+                boolean successPart = !receivedPacket.message.startsWith("Error");
+                if (callBack != null) {
+                    Platform.runLater(() -> callBack.accept(successPart, receivedPacket.message));
+                }
+                break;
+            case "GetLibraryResources":
+                System.out.println("LIBRARY RESOURCES RETURNED");
+                if (libraryCallback != null) {
+                    libraryCallback.accept(receivedPacket.libraryItems);
+                }
+                break;
+            case "AddNewBook":
+                System.out.println("AddNewBook result: " + receivedPacket.message);
+                if (addBookCallback != null) {
+                    Platform.runLater(() -> addBookCallback.accept(receivedPacket.message));
+                }
+                break;
+
+            case "DeleteBookCopy":
+                System.out.println("DeleteBookCopy result: " + receivedPacket.message);
+                if (deleteBookCallback != null) {
+                    Platform.runLater(() -> deleteBookCallback.accept(receivedPacket.message));
+                }
+                break;
             default:
                 System.out.println("This type is not supported ");
                 System.out.println(receivedPacket.type);
         }
+    }
+
+    public void setAddBookCallback(Consumer<String> callback) {
+        this.addBookCallback = callback;
+    }
+
+    public void setDeleteBookCallback(Consumer<String> callback) {
+        this.deleteBookCallback = callback;
     }
 
     public void setInventoryCallback(java.util.function.Consumer<java.util.List<InventoryItem>> callback) {
@@ -126,6 +221,25 @@ public class Client {
         this.ordersCallback = callback;
     }
 
+    public void setLibraryCallback(java.util.function.Consumer<java.util.List<LibraryItem>> callback) {
+        this.libraryCallback = callback;
+    }
+
+    public void setEmployeesCallback(Consumer<List<Employee>> callback) {
+        this.employeesCallback = callback;
+    }
+
+    public void setEventsCallback(Consumer<List<Event>> callback) {
+        this.eventsCallback = callback;
+    }
+
+    public void setParticipantsCallback(Consumer<List<Participant>> callback) {
+        this.participantsCallback = callback;
+    }
+
+    public Packet getLastPacket() {
+        return lastPacket;
+    }
 
     public void closeEverything(Socket socket,ObjectOutputStream outputStream,ObjectInputStream inputStream){
         try{

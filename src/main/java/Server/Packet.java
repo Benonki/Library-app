@@ -4,6 +4,11 @@ import Classes.Coordinator.Delivery;
 import Classes.Coordinator.Order;
 import Classes.Coordinator.Util.InventoryItem;
 
+import Classes.Employee.Util.LibraryItem;
+import Classes.Manager.Util.Employee;
+import Classes.Manager.Util.Event;
+import Classes.Manager.Util.Participant;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -16,6 +21,11 @@ public class Packet implements Serializable {
     public Order orderInfo;
     public List<Order> ordersInfo;
     public List<Delivery> deliveryInfo;
+    public Object data;
+    public List<Employee> employees;
+    public List<Event> events;
+    public List<Participant> participants;
+    public List<LibraryItem> libraryItems;
 
     public Packet(String type,String message){
         this.type = type;
@@ -52,7 +62,27 @@ public class Packet implements Serializable {
         return p;
     }
 
+    public static Packet withEmployees(String type, String message, List<Employee> employees) {
+        Packet p = new Packet(type, message);
+        p.employees = employees;
+        return p;
+    }
 
+    public static Packet withEvents(String type, String message, List<Event> events) {
+        Packet p = new Packet(type, message);
+        p.events = events;
+        return p;
+    }
 
+    public static Packet withParticipants(String type, List<Participant> participants) {
+        Packet p = new Packet(type, "Participants data");
+        p.participants = participants;
+        return p;
+    }
 
+    public static Packet withLibraryItems(String type, String message, List<LibraryItem> items) {
+        Packet p = new Packet(type, message);
+        p.libraryItems = items;
+        return p;
+    }
 }

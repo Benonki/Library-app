@@ -37,3 +37,7 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### DB logs and bad ###
+DB/data/*.log
+DB/data/*.bad
