@@ -14,6 +14,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.StringConverter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Optional;
 
 public class CoordinatorOrdersInfoViewController {
 
@@ -133,13 +134,37 @@ public class CoordinatorOrdersInfoViewController {
 
     @FXML
     protected void deleteOrder(){
-        if(selectedOrderToDelete != null){
+        if(selectedOrderToDelete == null){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Nie wybrano zamówienia");
+            alert.setContentText("Nie wybrano zamówienia lub wybrano zrealizowane zamówienie");
+            alert.showAndWait();
+            return;
+        }
+
+        if(selectedOrderToDelete.getStatus() != null && selectedOrderToDelete.getStatus().equals("Zrealizowane")){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Nie można anulować");
+                alert.setContentText("Nie można anulować zrealizowanego zamówienia");
+                alert.showAndWait();
+                return;
+        }
+
+        Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmAlert.setTitle("Potwierdzenie anulowania");
+        confirmAlert.setContentText("Czy na pewno chcesz anulować zamówienie?");
+
+        Optional<ButtonType> result = confirmAlert.showAndWait();
+        if(result.isPresent() && result.get() == ButtonType.OK){
             Client client = Client.getInstance();
             Packet packet = Packet.withOrderInfo("DeleteOrder","TEST",selectedOrderToDelete);
             client.sendPacket(packet);
             ordersTableView.getItems().remove(selectedOrderToDelete);
-        }else {
-            System.out.println("Nie wybrano zamówienia");
+
+            Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+            successAlert.setTitle("Anulowano zamówienie");
+            successAlert.setContentText("Pomyślnie anulowano zamówienie");
+            successAlert.showAndWait();
         }
     }
 
