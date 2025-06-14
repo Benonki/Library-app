@@ -13,13 +13,12 @@ public class NewBookData implements Serializable {
     private String nazwiskoAutora;
     private String wydawnictwo;
     private String typOkladki;
-    private int iloscEgzemplarzy;
     private String lokalizacja;
     private int egzemplarzId;
     private String status;
 
     public NewBookData(String tytul, String imieAutora, String nazwiskoAutora, String isbn,
-                       Date dataWydania, String wydawnictwo, String typOkladki, int iloscEgzemplarzy) {
+                       Date dataWydania, String wydawnictwo, String typOkladki) {
         this.tytul = tytul;
         this.imieAutora = imieAutora;
         this.nazwiskoAutora = nazwiskoAutora;
@@ -27,7 +26,6 @@ public class NewBookData implements Serializable {
         this.dataWydania = dataWydania;
         this.wydawnictwo = wydawnictwo;
         this.typOkladki = typOkladki;
-        this.iloscEgzemplarzy = iloscEgzemplarzy;
     }
 
     public String getTytul() {
@@ -55,10 +53,6 @@ public class NewBookData implements Serializable {
     }
 
     public String getTypOkladki() { return typOkladki; }
-
-    public int getIloscEgzemplarzy() {
-        return iloscEgzemplarzy;
-    }
 
     public String getLokalizacja() {
         return lokalizacja;

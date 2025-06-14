@@ -13,7 +13,7 @@ public class ReaderService {
         List<Reader> readersList = new ArrayList<>();
 
         try (Connection conn = DatabaseConnection.getConnection()) {
-            String sqlQuery = "SELECT u.Uzytkownik_ID, u.Imie, u.Nazwisko, u.Email, u.Telefon FROM Uzytkownik u WHERE u.Rola_ID = 2";
+            String sqlQuery = "SELECT u.Uzytkownik_ID, u.Imie, u.Nazwisko, u.Email, u.Telefon, u.Haslo FROM Uzytkownik u WHERE u.Rola_ID = 2";
 
             try (PreparedStatement statement = conn.prepareStatement(sqlQuery);
                  ResultSet rs = statement.executeQuery()) {
@@ -23,8 +23,9 @@ public class ReaderService {
                     String nazwisko = rs.getString("Nazwisko");
                     String email = rs.getString("Email");
                     String telefon = rs.getString("Telefon");
+                    String  haslo = rs.getString("Haslo");
 
-                    readersList.add(new Reader(uzytkownikID, imie, nazwisko, email, telefon));
+                    readersList.add(new Reader(uzytkownikID, imie, nazwisko, email, telefon, haslo));
                 }
             }
         } catch (SQLException e) {
@@ -33,5 +34,34 @@ public class ReaderService {
         }
 
         return Packet.withReadersList("getReadersList", "Success", readersList);
+    }
+
+    public static Packet addNewReader(Reader reader) {
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            conn.setAutoCommit(false);
+
+            System.out.println("Dodawanie nowego czytelnika: " + reader.getEmail());
+
+            String insertSql = " INSERT INTO Uzytkownik (Imie, Nazwisko, Email, Telefon, Haslo, Rola_ID) VALUES (?, ?, ?, ?, ?, ?) ";
+
+            try (PreparedStatement stmt = conn.prepareStatement(insertSql)) {
+                stmt.setString(1, reader.getFirstName());
+                stmt.setString(2, reader.getLastName());
+                stmt.setString(3, reader.getEmail());
+                stmt.setString(4, reader.getPhone());
+                stmt.setString(5, reader.getPassword());
+                stmt.setInt(6, 2);
+
+                stmt.executeUpdate();
+            }
+
+            conn.commit();
+            System.out.println("Czytelnik dodany pomyślnie");
+            return new Packet("AddNewReader", "Success");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new Packet("AddNewReader", "Error");
+        }
     }
 }

@@ -17,6 +17,7 @@
         </TableView>
 
         <HBox spacing="10">
+            <Button onAction="#handleAddNewReader" text="Zarejestruj czytelnika" />
             <Button onAction="#handleBackButton" text="Powrót" />
         </HBox>
     </VBox>

@@ -39,6 +39,7 @@ public class Client {
     private Consumer<String> addBookCallback;
     private Consumer<String> deleteBookCallback;
     private Consumer<List<Reader>> readersCallback;
+    private Consumer<String> addNewReaderCallback;
 
 
     private Client(){
@@ -203,9 +204,16 @@ public class Client {
                     Platform.runLater(() -> readersCallback.accept(receivedPacket.readersList));
                 }
                 break;
+            case "AddNewReader":
+                System.out.println("AddNewReader result: " + receivedPacket.message);
+                if(addNewReaderCallback != null){
+                    Platform.runLater(() -> addNewReaderCallback.accept(receivedPacket.message));
+                }
+            break;
             default:
                 System.out.println("This type is not supported ");
                 System.out.println(receivedPacket.type);
+            break;
         }
     }
 
@@ -235,6 +243,10 @@ public class Client {
 
     public void setReadersCallback(Consumer<List<Reader>> callback) {
         this.readersCallback = callback;
+    }
+
+    public void setAddNewReaderCallback(Consumer<String> callback) {
+        this.addNewReaderCallback = callback;
     }
 
     public void setEmployeesCallback(Consumer<List<Employee>> callback) {

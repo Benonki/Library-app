@@ -3,6 +3,7 @@ package Classes.Employee;
 import Classes.User.User;
 import Server.Packet;
 import Classes.Employee.Util.NewBookData;
+import Classes.Employee.Util.Reader;
 
 public class EmployeeImpl extends User {
 
@@ -23,6 +24,8 @@ public class EmployeeImpl extends User {
                 return Library.editBook((NewBookData) packet.data);
             case "getReadersList":
                 return ReaderService.getReadersList();
+            case "AddNewReader":
+                return ReaderService.addNewReader((Reader) packet.data);
             default:
                 return new Packet(packet.type,"Unsupported in Employee");
         }

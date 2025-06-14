@@ -55,4 +55,13 @@ public class EmployeeReaderServiceViewController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    public void handleAddNewReader(ActionEvent event) {
+        try {
+            new Views.SceneController().switchScene(event, "/Views/Employee/AddNewReaderView.fxml");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
