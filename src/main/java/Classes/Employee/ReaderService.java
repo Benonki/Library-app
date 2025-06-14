@@ -64,4 +64,27 @@ public class ReaderService {
             return new Packet("AddNewReader", "Error");
         }
     }
+
+    public static Packet deleteReader(int readerId) {
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            conn.setAutoCommit(false);
+            String sql = "DELETE FROM Uzytkownik WHERE Uzytkownik_ID = ? AND Rola_ID = 2";
+
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setInt(1, readerId);
+
+                int rowsAffected = stmt.executeUpdate();
+
+                if (rowsAffected > 0) {
+                    conn.commit();
+                    return new Packet("DeleteReader", "Success");
+                } else {
+                    return new Packet("DeleteReader", "Nie znaleziono czytelnika o podanym ID");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new Packet("DeleteReader", "Error");
+        }
+    }
 }

@@ -64,4 +64,18 @@ public class EmployeeReaderServiceViewController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    public void handleDeleteReader(ActionEvent event) {
+        Reader selectedReader = readersTable.getSelectionModel().getSelectedItem();
+        if (selectedReader != null) {
+            int readerId = selectedReader.getId();
+            Packet packet = new Packet("DeleteReader", "Usuń czytelnika");
+            packet.data = readerId;
+            Client.getInstance().sendPacket(packet);
+            refreshReadersList();
+        } else {
+            System.out.println("Brak wyboru");
+        }
+    }
 }
