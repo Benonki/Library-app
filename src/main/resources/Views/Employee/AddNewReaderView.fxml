@@ -5,31 +5,44 @@
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="Views.Employee.AddNewReaderController"
-            prefWidth="400" prefHeight="320">
+            prefWidth="420" prefHeight="500">
     <children>
 
         <Label layoutX="30" layoutY="20" text="Imię:"/>
-        <TextField fx:id="firstNameField" layoutX="130" layoutY="20" prefWidth="220"/>
+        <TextField fx:id="firstNameField" layoutX="160" layoutY="20" prefWidth="220"/>
 
         <Label layoutX="30" layoutY="60" text="Nazwisko:"/>
-        <TextField fx:id="lastNameField" layoutX="130" layoutY="60" prefWidth="220"/>
+        <TextField fx:id="lastNameField" layoutX="160" layoutY="60" prefWidth="220"/>
 
         <Label layoutX="30" layoutY="100" text="Email:"/>
-        <TextField fx:id="emailField" layoutX="130" layoutY="100" prefWidth="220"/>
+        <TextField fx:id="emailField" layoutX="160" layoutY="100" prefWidth="220"/>
 
         <Label layoutX="30" layoutY="140" text="Telefon:"/>
-        <TextField fx:id="phoneField" layoutX="130" layoutY="140" prefWidth="220"/>
+        <TextField fx:id="phoneField" layoutX="160" layoutY="140" prefWidth="220"/>
 
         <Label layoutX="30" layoutY="180" text="Hasło:"/>
-        <PasswordField fx:id="passwordField" layoutX="130" layoutY="180" prefWidth="220"/>
+        <PasswordField fx:id="passwordField" layoutX="160" layoutY="180" prefWidth="220"/>
+
+        <Label layoutX="30" layoutY="220" text="Numer karty:"/>
+        <TextField fx:id="cardNumberField" layoutX="160" layoutY="220" prefWidth="220"/>
+
+        <Label layoutX="30" layoutY="260" text="Data wydania:"/>
+        <DatePicker fx:id="issueDatePicker" layoutX="160" layoutY="260" prefWidth="220"/>
+
+        <Label layoutX="30" layoutY="300" text="Data ważności:"/>
+        <DatePicker fx:id="expiryDatePicker" layoutX="160" layoutY="300" prefWidth="220"/>
+
+        <Label layoutX="30" layoutY="340" text="Status karty:"/>
+        <TextField fx:id="cardStatusField" layoutX="160" layoutY="340" prefWidth="220"/>
 
         <Button text="Zapisz zmiany"
-                layoutX="130" layoutY="230"
-                prefWidth="140"
+                layoutX="160" layoutY="400"
+                prefWidth="100"
                 onAction="#handleAddReader"/>
 
         <Button text="Anuluj"
-                layoutX="280" layoutY="230"
+                layoutX="280" layoutY="400"
+                prefWidth="100"
                 onAction="#handleCancel"/>
 
     </children>

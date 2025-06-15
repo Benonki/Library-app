@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.event.ActionEvent;
+import java.util.Date;
 
 public class EmployeeReaderServiceViewController {
 
@@ -20,6 +21,10 @@ public class EmployeeReaderServiceViewController {
     @FXML private TableColumn<Reader, String> lastNameColumn;
     @FXML private TableColumn<Reader, String> emailColumn;
     @FXML private TableColumn<Reader, String> phoneColumn;
+    @FXML private TableColumn<Reader, String> cardNumberColumn;
+    @FXML private TableColumn<Reader, Date> issueDateColumn;
+    @FXML private TableColumn<Reader, Date> expiryDateColumn;
+    @FXML private TableColumn<Reader, String> cardStatusColumn;
 
     private ObservableList<Reader> readers = FXCollections.observableArrayList();
 
@@ -30,6 +35,10 @@ public class EmployeeReaderServiceViewController {
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        cardNumberColumn.setCellValueFactory(new PropertyValueFactory<>("cardNumber"));
+        issueDateColumn.setCellValueFactory(new PropertyValueFactory<>("issueDate"));
+        expiryDateColumn.setCellValueFactory(new PropertyValueFactory<>("expiryDate"));
+        cardStatusColumn.setCellValueFactory(new PropertyValueFactory<>("cardStatus"));
 
         readersTable.setItems(readers);
 
