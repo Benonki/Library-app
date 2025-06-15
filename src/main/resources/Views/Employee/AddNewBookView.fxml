@@ -29,6 +29,9 @@
         <Label layoutX="20" layoutY="300" text="Lokalizacja:"/>
         <TextField fx:id="locationField" layoutX="150" layoutY="300"/>
 
+        <Label layoutX="20" layoutY="340" text="Status:"/>
+        <TextField fx:id="statusField" layoutX="150" layoutY="340"/>
+
         <Button layoutX="150" layoutY="380" text="Zapisz zmiany" onAction="#handleAddBook"/>
         <Button layoutX="250" layoutY="380" text="Wróć" onAction="#handleBack"/>
     </children>

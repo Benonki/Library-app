@@ -21,6 +21,7 @@ public class AddNewBookController {
     @FXML private TextField publisherField;
     @FXML private TextField coverTypeField;
     @FXML private TextField locationField;
+    @FXML private TextField statusField;
 
     private boolean isEditMode = false;
     private int editingEgzemplarzId = -1;
@@ -46,6 +47,7 @@ public class AddNewBookController {
             String wydawnictwo = publisherField.getText();
             String typOkladki = coverTypeField.getText();
             String lokalizacja = locationField.getText();
+            String status = statusField.getText();
 
             if (lokalizacja == null || lokalizacja.trim().isEmpty()) {
                 lokalizacja = "Brak";
@@ -53,16 +55,12 @@ public class AddNewBookController {
 
             NewBookData book = new NewBookData(tytul, imie, nazwisko, isbn, data, wydawnictwo, typOkladki);
             book.setLokalizacja(lokalizacja);
+            book.setStatus(status);
 
             Packet packet;
 
             if (isEditMode) {
                 book.setEgzemplarzId(editingEgzemplarzId);
-                if (itemToEdit != null) {
-                    book.setStatus(itemToEdit.getStatus());
-                } else {
-                    System.err.println("Błąd: itemToEdit jest null w trybie edycji!");
-                }
                 packet = new Packet("EditBook", "Edytuj ksiazke");
             } else {
                 packet = new Packet("AddNewBook", "Dodaj ksiazke");
@@ -98,6 +96,7 @@ public class AddNewBookController {
         publisherField.setText(item.getWydawnictwo());
         coverTypeField.setText(item.getTypOkladki());
         isbnField.setText(item.getIsbn());
+        statusField.setText(item.getStatus());
 
         if (item.getDataWydania() != null) {
             releaseDatePicker.setValue(((java.sql.Date) item.getDataWydania()).toLocalDate());

@@ -132,7 +132,7 @@ public class Library {
             String insertExemplarSql = "INSERT INTO Biblioteka_Ksiazka (Ksiazka_ID, Status, Lokalizacja) VALUES (?, ?, ?)";
             try (PreparedStatement stmt = conn.prepareStatement(insertExemplarSql)) {
                     stmt.setInt(1, ksiazkaId);
-                    stmt.setString(2, "Dostepna");
+                    stmt.setString(2, data.getStatus());
                     stmt.setString(3, data.getLokalizacja());
                     stmt.executeUpdate();
             }
