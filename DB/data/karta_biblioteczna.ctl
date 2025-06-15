@@ -5,8 +5,8 @@ FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"'
 TRAILING NULLCOLS
 (
 Numer_Karty,
-Data_Wydania DATE "YYYY-MM-DD",
-Data_Waznosci DATE "YYYY-MM-DD",
+Data_Wydania DATE "DD/MM/YYYY",
+Data_Waznosci DATE "DD/MM/YYYY",
 Status,
 Uzytkownik_ID
 )
