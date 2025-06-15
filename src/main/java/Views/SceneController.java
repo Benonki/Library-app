@@ -2,6 +2,7 @@ package Views;
 
 import Classes.Manager.Util.Employee;
 import Views.Manager.AddParticipantsController;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -23,7 +24,15 @@ public class SceneController {
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
+        closeStage(stage);
         stage.show();
+    }
+
+    public void closeStage(Stage stage){
+        stage.setOnCloseRequest(e ->{
+            Platform.exit();
+            System.exit(0);
+        });
     }
 
     public void switchToLoginView(ActionEvent event) throws IOException {

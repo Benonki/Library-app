@@ -1,6 +1,7 @@
 package Views.Login;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -16,6 +17,10 @@ public class LoginApplication extends Application {
         stage.setTitle("Library App");
         stage.setResizable(false);
         stage.setScene(scene);
+        stage.setOnCloseRequest(e ->{
+            Platform.exit();
+            System.exit(0);
+        });
         stage.show();
     }
 
