@@ -87,4 +87,24 @@ public class ReaderService {
             return new Packet("DeleteReader", "Error");
         }
     }
+
+    public static Packet editReader(Reader reader) {
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            String sql = "UPDATE Uzytkownik SET Imie = ?, Nazwisko = ?, Email = ?, Telefon = ?, Haslo = ? WHERE Uzytkownik_ID = ?";
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setString(1, reader.getFirstName());
+                stmt.setString(2, reader.getLastName());
+                stmt.setString(3, reader.getEmail());
+                stmt.setString(4, reader.getPhone());
+                stmt.setString(5, reader.getPassword());
+                stmt.setInt(6, reader.getId());
+                stmt.executeUpdate();
+            }
+            conn.commit();
+            return new Packet("EditReader", "Success");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new Packet("EditReader", "Error");
+        }
+    }
 }

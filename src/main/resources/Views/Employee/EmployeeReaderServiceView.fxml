@@ -18,6 +18,7 @@
 
         <HBox spacing="10">
             <Button onAction="#handleAddNewReader" text="Zarejestruj czytelnika" />
+            <Button onAction="#handleEditReader" text="Edytuj czytelnika" />
             <Button onAction="#handleDeleteReader" text="Usuń czytelnika" />
             <Button onAction="#handleBackButton" text="Powrót" />
         </HBox>

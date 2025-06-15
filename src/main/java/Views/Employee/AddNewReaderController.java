@@ -7,14 +7,33 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
 
-public class AddNewReaderController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class AddNewReaderController implements Initializable {
 
     @FXML private TextField firstNameField;
     @FXML private TextField lastNameField;
     @FXML private TextField emailField;
     @FXML private TextField phoneField;
     @FXML private PasswordField passwordField;
+
+    private static Reader readerToEdit = null;
+    private boolean isEditMode = false;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        if (readerToEdit != null) {
+            isEditMode = true;
+            firstNameField.setText(readerToEdit.getFirstName());
+            lastNameField.setText(readerToEdit.getLastName());
+            emailField.setText(readerToEdit.getEmail());
+            phoneField.setText(readerToEdit.getPhone());
+            passwordField.setText(readerToEdit.getPassword());
+        }
+    }
 
     @FXML
     public void handleAddReader(ActionEvent event) {
@@ -50,23 +69,36 @@ public class AddNewReaderController {
                 return;
             }
 
-            Reader reader = new Reader(0, imie, nazwisko, email, telefon, haslo);
-            Packet packet = new Packet("AddNewReader", "Dodaj czytelnika");
+            Reader reader = new Reader(
+                    isEditMode ? readerToEdit.getId() : 0,
+                    imie, nazwisko, email, telefon, haslo
+            );
+
+            Packet packet = new Packet(isEditMode ? "EditReader" : "AddNewReader", "Czytelnik zapisany");
             packet.data = reader;
             Client.getInstance().sendPacket(packet);
 
+            readerToEdit = null;
+            isEditMode = false;
+
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Wystąpił błąd podczas dodawania czytelnika.");
+            System.out.println("Wystąpił błąd podczas zapisu czytelnika.");
         }
     }
 
     @FXML
     public void handleCancel(ActionEvent event) {
         try {
+            readerToEdit = null;
+            isEditMode = false;
             new Views.SceneController().switchToReaderServiceView(event);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void setReaderToEdit(Reader reader) {
+        readerToEdit = reader;
     }
 }

@@ -78,4 +78,19 @@ public class EmployeeReaderServiceViewController {
             System.out.println("Brak wyboru");
         }
     }
+
+    @FXML
+    public void handleEditReader(ActionEvent event) {
+        Reader selectedReader = readersTable.getSelectionModel().getSelectedItem();
+        if (selectedReader != null) {
+            AddNewReaderController.setReaderToEdit(selectedReader);
+            try {
+                new Views.SceneController().switchScene(event, "/Views/Employee/AddNewReaderView.fxml");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Brak zaznaczonego czytelnika do edycji.");
+        }
+    }
 }

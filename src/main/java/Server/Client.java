@@ -41,6 +41,7 @@ public class Client {
     private Consumer<List<Reader>> readersCallback;
     private Consumer<String> addNewReaderCallback;
     private Consumer<String> deleteReaderCallback;
+    private Consumer<String> editReaderCallback;
 
 
     private Client(){
@@ -217,11 +218,21 @@ public class Client {
                     Platform.runLater(() -> deleteReaderCallback.accept(receivedPacket.message));
                 }
                 break;
+            case "EditReader":
+                System.out.println("EditReader result: " + receivedPacket.message);
+                if(editReaderCallback != null){
+                    Platform.runLater(() -> editReaderCallback.accept(receivedPacket.message));
+                }
             default:
                 System.out.println("This type is not supported ");
                 System.out.println(receivedPacket.type);
             break;
         }
+    }
+
+
+    public void setEditReaderCallback(Consumer<String> callback) {
+        this.editReaderCallback = callback;
     }
 
     public void setDeleteReaderCallback(Consumer<String> callback){

@@ -28,6 +28,8 @@ public class EmployeeImpl extends User {
                 return ReaderService.addNewReader((Reader) packet.data);
             case "DeleteReader":
                 return ReaderService.deleteReader((int) packet.data);
+            case "EditReader":
+                return ReaderService.editReader((Reader) packet.data);
             default:
                 return new Packet(packet.type,"Unsupported in Employee");
         }

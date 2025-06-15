@@ -23,7 +23,7 @@
         <Label layoutX="30" layoutY="180" text="Hasło:"/>
         <PasswordField fx:id="passwordField" layoutX="130" layoutY="180" prefWidth="220"/>
 
-        <Button text="Dodaj czytelnika"
+        <Button text="Zapisz zmiany"
                 layoutX="130" layoutY="230"
                 prefWidth="140"
                 onAction="#handleAddReader"/>
