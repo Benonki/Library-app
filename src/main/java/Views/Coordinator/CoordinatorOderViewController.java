@@ -23,10 +23,7 @@ import java.util.Optional;
 public class CoordinatorOderViewController {
     private SceneController sceneController = new SceneController();
 
-    @FXML
-    private Label selectedLabel;
-    @FXML
-    private Label deliveryLabel;
+
     @FXML
     private Button backBtn;
     @FXML
@@ -176,33 +173,72 @@ public class CoordinatorOderViewController {
         if(!selectedDelivery.isEmpty()){
             if(selectedDeliveryOption.getName().isEmpty() || !selectedDeliveryOption.getName().equals(selectedDelivery.get(0).getName())){
                 selectedDeliveryOption = selectedDelivery.get(0);
-                deliveryLabel.setText(selectedDeliveryOption.getName());
             }
 
         }
     }
 
     @FXML
-    protected void finishOrder(){ // Change date and dynamically get users ID
-        System.out.println("Final books to order:");
+    protected void finishOrder(){
+        if(booksToOrder.isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Brak książek");
+            alert.setHeaderText("Nie wybrano żadnych książek");
+            alert.setContentText("Wybierz książki które chcesz zamówić");
+            alert.showAndWait();
+            return;
+        }
+
+        if(selectedDeliveryOption.getName().isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Brak dostawcy");
+            alert.setHeaderText("Nie wybrano żadnego dostawcy");
+            alert.setContentText("Wybierz dostawcę");
+            alert.showAndWait();
+            return;
+        }
+
+        StringBuilder booksList = new StringBuilder();
+
         for (BookOrder book : booksToOrder) {
-            System.out.println(book.getTitle() + " - " + book.getAmount());
+            booksList.append("- ").append(book.getTitle())
+                    .append(" ilość: ").append(book.getAmount()).append("\n");
         }
 
-        Client client = Client.getInstance();
-        int amountOfBooks = 0;
+        Alert confirmationDialog = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationDialog.setTitle("Potwierdzenie zamówienia");
+        confirmationDialog.setHeaderText("Sprawdź czy zamówienia się zgadza");
+        confirmationDialog.setContentText("Dostawca: " + selectedDeliveryOption.getName() +
+                "\n" + "Wybrane książki: \n" + booksList.toString()
+        );
 
-        for(BookOrder book : booksToOrder){
-            amountOfBooks += book.getAmount();
+        Optional<ButtonType> result = confirmationDialog.showAndWait();
+
+        if(result.isPresent() && result.get() == ButtonType.OK){
+
+            int amountOfBooks = 0;
+
+            for(BookOrder book : booksToOrder){
+                amountOfBooks += book.getAmount();
+            }
+
+            LocalDate localDate = LocalDate.now();
+            Date currentDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+            Client client = Client.getInstance();
+            Order order = new Order(2, selectedDeliveryOption, amountOfBooks, currentDate ,currentDate, booksToOrder,"Nowe");
+            Packet packet = Packet.withOrderInfo("CreateNewOrder","TEST", order);
+            client.sendPacket(packet);
+
+            Alert succesAlert = new Alert(Alert.AlertType.INFORMATION);
+            succesAlert.setTitle("Złożono zamówienie");
+            succesAlert.setHeaderText("Zamówienie zostało złożone pomyślnie");
+            succesAlert.showAndWait();
+
+            booksToOrder.clear();
+            bookOrderTableView.getItems().clear();
+            selectedDeliveryOption = new Delivery("");
         }
-
-        LocalDate localDate = LocalDate.now();
-        Date currentDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant()); // Change date now to be the current one
-
-        Order order = new Order(2, selectedDeliveryOption, amountOfBooks, currentDate ,currentDate, booksToOrder,"Nowe");
-        Packet packet = Packet.withOrderInfo("CreateNewOrder","TEST", order);
-        client.sendPacket(packet);
-
     }
 
 }

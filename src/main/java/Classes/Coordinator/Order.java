@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -266,23 +267,38 @@ public class Order implements Serializable {
 
 
     public static Packet updateOrderStatus(Order orderInfo) {
-        String sqlUpdateQuery = "UPDATE Zamowienie SET status = ? WHERE Zamowienie_ID = ?";
-        try(Connection conn = DatabaseConnection.getConnection()){
-            try(PreparedStatement statement = conn.prepareStatement(sqlUpdateQuery)){
+
+        try(Connection conn = DatabaseConnection.getConnection()) {
+
+            String sqlUpdateQuery = "UPDATE Zamowienie SET status = ? WHERE Zamowienie_ID = ?";
+            try (PreparedStatement statement = conn.prepareStatement(sqlUpdateQuery)) {
                 statement.setString(1, orderInfo.getStatus());
                 statement.setInt(2, orderInfo.getOrderID());
-
                 int affectedRows = statement.executeUpdate();
 
-                if(affectedRows > 0){
-                    return new Packet("UpdateOrderStatus","SUCCESS");
-                }else {
-                    return new Packet("UpdateOrderStatus","FAILED");
+                if (affectedRows == 0) {
+                    conn.rollback();
+                    return new Packet("UpdateOrderStatus", "Error");
                 }
             }
-        }catch (Exception e){
+
+            if ("Zrealizowane".equals(orderInfo.getStatus())) {
+                String updateStockSql = "UPDATE Magazyn m SET m.Ilosc = m.Ilosc + (SELECT zk.Ilosc FROM Zamowienie_Ksiazka zk " +
+                        "WHERE zk.Zamowienie_ID = ? AND zk.Ksiazka_ID = m.Ksiazka_ID) WHERE m.Ksiazka_ID IN " +
+                        "(SELECT Ksiazka_ID FROM Zamowienie_Ksiazka WHERE Zamowienie_ID = ?)";
+
+                try (PreparedStatement updateStmt = conn.prepareStatement(updateStockSql)) {
+                    updateStmt.setInt(1, orderInfo.getOrderID());
+                    updateStmt.setInt(2, orderInfo.getOrderID());
+                    updateStmt.executeUpdate();
+
+                }
+            }
+            return new Packet("UpdateOrderStatus", "Success");
+
+        } catch (Exception e) {
             e.printStackTrace();
-            return new Packet("UpdateOrderStatus","FAILED");
+            return new Packet("UpdateOrderStatus", "Error");
         }
     }
 }

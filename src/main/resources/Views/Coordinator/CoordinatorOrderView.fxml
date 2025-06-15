@@ -6,7 +6,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="553.0" prefWidth="710.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Views.Coordinator.CoordinatorOderViewController">
+<AnchorPane prefHeight="416.0" prefWidth="710.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Views.Coordinator.CoordinatorOderViewController">
    <children>
       <Button fx:id="backBtn" layoutX="632.0" layoutY="19.0" mnemonicParsing="false" onAction="#goBack" text="Back" />
       <TableView fx:id="inventoryTable" layoutX="14.0" layoutY="19.0" prefHeight="125.0" prefWidth="457.0">
@@ -31,7 +31,6 @@
         </columns>
       </TableView>
       <Button fx:id="selectBtn" layoutX="487.0" layoutY="290.0" mnemonicParsing="false" onAction="#selectDelivery" text="Select" />
-      <Label fx:id="selectedLabel" layoutX="25.0" layoutY="416.0" text="Selected" />
       <Label fx:id="deliveryLabel" layoutX="97.0" layoutY="416.0" />
    </children>
 </AnchorPane>
