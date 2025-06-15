@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="Views.Employee.EmployeeReaderServiceViewController">
+    <VBox spacing="10.0" AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="10.0"
+          AnchorPane.rightAnchor="10.0" AnchorPane.bottomAnchor="10.0">
+
+        <TableView fx:id="readersTable">
+            <columns>
+                <TableColumn text="ID" fx:id="idColumn"/>
+                <TableColumn text="Imię" fx:id="firstNameColumn"/>
+                <TableColumn text="Nazwisko" fx:id="lastNameColumn"/>
+                <TableColumn text="Email" fx:id="emailColumn"/>
+                <TableColumn text="Telefon" fx:id="phoneColumn"/>
+            </columns>
+        </TableView>
+
+        <HBox spacing="10">
+            <Button onAction="#handleAddNewReader" text="Zarejestruj czytelnika" />
+            <Button onAction="#handleEditReader" text="Edytuj czytelnika" />
+            <Button onAction="#handleDeleteReader" text="Usuń czytelnika" />
+            <Button onAction="#handleBackButton" text="Powrót" />
+        </HBox>
+    </VBox>
+</AnchorPane>

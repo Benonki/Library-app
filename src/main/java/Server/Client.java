@@ -6,6 +6,7 @@ import Classes.Coordinator.Util.InventoryItem;
 import Classes.Manager.Util.Event;
 import Classes.Manager.Util.Participant;
 import Classes.Employee.Util.LibraryItem;
+import Classes.Employee.Util.Reader;
 import javafx.application.Platform;
 
 import java.io.IOException;
@@ -37,6 +38,10 @@ public class Client {
     private java.util.function.Consumer<java.util.List<LibraryItem>> libraryCallback;
     private Consumer<String> addBookCallback;
     private Consumer<String> deleteBookCallback;
+    private Consumer<List<Reader>> readersCallback;
+    private Consumer<String> addNewReaderCallback;
+    private Consumer<String> deleteReaderCallback;
+    private Consumer<String> editReaderCallback;
 
 
     private Client(){
@@ -195,10 +200,43 @@ public class Client {
                     Platform.runLater(() -> deleteBookCallback.accept(receivedPacket.message));
                 }
                 break;
+            case "getReadersList":
+                System.out.println("READERS LIST RETURNED");
+                if (readersCallback != null && receivedPacket.readersList != null) {
+                    Platform.runLater(() -> readersCallback.accept(receivedPacket.readersList));
+                }
+                break;
+            case "AddNewReader":
+                System.out.println("AddNewReader result: " + receivedPacket.message);
+                if(addNewReaderCallback != null){
+                    Platform.runLater(() -> addNewReaderCallback.accept(receivedPacket.message));
+                }
+            break;
+            case "DeleteReader":
+                System.out.println("DeleteReader result: " + receivedPacket.message);
+                if(deleteReaderCallback != null){
+                    Platform.runLater(() -> deleteReaderCallback.accept(receivedPacket.message));
+                }
+                break;
+            case "EditReader":
+                System.out.println("EditReader result: " + receivedPacket.message);
+                if(editReaderCallback != null){
+                    Platform.runLater(() -> editReaderCallback.accept(receivedPacket.message));
+                }
             default:
                 System.out.println("This type is not supported ");
                 System.out.println(receivedPacket.type);
+            break;
         }
+    }
+
+
+    public void setEditReaderCallback(Consumer<String> callback) {
+        this.editReaderCallback = callback;
+    }
+
+    public void setDeleteReaderCallback(Consumer<String> callback){
+        this.deleteReaderCallback = callback;
     }
 
     public void setAddBookCallback(Consumer<String> callback) {
@@ -223,6 +261,14 @@ public class Client {
 
     public void setLibraryCallback(java.util.function.Consumer<java.util.List<LibraryItem>> callback) {
         this.libraryCallback = callback;
+    }
+
+    public void setReadersCallback(Consumer<List<Reader>> callback) {
+        this.readersCallback = callback;
+    }
+
+    public void setAddNewReaderCallback(Consumer<String> callback) {
+        this.addNewReaderCallback = callback;
     }
 
     public void setEmployeesCallback(Consumer<List<Employee>> callback) {

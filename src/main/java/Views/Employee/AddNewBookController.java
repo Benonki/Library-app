@@ -20,7 +20,6 @@ public class AddNewBookController {
     @FXML private DatePicker releaseDatePicker;
     @FXML private TextField publisherField;
     @FXML private TextField coverTypeField;
-    @FXML private Spinner<Integer> quantitySpinner;
     @FXML private TextField locationField;
 
     private boolean isEditMode = false;
@@ -29,8 +28,6 @@ public class AddNewBookController {
 
     @FXML
     public void initialize() {
-        quantitySpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 50, 1));
-
         if (itemToEdit != null) {
             fillFormFromItem(itemToEdit);
             isEditMode = true;
@@ -48,14 +45,13 @@ public class AddNewBookController {
             Date data = Date.from(releaseDatePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
             String wydawnictwo = publisherField.getText();
             String typOkladki = coverTypeField.getText();
-            int ilosc = quantitySpinner.getValue();
             String lokalizacja = locationField.getText();
 
             if (lokalizacja == null || lokalizacja.trim().isEmpty()) {
                 lokalizacja = "Brak";
             }
 
-            NewBookData book = new NewBookData(tytul, imie, nazwisko, isbn, data, wydawnictwo, typOkladki, ilosc);
+            NewBookData book = new NewBookData(tytul, imie, nazwisko, isbn, data, wydawnictwo, typOkladki);
             book.setLokalizacja(lokalizacja);
 
             Packet packet;

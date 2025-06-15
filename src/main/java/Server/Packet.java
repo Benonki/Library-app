@@ -5,6 +5,7 @@ import Classes.Coordinator.Order;
 import Classes.Coordinator.Util.InventoryItem;
 
 import Classes.Employee.Util.LibraryItem;
+import Classes.Employee.Util.Reader;
 import Classes.Manager.Util.Employee;
 import Classes.Manager.Util.Event;
 import Classes.Manager.Util.Participant;
@@ -26,6 +27,7 @@ public class Packet implements Serializable {
     public List<Event> events;
     public List<Participant> participants;
     public List<LibraryItem> libraryItems;
+    public List<Reader> readersList;
 
     public Packet(String type,String message){
         this.type = type;
@@ -83,6 +85,12 @@ public class Packet implements Serializable {
     public static Packet withLibraryItems(String type, String message, List<LibraryItem> items) {
         Packet p = new Packet(type, message);
         p.libraryItems = items;
+        return p;
+    }
+
+    public static Packet withReadersList(String type, String message, List<Reader> readersList) {
+        Packet p = new Packet(type, message);
+        p.readersList = readersList;
         return p;
     }
 }

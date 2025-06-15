@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Views.Employee.AddNewReaderController"
+            prefWidth="400" prefHeight="320">
+    <children>
+
+        <Label layoutX="30" layoutY="20" text="Imię:"/>
+        <TextField fx:id="firstNameField" layoutX="130" layoutY="20" prefWidth="220"/>
+
+        <Label layoutX="30" layoutY="60" text="Nazwisko:"/>
+        <TextField fx:id="lastNameField" layoutX="130" layoutY="60" prefWidth="220"/>
+
+        <Label layoutX="30" layoutY="100" text="Email:"/>
+        <TextField fx:id="emailField" layoutX="130" layoutY="100" prefWidth="220"/>
+
+        <Label layoutX="30" layoutY="140" text="Telefon:"/>
+        <TextField fx:id="phoneField" layoutX="130" layoutY="140" prefWidth="220"/>
+
+        <Label layoutX="30" layoutY="180" text="Hasło:"/>
+        <PasswordField fx:id="passwordField" layoutX="130" layoutY="180" prefWidth="220"/>
+
+        <Button text="Zapisz zmiany"
+                layoutX="130" layoutY="230"
+                prefWidth="140"
+                onAction="#handleAddReader"/>
+
+        <Button text="Anuluj"
+                layoutX="280" layoutY="230"
+                onAction="#handleCancel"/>
+
+    </children>
+</AnchorPane>

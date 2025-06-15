@@ -131,12 +131,10 @@ public class Library {
 
             String insertExemplarSql = "INSERT INTO Biblioteka_Ksiazka (Ksiazka_ID, Status, Lokalizacja) VALUES (?, ?, ?)";
             try (PreparedStatement stmt = conn.prepareStatement(insertExemplarSql)) {
-                for (int i = 0; i < data.getIloscEgzemplarzy(); i++) {
                     stmt.setInt(1, ksiazkaId);
                     stmt.setString(2, "Dostepna");
                     stmt.setString(3, data.getLokalizacja());
                     stmt.executeUpdate();
-                }
             }
             conn.commit();
             System.out.println("Ksiazka dodana pomyslnie");

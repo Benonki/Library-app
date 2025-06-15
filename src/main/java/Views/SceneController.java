@@ -1,5 +1,6 @@
 package Views;
 
+import Classes.Manager.Util.Employee;
 import Views.Manager.AddParticipantsController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -79,5 +80,9 @@ public class SceneController {
 
     public void switchToLibraryResourcesView(ActionEvent event) throws IOException {
         switchScene(event, "/Views/Employee/EmployeeLibraryResourcesView.fxml");
+    }
+
+    public void switchToReaderServiceView(ActionEvent event) throws IOException {
+        switchScene(event, "/Views/Employee/EmployeeReaderServiceView.fxml");
     }
 }
