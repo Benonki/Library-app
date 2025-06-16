@@ -2,7 +2,11 @@
 
 A library management system developed in Java with Oracle Database integration, enabling efficient handling of books, users, loans, and returns with secure and reliable data storage.
 
-## Setup (Part 1 - if you have already installed oracle skip to Part 2)
+## 📝 Requirements
+
+- Java 23 JDK or higher
+
+## ⚙️ Setup (Part 1 - if you have already installed oracle skip to Part 2)
 1. Download database for windows: 
     ```bash
     https://download.oracle.com/otn-pub/otn_software/db-express/OracleXE213_Win64.zip
@@ -14,7 +18,7 @@ A library management system developed in Java with Oracle Database integration, 
 6. After installation you should be able to connect to your database via sqldeveloper for example.
 7. Open sql developer as username set `sys` and set your role to `SYSDBA` and enter your password that you typed while installing database.
 
-## Setup (Part 2)
+## ⚙️ Setup (Part 2)
 1. Clone the repository:
    ```bash
    git clone https://github.com/Benonki/Library-app.git
@@ -36,7 +40,7 @@ A library management system developed in Java with Oracle Database integration, 
    - SID: _XE_
 6. After altering something in sqldeveloper finish everything with `COMMIT;` so the java app would get the changed info in database.
 
-## Running the App
+## 🚀 Running the App
 
 1. Open the `Server` class located in `src/main/java/Server/`.
 2. Right-click on the `Server` class file.
@@ -49,3 +53,9 @@ A library management system developed in Java with Oracle Database integration, 
    - **user1@mail.com** :   **haslo1**    - _Reader_
    - **user10@mail.com** :   **haslo10**    - _Manager_
    - **user7@mail.com** :   **haslo7**    - _Coordinator_
+
+## 🖼️ Showcase
+
+<div align="center">
+  <img src="https://github.com/Benonki/Portfolio/blob/main/StronaGlowna/sc/Library.png" alt="Preview of My Project">
+</div>
